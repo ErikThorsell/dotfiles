@@ -1,7 +1,3 @@
-## Überimportant:
-# Fixing <C-s> issue (see http://unix.stackexchange.com/a/72092/33928)
-stty -ixon
-
 # History
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=SAVEHIST=99999
@@ -28,7 +24,7 @@ autoload -U compinit
 compinit
 
 # Exports
-export PATH=$PATH
+export PATH=$PATH:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:$HOME/Pkg/gcc-arm-none-eabi-4_8-2014q2/bin:$HOME/Pkg/DrMemory-MacOS-1.8.0-8/bin:$HOME/Pkg/Spin/Src6.4.3/:opt/local/bin:/sbin
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -49,28 +45,22 @@ promptinit
 PROMPT="%{$fg_bold[white]%}%n%{$fg[magenta]%}@%{$fg_no_bold[cyan]%}%m %{$fg_no_bold[yellow]%}%~ %{$reset_color%}>%"
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-## Functions
-timestamp() {
-    date +'%F_%T'
-}
-
-
 ## Aliases
 # General
 alias s="sudo"
 alias ..="cd .."
+alias la="ls -al"
+alias ll="ls -l"
 alias ls="ls --color=auto"
-alias lsl="ls -hl --color=auto"
-alias ll="ls -ahl --color=auto"
+alias lsl="ls -l"
+alias lsa="ls -al"
 alias clr="clear"
-alias tat="tmux attach -t"
-alias tls="tmux list-sessions"
-alias mkdir="mkdir -p"
-alias tree="tree -C"
-alias se="sudoedit"
-alias so="source"
-alias qq="exit"
-alias cdh="cd ~/"
+alias clrtex="rm *.aux *.log"
+alias clrtexz="rm *.aux *.log *.synctex.gz"
+alias clrj="rm *.class"
+alias clrerl="rm *.beam"
+alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
+alias mv="mv -i"
 
 # Git
 alias gpr="git pull --rebase"
@@ -78,5 +68,13 @@ alias gca="git commit -a"
 alias gpm="git push -u origin master"
 alias gs="git status"
 alias gl="git log"
-alias gad="git add"
-alias gb="git branch"
+
+# System
+alias pms="sudo pm-suspend"
+alias shn="sudo shutdown -h now"
+alias matrix="cmatrix -b"
+alias ytdl="youtube-dl --max-quality FORMAT"
+alias train="sl -ac"
+
+# Start archey
+# archey3
