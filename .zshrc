@@ -55,22 +55,12 @@ alias ls="ls --color=auto"
 alias lsl="ls -l"
 alias lsa="ls -al"
 alias clr="clear"
-<<<<<<< HEAD
-alias tat="tmux attach -t"
-alias tls="tmux list-sessions"
-alias mkdir="mkdir -p"
-alias tree="tree -C"
-alias se="sudoedit"
-alias so="source"
-alias qq="exit"
-=======
 alias clrtex="rm *.aux *.log"
 alias clrtexz="rm *.aux *.log *.synctex.gz"
 alias clrj="rm *.class"
 alias clrerl="rm *.beam"
 alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
 alias mv="mv -i"
->>>>>>> Cleaning: Started cleaning process.
 
 # Git
 alias gpr="git pull --rebase"

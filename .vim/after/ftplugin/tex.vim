@@ -1,4 +1,7 @@
 """"" LaTeX
+set wrap
+noremap <C-s><C-s> :! pdflatex %<enter>
+
 " res
 nnoremap new <Esc>ggdG:.-1read ~/res/latex/default.tex<Enter>
 nnoremap it <esc>:.-1read ~/res/latex/itemize.tex<enter>j$a
