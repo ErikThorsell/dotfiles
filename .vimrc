@@ -31,26 +31,28 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" Latex
+let g:tex_flavor = "latex"
 
-"Eye goodies
+" Eye goodies
 set number                      "Display line numbers.	
 set ruler                       "Display the cursor position in the lower right.
 syntax on                       "Syntax on (off).
 
-"Text formatting
+" Text formatting
 set ignorecase		            "Ignore case in search patterns.
 set smartcase		            "Override the 'ignorecase' option if the 
                                 "search pattern contains uppercase characters.
 set incsearch		            "While typing a search command, show where 
                                 "the pattern, as it was typed so far, matches.
 
-"Tabbing
+" Tabbing
 set smartindent		            "Do smart autoindenting when starting a new line.
 set expandtab                   "Uses spaces instead of tabs.
 set shiftwidth=4
 set tabstop=4                   "How many columns does a tab count for.
 
-"Highlighting
+" Highlighting
 highlight ColorColumn ctermbg=101010 ctermfg=Red
 let &colorcolumn=79             "Set what column to highlight.
 let &colorcolumn=join(range(81,999),",")
@@ -78,7 +80,7 @@ let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 "let g:AutoPairsShortcutFastWrap='' 
 
-"Remaps
+" Remaps
 inoremap  nore  noremap
 inoremap  <C-l> <Esc>:nohl<CR>          
 nnoremap  <C-l> <Esc>:nohl<CR>          
@@ -86,5 +88,5 @@ inoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
 nnoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
 nnoremap  Y y$                        
 
-"Vim split
+" Vim split
 set wmh=0                       "Don't show ruler when minimized.
