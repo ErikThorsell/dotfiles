@@ -1,17 +1,5 @@
 [user]
-	name = Erik Thorsell 
+	name = Erik Thorsell
 	email = erithor@student.chalmers.se
-[alias]
-	st = status
-	lg = log --oneline
-	co = checkout
-	bra = branch
-    comam = commit --amend
-[branch]
-	autosetuprebase = always
-[push]
-	default = simple
 [credential]
-	helper = cache
-[core]
-	excludesfile = ~/.gitignore_global
+	helper = cache --timeout=3600
