@@ -162,6 +162,7 @@ focus_follows_mouse no
 
 # Start various programs
 bindsym Mod4+c exec chromium 
+bindsym Mod4+b exec firefox
 
 # Place WS on corresponding screens
 workspace 1 output DVI-I-1

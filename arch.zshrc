@@ -61,6 +61,8 @@ alias clrj="rm *.class"
 alias clrerl="rm *.beam"
 alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
 alias mv="mv -i"
+alias open="xdg-open"
+alias xcc="xclip -selection clipboard"
 
 # Git
 alias gpr="git pull --rebase"
