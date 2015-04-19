@@ -46,38 +46,41 @@ PROMPT="%{$fg_bold[white]%}%n%{$fg[magenta]%}@%{$fg_no_bold[cyan]%}%m %{$fg_no_b
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## Aliases
-# General
-alias s="sudo"
+# Common
 alias ..="cd .."
+alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
+alias clr="clear"
+alias clrerl="rm *.beam"
+alias clrj="rm *.class"
+alias clrtex="rm *.aux *.log"
+alias clrtexz="rm *.aux *.log *.synctex.gz"
 alias la="ls -al"
 alias ll="ls -l"
 alias ls="ls --color=auto"
-alias lsl="ls -l"
 alias lsa="ls -al"
-alias clr="clear"
-alias clrtex="rm *.aux *.log"
-alias clrtexz="rm *.aux *.log *.synctex.gz"
-alias clrj="rm *.class"
-alias clrerl="rm *.beam"
-alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
+alias lsl="ls -l"
 alias mv="mv -i"
 alias open="xdg-open"
-alias xcc="xclip -selection clipboard"
+alias s="sudo"
 
 # Git
-alias gpr="git pull --rebase"
 alias gca="git commit -a"
-alias gpm="git push -u origin master"
-alias gs="git status"
 alias gl="git log"
+alias gpm="git push -u origin master"
+alias gpr="git pull --rebase"
+alias gs="git status"
+
+# Programs
+alias matrix="cmatrix -b"
+alias train="sl -ac"
+alias xcc="xclip -selection clipboard"
+alias ytdl="youtube-dl --prefer-free-formats"
 
 # System
+alias mountbackup="sudo mount.nfs 192.168.0.89:/mnt/volume1/backup ~/Backup"
 alias pms="sudo pm-suspend"
 alias shn="sudo shutdown -h now"
 alias spy="sudo pacman -Syu"
-alias matrix="cmatrix -b"
-alias ytdl="youtube-dl --max-quality FORMAT"
-alias train="sl -ac"
 
 # Start archey
 # archey3
