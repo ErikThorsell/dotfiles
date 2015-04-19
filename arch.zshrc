@@ -74,6 +74,7 @@ alias gl="git log"
 # System
 alias pms="sudo pm-suspend"
 alias shn="sudo shutdown -h now"
+alias spy="sudo pacman -Syu"
 alias matrix="cmatrix -b"
 alias ytdl="youtube-dl --max-quality FORMAT"
 alias train="sl -ac"
