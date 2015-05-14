@@ -37,7 +37,7 @@ let g:tex_flavor = "latex"
 " Eye goodies
 set number                      "Display line numbers.	
 set ruler                       "Display the cursor position in the lower right.
-syntax on                       "Syntax on (off).
+set showmatch
 
 " Text formatting
 set ignorecase		            "Ignore case in search patterns.
@@ -51,8 +51,23 @@ set smartindent		            "Do smart autoindenting when starting a new line.
 set expandtab                   "Uses spaces instead of tabs.
 set shiftwidth=4
 set tabstop=4                   "How many columns does a tab count for.
+set list                        "Display some nonprintable characters.
+set listchars=tab:.\ ,trail:-   "Select what characters to display.
+set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
+
+" Remaps
+inoremap  nore  noremap
+inoremap  <C-l> <Esc>:nohl<CR>          
+nnoremap  <C-l> <Esc>:nohl<CR>          
+inoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
+nnoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
+nnoremap  Y y$                        
+
+" Vim split
+set wmh=0                       "Don't show ruler when minimized.
 
 " Highlighting
+syntax on                       "Syntax on (off).
 highlight ColorColumn ctermbg=101010 ctermfg=Red
 let &colorcolumn=79             "Set what column to highlight.
 let &colorcolumn=join(range(81,999),",")
@@ -78,15 +93,4 @@ let g:rbpt_colorpairs = [
 \ ]
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
-"let g:AutoPairsShortcutFastWrap='' 
 
-" Remaps
-inoremap  nore  noremap
-inoremap  <C-l> <Esc>:nohl<CR>          
-nnoremap  <C-l> <Esc>:nohl<CR>          
-inoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
-nnoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
-nnoremap  Y y$                        
-
-" Vim split
-set wmh=0                       "Don't show ruler when minimized.

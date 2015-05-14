@@ -1,1 +1,1 @@
-inoremap nore noremap
+"inoremap nore noremap

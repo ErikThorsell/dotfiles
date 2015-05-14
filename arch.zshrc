@@ -75,6 +75,8 @@ alias matrix="cmatrix -b"
 alias train="sl -ac"
 alias xcc="xclip -selection clipboard"
 alias ytdl="youtube-dl --prefer-free-formats"
+alias ytdlm="youtube-dl -x"
+alias ytdlmp="youtube-dl -x --yes-playlist"
 
 # System
 alias mountbackup="sudo mount.nfs 192.168.0.89:/mnt/volume1/backup ~/Backup"
