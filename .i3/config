@@ -51,7 +51,7 @@ bindsym Mod4+Right focus right
 bindsym Mod4+Shift+j move left
 bindsym Mod4+Shift+k move down
 bindsym Mod4+Shift+l move up
-bindsym Mod4+Shift+semicolon move right
+bindsym Mod4+Shift+odiaresis move right
 
 # alternatively, you can use the cursor keys:
 bindsym Mod4+Shift+Left move left
@@ -147,10 +147,16 @@ mode "resize" {
 bindsym Mod4+r mode "resize"
 
 
-# Media player controls
+# Media player controls (GIU applications)
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+# Media player controls (MPC)
+bindsym Mod4+F4 exec mpc play
+bindsym Mod4+F1 exec mpc pause
+bindsym Mod4+F6 exec mpc next
+bindsym Mod4+F5 exec mpc prev
 
 # Pulse Audio controls
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- '-5%'
@@ -166,8 +172,8 @@ bindsym Mod4+b exec firefox
 
 # Place WS on corresponding screens
 workspace 1 output DVI-I-1
-workspace 2 output DVI-I-1
-workspace 3 output DVI-D-0
+workspace 3 output DVI-I-1
+workspace 2 output DVI-D-0
 workspace 4 output DVI-D-0
 
 # Assign Terminal and Chromium to WS 1

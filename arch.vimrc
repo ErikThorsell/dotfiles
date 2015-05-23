@@ -59,8 +59,8 @@ set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 inoremap  nore  noremap
 inoremap  <C-l> <Esc>:nohl<CR>          
 nnoremap  <C-l> <Esc>:nohl<CR>          
-inoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
-nnoremap  <C-r> <Esc>:RainbowParenthesesToggle<CR>
+"inoremap  <C-R> <Esc>:RainbowParenthesesToggle<CR>
+"nnoremap  <C-R> <Esc>:RainbowParenthesesToggle<CR>
 nnoremap  Y y$                        
 
 " Vim split
