@@ -154,7 +154,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Media player controls (MPC)
 bindsym Mod4+F4 exec mpc play
-bindsym Mod4+F1 exec mpc pause
+bindsym Mod4+F2 exec mpc pause
 bindsym Mod4+F6 exec mpc next
 bindsym Mod4+F5 exec mpc prev
 

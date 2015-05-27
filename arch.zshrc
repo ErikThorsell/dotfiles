@@ -73,6 +73,7 @@ alias gs="git status"
 # Programs
 alias matrix="cmatrix -b"
 alias train="sl -ac"
+alias ttytter="ttytter -ssl -dostream -readline -ansi -newline -exts=/home/glader/.ttytter/oxhak_ttytter_output.pl"
 alias xcc="xclip -selection clipboard"
 alias ytdl="youtube-dl --prefer-free-formats"
 alias ytdlm="youtube-dl -x"
