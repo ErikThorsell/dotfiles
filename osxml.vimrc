@@ -56,6 +56,11 @@ set expandtab                   "Uses spaces instead of tabs.
 set shiftwidth=4
 set tabstop=4                   "How many columns does a tab count for.
 
+" Line wrapping
+set nowrap
+set linebreak
+set textwidth=80
+
 "Highlighting
 highlight ColorColumn ctermbg=101010 ctermfg=Red
 let &colorcolumn=79             "Set what column to highlight.
