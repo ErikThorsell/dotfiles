@@ -1,6 +1,6 @@
 """"" LaTeX
 set wrap
-noremap <C-s><C-s> :w \| ! pdflatex %<enter>
+noremap <C-w><C-w> :w \| ! pdflatex report.tex<Enter><Enter>
 
 " res
 nnoremap new <Esc>ggdG:.-1read ~/.res/latex/default.tex<Enter>
@@ -10,5 +10,3 @@ nnoremap fig <esc>:.-1read ~/.res/latex/figure.tex<enter>jj$i
 
 " one liners
 nnoremap ip i\input{}<esc>i
-
-
