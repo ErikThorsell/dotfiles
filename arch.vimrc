@@ -55,6 +55,12 @@ set list                        "Display some nonprintable characters.
 set listchars=tab:.\ ,trail:-   "Select what characters to display.
 set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 
+" Line wrapping
+set nowrap
+set linebreak
+set textwidth=79
+
+
 " Remaps
 inoremap  nore  noremap
 inoremap  <C-l> <Esc>:nohl<CR>          
@@ -69,9 +75,9 @@ set wmh=0                       "Don't show ruler when minimized.
 " Highlighting
 syntax on                       "Syntax on (off).
 highlight ColorColumn ctermbg=101010 ctermfg=Red
-let &colorcolumn=79             "Set what column to highlight.
+let &colorcolumn=80             "Set what column to highlight.
 let &colorcolumn=join(range(81,999),",")
-let &colorcolumn="78,".join(range(120,999),",")
+let &colorcolumn="80,".join(range(120,999),",")
 set hlsearch		            "Enables highlighting while searching.
 let g:rbpt_colorpairs = [
 \ ['brown',       'RoyalBlue3'],
