@@ -172,16 +172,15 @@ workspace 6 output DVI-D-0
 workspace 8 output DVI-D-0
 workspace 10 output DVI-D-0
 
-# Assign Terminal, Chromium and Telegram to WS 1
-#assign [class="terminator"] 1
-#assign [class="chromium-"] 1
-#assign [class="telegram"] 1
-
-# Assign Spotify, Thunderbird, Skype to WS 4
-#assign [class="Skype"] 4
-#assign [class="Thunderbird"] 4
-#assign [class="Spotify"] 4
-#assign [class="Clementine"] 4
+# Assign applications to specific workspaces 
+assign [class="telegram"] 1
+assign [class="Mumble"] 4
+assign [class="TeamSpeak 3"] 4
+assign [class="pavucontrol"] 4
+assign [class="Skype"] 4
+assign [class="Steam"] 4
+assign [class="Thunderbird"] 6 
+assign [class="Clementine"] 6 
 
 ###########
 # Cosmetics
