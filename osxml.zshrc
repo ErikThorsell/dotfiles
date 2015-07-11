@@ -24,7 +24,7 @@ autoload -U compinit
 compinit
 
 # Exports
-export PATH=$PATH:/Users/glader/Library/PlayOnMac/wineprefix/Packet_Tracer_/drive_c/Program\ Files/Cisco\ Packet\ Tracer\ 6.2sv/bin:$HOME/Pkg/Spin/Src6.4.3/:$HOME/pkg/gcc-arm-none-eabi-4_8-2014q2/bin:$HOME/pkg/DrMemory-MacOS-1.8.0-8/bin:/opt/local/bin
+export PATH=$PATH:HOME/Pkg/Spin/Src6.4.3/:$HOME/pkg/gcc-arm-none-eabi-4_8-2014q2/bin:$HOME/pkg/DrMemory-MacOS-1.8.0-8/bin:/opt/local/bin
 
 # Enable colors
 autoload -U colors
@@ -63,5 +63,6 @@ alias gl="git log"
 
 # Specials
 alias cdsi="cd ~/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys/"
-alias ytdl="youtube-dl --max-quality FORMAT"
+alias ytdl="youtube-dl --prefer-free-formats"
 alias mountfreenas="mount_nfs 192.168.0.89:/mnt/volume1/media /Users/glader/freenas-media"
+alias ttytter="ttytter -ssl -dostream -readline -ansi -newline -exts=/Users/glader/.ttytter/oxhak_ttytter_output.pl"
