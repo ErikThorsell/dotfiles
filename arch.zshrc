@@ -24,7 +24,7 @@ autoload -U compinit
 compinit
 
 # Exports
-export PATH=$PATH:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:opt/local/bin:/sbin:/usr/local/lib:$HOME/.gem/ruby/2.2.0/bin
+export PATH=$PATH:$HOME/Pkg/:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:opt/local/bin:/sbin:/usr/local/lib:$HOME/.gem/ruby/2.2.0/bin
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

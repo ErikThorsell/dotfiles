@@ -173,14 +173,14 @@ workspace 8 output DVI-D-0
 workspace 10 output DVI-D-0
 
 # Assign applications to specific workspaces 
-assign [class="telegram"] 1
-assign [class="Mumble"] 4
-assign [class="TeamSpeak 3"] 4
-assign [class="pavucontrol"] 4
-assign [class="Skype"] 4
-assign [class="Steam"] 4
-assign [class="Thunderbird"] 6 
-assign [class="Clementine"] 6 
+#assign [class="telegram"] 1
+#assign [class="Mumble"] 4
+#assign [class="TeamSpeak 3"] 4
+#assign [class="pavucontrol"] 4
+#assign [class="Skype"] 4
+#assign [class="Steam"] 4
+#assign [class="Thunderbird"] 6 
+#assign [class="Clementine"] 6 
 
 ###########
 # Cosmetics
