@@ -2,7 +2,7 @@ separator_block_width=15
 
 [volume]
 label=♪
-command=/home/erik/.config/i3blocks/volume
+command=/home/glader/.config/i3blocks/volume
 color=#1793D1
 interval=once
 signal=10
@@ -14,9 +14,9 @@ signal=10
 #separator=false
 
 [weather]
-#command=/home/erik/weather.sh "ASI|CN|CH024|SHANGHAI"
+#command=/home/glader/weather.sh "ASI|CN|CH024|SHANGHAI"
 label=Weather:
-command=/home/erik/.config/i3blocks/iconweather.sh "EUR|SE|41279|GOTHENBURG"
+command=/home/glader/.config/i3blocks/iconweather.sh "EUR|SE|41279|GOTHENBURG"
 interval=1800
 min_width=30
 color=#d11793
@@ -32,12 +32,12 @@ separator=true
 [root]
 label=Mem:
 command=df -h | grep /dev/sda2 | awk '{print $3,$2,$5}'
-command=/home/erik/.config/i3blocks/memory
+command=/home/glader/.config/i3blocks/memory
 color=#d15517
 interval=30
 
 #[cpu]
-#command=/home/erik/.config/i3blocks/cpu
+#command=/home/glader/.config/i3blocks/cpu
 #label=L:
 #command=top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
 #color=#d15517
@@ -51,13 +51,13 @@ interval=30
 
 #[Memory]
 #label=:
-#command=/home/erik/.config/i3blocks/new.sh
+#command=/home/glader/.config/i3blocks/new.sh
 #color=#17d155
 #separator=false
 #interval=30
 
 #[disk-home]
-#command=/home/erik/.config/i3blocks/disk $HOME
+#command=/home/glader/.config/i3blocks/disk $HOME
 #color=#17d155
 #interval=30
 
@@ -68,7 +68,7 @@ interval=30
 
 [ethernet]
 #label=:
-command=/home/erik/.config/i3blocks/network enp0s25 IP 
+command=/home/glader/.config/i3blocks/network enp7s0 IP 
 color=#1793D1
 interval=10
 
@@ -78,7 +78,7 @@ interval=10
 
 [upload]
 label=↑
-command=/home/erik/.config/i3blocks/bandwidth.sh tx
+command=/home/glader/.config/i3blocks/bandwidth.sh tx
 min_width=00000 kB/s
 align=left
 color=#e22c56
@@ -86,7 +86,7 @@ interval=1 # IMPORTANT
 
 [download]
 label=↓
-command=/home/erik/.config/i3blocks/bandwidth.sh rx
+command=/home/glader/.config/i3blocks/bandwidth.sh rx
 min_width=00000 kB/s
 align=left
 color=#00ff00
