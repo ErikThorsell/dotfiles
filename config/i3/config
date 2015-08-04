@@ -13,21 +13,11 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # Start a terminal
 bindsym Mod4+Return exec terminator 
 
-# Kill focused window
-bindsym Mod4+Shift+q kill
-
 # Start i3-dmenu-desktop which only displays applications
 bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
 
 # Start dmenu
 bindsym Mod4+Shift+d exec dmenu_run -i
-
-# change focus
-bindsym Mod4+j focus left
-bindsym Mod4+k focus down
-bindsym Mod4+l focus up
-bindsym Mod4+semicolon focus right
-bindsym Mod1+Tab focus parent 
 
 # alternatively, you can use the cursor keys:
 bindsym Mod4+Left focus left
@@ -35,23 +25,11 @@ bindsym Mod4+Down focus down
 bindsym Mod4+Up focus up
 bindsym Mod4+Right focus right
 
-# move focused window
-bindsym Mod4+Shift+j move left
-bindsym Mod4+Shift+k move down
-bindsym Mod4+Shift+l move up
-bindsym Mod4+Shift+odiaresis move right
-
 # alternatively, you can use the cursor keys:
 bindsym Mod4+Shift+Left move left
 bindsym Mod4+Shift+Down move down
 bindsym Mod4+Shift+Up move up
 bindsym Mod4+Shift+Right move right
-
-# split in horizontal orientation
-bindsym Mod4+h split h
-
-# split in vertical orientation
-bindsym Mod4+v split v
 
 # enter fullscreen mode for the focused container
 bindsym Mod4+f fullscreen
@@ -89,26 +67,6 @@ bindsym Mod4+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        bindsym j           resize shrink width 1 px or 1 ppt
-        bindsym k           resize grow height 1 px or 1 ppt
-        bindsym l           resize shrink height 1 px or 1 ppt
-        bindsym odiaeresis  resize grow width 1 px or 1 ppt
-
-        # Same bindings, but for the arrow keys and larger changes
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
-        bindsym Up          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-bindsym Mod4+r mode "resize"
 
 ###############################################################################
 #
@@ -216,3 +174,71 @@ bindsym Mod4+b exec firefox
 
 # Take printscreen with shutter
 bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/' 
+
+###############################################################################
+# Toggle between keyboard layouts
+# First line:  Svorak A5
+# Second line: QWERTY A5
+#
+
+# Kill focused window
+bindsym Mod4+Shift+aring kill
+#bindsym Mod4+Shift+q kill
+
+# Change focus
+bindsym Mod4+h focus left
+bindsym Mod4+t focus down
+bindsym Mod4+n focus up
+bindsym Mod4+s focus right
+bindsym Mod1+Tab focus parent 
+# alt
+#bindsym Mod4+j focus left
+#bindsym Mod4+k focus down
+#bindsym Mod4+l focus up
+#bindsym Mod4+semicolon focus right
+#bindsym Mod1+Tab focus parent 
+
+# move focused window
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+t move down
+bindsym Mod4+Shift+n move up
+bindsym Mod4+Shift+s move right
+# alt
+#bindsym Mod4+Shift+j move left
+#bindsym Mod4+Shift+k move down
+#bindsym Mod4+Shift+l move up
+#bindsym Mod4+Shift+odiaresis move right
+
+# Split in horizontal orientation
+bindsym Mo4+l split h
+#bindsym Mod4+h split h
+
+# split in vertical orientation
+bindsym Mod4+u split v
+#binsdym Mod4+v
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h           resize shrink width 1 px or 1 ppt
+        bindsym t           resize grow height 1 px or 1 ppt
+        bindsym n           resize shrink height 1 px or 1 ppt
+        bindsym s           resize grow width 1 px or 1 ppt
+
+#        bindsym j           resize shrink width 1 px or 1 ppt
+#        bindsym k           resize grow height 1 px or 1 ppt
+#        bindsym l           resize shrink height 1 px or 1 ppt
+#        bindsym odiaeresis  resize grow width 1 px or 1 ppt
+
+        # Same bindings, but for the arrow keys and larger changes
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym Mod4+r mode "resize"
