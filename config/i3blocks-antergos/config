@@ -1,0 +1,76 @@
+# Global properties
+separator_block_width=15
+
+[weather]
+label=Weather
+command=/home/erik/.config/i3blocks/iconweather.sh "EUR|SE|41279|GOTHENBURG"
+interval=1800
+min_width=30
+color=#1aa12a
+separator=true
+
+[volume]
+label=VOL
+#label=♪
+instance=Master
+#instance=PCM
+command=/home/erik/.config/i3blocks/volume.sh
+interval=1
+signal=10
+color=#a9169c
+
+[memory]
+label=MEM
+command=/home/erik/.config/i3blocks/memory
+separator=false
+interval=30
+color=#7a87ec
+
+#[swap]
+#label=SWAP
+#instance=swap
+#command=/home/erik/.config/i3blocks/memory
+#interval=30
+
+[disk-home]
+label=DISK
+instance=$HOME
+command=/home/erik/.config/i3blocks/disk
+interval=30
+color=#7a87ec
+
+[wireless]
+label=W
+instance=wlp3s0
+command=/home/erik/.config/i3blocks/network wlp3s0
+color=#00FF00
+interval=10
+
+[ethernet]
+label=E
+instance=enp0s25
+command=/home/erik/.config/i3blocks/network enp0s25
+color=#00FF00
+interval=10
+
+#[cpu]
+#label=CPU
+#command=/home/erik/.config/i3blocks/cpu_usage
+#interval=10
+#min_width=CPU: 100.00%
+#separator=false
+
+#[load]
+#command=/home/erik/.config/i3blocks/load_average
+#interval=10
+
+[battery]
+label=BAT
+#label=🔋
+command=/home/erik/.config/i3blocks/battery
+interval=30
+color=#e3ff00
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
