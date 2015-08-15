@@ -56,7 +56,7 @@ mkcd() {
 # Common
 alias ..="cd .."
 alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
-alias cdcte="cd /home/glader/Storage/Dropbox/Chalmers/CTE031/report"
+alias cdcte="cd /home/glader/Storage/OwnCloud/Chalmers/CTE031/report"
 alias clr="clear"
 alias clrerl="rm *.beam"
 alias clrj="rm *.class"
