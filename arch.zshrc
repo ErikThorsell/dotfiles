@@ -52,6 +52,8 @@ mkcd() {
     cd "$1"
 }
 
+bindkey "^[[3~" delete-char
+
 ## Aliases
 # Common
 alias ..="cd .."
