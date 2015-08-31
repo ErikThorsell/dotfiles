@@ -42,7 +42,7 @@ autoload -U promptinit
 promptinit
 
 # Configure prompt
-PROMPT="%{$fg_bold[white]%}%n%{$fg[magenta]%}@%{$fg_no_bold[cyan]%}%m %{$fg_no_bold[yellow]%}%~ %{$reset_color%}>%"
+PROMPT="%{$fg_bold[blue]%}%n%{$fg[magenta]%}@%{$fg_no_bold[cyan]%}%m %{$fg_no_bold[yellow]%}%~ %{$reset_color%}>%"
 source /home/erik/Programming/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## Functions
@@ -56,7 +56,7 @@ mkcd() {
 # Common
 alias ..="cd .."
 alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
-alias cdcte="cd /home/glader/Storage/Dropbox/Chalmers/CTE031/report"
+alias cdcte="cd /home/erik/ownCloud/Chalmers/CTE031/report"
 alias clr="clear"
 alias clrerl="rm *.beam"
 alias clrj="rm *.class"
@@ -81,7 +81,7 @@ alias gs="git status"
 # Programs
 alias matrix="cmatrix -b"
 alias train="sl -ac"
-alias ttytter="ttytter -ssl -dostream -readline -ansi -newline -exts=/home/glader/.ttytter/oxhak_ttytter_output.pl"
+alias ttytter="ttytter -ssl -dostream -readline -ansi -newline -exts=/home/erik/.ttytter/oxhak_ttytter_output.pl"
 alias xcc="xclip -selection clipboard"
 alias ytdl="youtube-dl --prefer-free-formats"
 alias ytdlm="youtube-dl -x"
