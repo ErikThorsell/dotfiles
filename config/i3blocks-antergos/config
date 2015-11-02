@@ -65,9 +65,16 @@ interval=10
 #interval=10
 
 [battery]
-label=BAT
-#label=🔋
-command=/home/erik/.config/i3blocks/battery
+#label=BAT
+#label=⚡
+command=/home/erik/.config/i3blocks/battery0
+interval=30
+color=#e3ff00
+
+[battery]
+#label=BAT
+#label=⚡
+command=/home/erik/.config/i3blocks/battery1
 interval=30
 color=#e3ff00
 

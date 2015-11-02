@@ -43,7 +43,7 @@ END {
 	else if (state == "fully-charged")
 		label = "FULL"
 	else
-		label = "BAT"
+		label = "Discharging"
 
 	# full text
 	print label " " percentage \
