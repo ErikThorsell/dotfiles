@@ -96,5 +96,5 @@ alias pms="sudo pm-suspend"
 alias shn="sudo shutdown -h now"
 alias spy="sudo pacman -Syu"
 
-# Start archey
-# archey3
+# Temporary
+alias jdot="java Main >> /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot && dot -Tpng /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot -o /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.png"
