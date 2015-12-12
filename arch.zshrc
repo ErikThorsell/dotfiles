@@ -94,6 +94,7 @@ alias mountbackup="sudo mount.nfs 192.168.0.89:/mnt/volume1/backup ~/Backup"
 alias pms="sudo pm-suspend"
 alias shn="sudo shutdown -h now"
 alias spy="sudo pacman -Syu"
+alias setip="s ip link set enp7s0 up && s ip addr add 192.168.0.90/24 broadcast 192.168.0.255 dev enp7s0 && s ip route add default via 192.168.0.1"
 
 # Start archey
 # archey3
