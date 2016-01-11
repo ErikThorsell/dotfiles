@@ -1,36 +1,3 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-"==============================================================="
-"Plugins goes here
-"Rainbow Parentheses!
-Plugin 'kien/rainbow_parentheses.vim'
-"Auto brackets
-"Plugin 'jiangmiao/auto-pairs'
-"=============================================================="
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
 " Latex
 let g:tex_flavor = "latex"
 
@@ -40,14 +7,14 @@ set ruler                       "Display the cursor position in the lower right.
 set showmatch
 
 " Text formatting
-set ignorecase		            "Ignore case in search patterns.
-set smartcase		            "Override the 'ignorecase' option if the 
+set ignorecase                  "Ignore case in search patterns.
+set smartcase                   "Override the 'ignorecase' option if the 
                                 "search pattern contains uppercase characters.
-set incsearch		            "While typing a search command, show where 
+set incsearch                   "While typing a search command, show where 
                                 "the pattern, as it was typed so far, matches.
 
 " Tabbing
-set smartindent		            "Do smart autoindenting when starting a new line.
+set smartindent                 "Do smart autoindenting when starting a new line.
 set expandtab                   "Uses spaces instead of tabs.
 set shiftwidth=4
 set tabstop=4                   "How many columns does a tab count for.
@@ -55,19 +22,40 @@ set list                        "Display some nonprintable characters.
 set listchars=tab:.\ ,trail:-   "Select what characters to display.
 set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 
+"" Functions
+"
+"" f7 to cycle spell
+"nnoremapmap <F7> :call CycleSpell()<CR>
+"inoremapmap <F7> <Esc>:call CycleSpell()<CR>a
+"
+"fun! CycleSpell()
+"    let langs = ['', 'en', 'sv']
+"    let i = index(langs, &spl)
+"    let j = (i+1)%len(langs)
+"    let &spl = langs[j]
+"    if empty(&spl)
+"        set nospell
+"        echo "set nospell"
+"    else
+"        set spell
+"        echo "spelllang="&spl
+"    endif
+"endfun
+"
+"" f9 to toggle paste
+"nnoremapmap <f9> :set paste!<cr>
+"inoremapmap <f9> <esc>:set paste!<cr>a
+
 " Line wrapping
 set nowrap
 set linebreak
 set textwidth=79
 
-
 " Remaps
 inoremap  nore  noremap
-inoremap  <C-l> <Esc>:nohl<CR>          
-nnoremap  <C-l> <Esc>:nohl<CR>          
-"inoremap  <C-R> <Esc>:RainbowParenthesesToggle<CR>
-"nnoremap  <C-R> <Esc>:RainbowParenthesesToggle<CR>
-nnoremap  Y y$                        
+inoremap  <C-l> <Esc>:nohl<CR>
+nnoremap  <C-l> <Esc>:nohl<CR>
+nnoremap  Y y$
 
 " Vim split
 set wmh=0                       "Don't show ruler when minimized.

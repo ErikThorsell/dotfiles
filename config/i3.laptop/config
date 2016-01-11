@@ -25,7 +25,6 @@ bindsym Mod4+Down focus down
 bindsym Mod4+Up focus up
 bindsym Mod4+Right focus right
 
-
 # alternatively, you can use the cursor keys:
 bindsym Mod4+Shift+Left move left
 bindsym Mod4+Shift+Down move down
@@ -75,7 +74,7 @@ bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 #
 
 ######
-#Media
+#Media keys
 
 # Media player controls (GIU applications)
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -91,6 +90,13 @@ bindsym Mod4+F5 exec mpc prev
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 +5%
 bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle # mute sound
+
+# Brightness Controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
+# Trackpad
+bindsym XF86Explorer exec synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')
 
 ############
 # Workspaces
@@ -148,6 +154,7 @@ workspace 10 output DVI-D-0
 bar {
         status_command i3blocks
 #       status_command i3status
+        position top
 }
 
 # Disable focus for mouse
@@ -166,11 +173,12 @@ client.urgent           #2f343a #900000 #ffffff #900000
 ##############
 # Applications
 
-# Autostart 
+# Autostart dropbox
 exec --no-startup-id dropbox start
-exec --no-startup-id owncloud 
+exec --not-startup-id owncloud
+
 # Launch applications
-bindsym Mod4+c exec chromium 
+bindsym Mod4+c exec firefox
 bindsym Mod4+b exec firefox
 
 # Take printscreen with shutter
@@ -183,40 +191,40 @@ bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/
 #
 
 # Kill focused window
-#bindsym Mod4+Shift+aring kill
-bindsym Mod4+Shift+q kill
+bindsym Mod4+Shift+aring kill
+#bindsym Mod4+Shift+q kill
 
 # Change focus
-#bindsym Mod4+h focus left
-#bindsym Mod4+t focus down
-#bindsym Mod4+n focus up
-#bindsym Mod4+s focus right
-#bindsym Mod1+Tab focus parent 
-# alt
-bindsym Mod4+j focus left
-bindsym Mod4+k focus down
-bindsym Mod4+l focus up
-bindsym Mod4+semicolon focus right
+bindsym Mod4+h focus left
+bindsym Mod4+t focus down
+bindsym Mod4+n focus up
+bindsym Mod4+s focus right
 bindsym Mod1+Tab focus parent 
+# alt
+#bindsym Mod4+j focus left
+#bindsym Mod4+k focus down
+#bindsym Mod4+l focus up
+#bindsym Mod4+semicolon focus right
+#bindsym Mod1+Tab focus parent 
 
 # move focused window
-#bindsym Mod4+Shift+h move left
-#bindsym Mod4+Shift+t move down
-#bindsym Mod4+Shift+n move up
-#bindsym Mod4+Shift+s move right
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+t move down
+bindsym Mod4+Shift+n move up
+bindsym Mod4+Shift+s move right
 # alt
-bindsym Mod4+Shift+j move left
-bindsym Mod4+Shift+k move down
-bindsym Mod4+Shift+l move up
-bindsym Mod4+Shift+odiaresis move right
+#bindsym Mod4+Shift+j move left
+#bindsym Mod4+Shift+k move down
+#bindsym Mod4+Shift+l move up
+#bindsym Mod4+Shift+odiaresis move right
 
 # Split in horizontal orientation
-#bindsym Mod4+l split h
-bindsym Mod4+h split h
+bindsym Mod4+l split h
+#bindsym Mod4+h split h
 
 # split in vertical orientation
-#bindsym Mod4+u split v
-bindsym Mod4+v split v
+bindsym Mod4+u split v
+#bindsym Mod4+v split v
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
