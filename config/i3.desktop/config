@@ -132,7 +132,7 @@ workspace 2 output DVI-D-0
 workspace 4 output DVI-D-0
 workspace 6 output DVI-D-0
 workspace 8 output DVI-D-0
-workspace 10 output DVI-D-0
+workspace 00 output DVI-D-0
 
 # Assign applications to specific workspaces 
 #assign [class="telegram"] 1
@@ -150,6 +150,7 @@ workspace 10 output DVI-D-0
 # Start i3bar to display a workspace bar 
 bar {
         status_command i3blocks
+        position top
 #       status_command i3status
 }
 
@@ -187,53 +188,53 @@ bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/
 #
 
 # Kill focused window
-#bindsym Mod4+Shift+aring kill
-bindsym Mod4+Shift+q kill
+bindsym Mod4+Shift+aring kill
+#bindsym Mod4+Shift+q kill
 
 # Change focus
-#bindsym Mod4+h focus left
-#bindsym Mod4+t focus down
-#bindsym Mod4+n focus up
-#bindsym Mod4+s focus right
-#bindsym Mod1+Tab focus parent 
-# alt
-bindsym Mod4+j focus left
-bindsym Mod4+k focus down
-bindsym Mod4+l focus up
-bindsym Mod4+semicolon focus right
+bindsym Mod4+h focus left
+bindsym Mod4+t focus down
+bindsym Mod4+n focus up
+bindsym Mod4+s focus right
 bindsym Mod1+Tab focus parent 
+# alt
+#bindsym Mod4+j focus left
+#bindsym Mod4+k focus down
+#bindsym Mod4+l focus up
+#bindsym Mod4+semicolon focus right
+#bindsym Mod1+Tab focus parent 
 
 # move focused window
-#bindsym Mod4+Shift+h move left
-#bindsym Mod4+Shift+t move down
-#bindsym Mod4+Shift+n move up
-#bindsym Mod4+Shift+s move right
+bindsym Mod4+Shift+h move left
+bindsym Mod4+Shift+t move down
+bindsym Mod4+Shift+n move up
+bindsym Mod4+Shift+s move right
 # alt
-bindsym Mod4+Shift+j move left
-bindsym Mod4+Shift+k move down
-bindsym Mod4+Shift+l move up
-bindsym Mod4+Shift+odiaresis move right
+#bindsym Mod4+Shift+j move left
+#bindsym Mod4+Shift+k move down
+#bindsym Mod4+Shift+l move up
+#bindsym Mod4+Shift+odiaresis move right
 
 # Split in horizontal orientation
-#bindsym Mo4+l split h
-bindsym Mod4+h split h
+bindsym Mod4+l split h
+#bindsym Mod4+h split h
 
 # split in vertical orientation
-#bindsym Mod4+u split v
-bindsym Mod4+v split v
+bindsym Mod4+u split v
+#bindsym Mod4+v split v
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
-#        bindsym h           resize shrink width 1 px or 1 ppt
-#        bindsym t           resize grow height 1 px or 1 ppt
-#        bindsym n           resize shrink height 1 px or 1 ppt
-#        bindsym s           resize grow width 1 px or 1 ppt
+        bindsym h           resize shrink width 1 px or 1 ppt
+        bindsym t           resize grow height 1 px or 1 ppt
+        bindsym n           resize shrink height 1 px or 1 ppt
+        bindsym s           resize grow width 1 px or 1 ppt
 
-        bindsym j           resize shrink width 1 px or 1 ppt
-        bindsym k           resize grow height 1 px or 1 ppt
-        bindsym l           resize shrink height 1 px or 1 ppt
-        bindsym odiaeresis  resize grow width 1 px or 1 ppt
+#        bindsym j           resize shrink width 1 px or 1 ppt
+#        bindsym k           resize grow height 1 px or 1 ppt
+#        bindsym l           resize shrink height 1 px or 1 ppt
+#        bindsym odiaeresis  resize grow width 1 px or 1 ppt
 
         # Same bindings, but for the arrow keys and larger changes
         bindsym Left        resize shrink width 10 px or 10 ppt

@@ -1,0 +1,66 @@
+# Global properties
+separator_block_width=15
+
+[weather]
+label=Weather
+command=/home/erik/.config/i3blocks/iconweather.sh "EUR|SE|41279|GOTHENBURG"
+interval=1800
+min_width=30
+color=#1aa12a
+separator=true
+
+[volume]
+label=♪
+instance=Master
+command=/home/erik/.config/i3blocks/volume.sh
+interval=1
+signal=10
+color=#a9169c
+
+[memory]
+label=RAM
+command=/home/erik/.config/i3blocks/memory
+interval=30
+color=#7a87ec
+separator=false
+
+[disk-root]
+label=/
+command=/home/erik/.config/i3blocks/disk /
+interval=30
+color=#7a87ec
+separator=false
+
+[disk-home]
+label=Home
+command=/home/erik/.config/i3blocks/disk $HOME
+interval=30
+color=#7a87ec
+
+[ethernet]
+label=E
+instance=enp7s0
+command=/home/erik/.config/i3blocks/network enp7s0
+color=#00FF00
+interval=10
+
+[upload]
+label=↑
+command=/home/erik/.config/i3blocks/bandwidth.sh tx
+min_width=0000000 kB/s
+align=left
+color=#e22c56
+interval=1 # IMPORTANT
+
+[download]
+label=↓
+command=/home/erik/.config/i3blocks/bandwidth.sh rx
+min_width=0000000 kB/s
+align=left
+color=#00ff00
+interval=1 # IMPORTANT
+separator=true
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
