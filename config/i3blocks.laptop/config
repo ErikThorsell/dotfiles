@@ -20,24 +20,18 @@ signal=10
 color=#a9169c
 
 [memory]
-label=MEM
+label=RAM
 command=/home/erik/.config/i3blocks/memory
+interval=30
+color=#7a87ec
 separator=false
+
+[disk-root]
+label=Disk
+command=/home/erik/.config/i3blocks/disk /
 interval=30
 color=#7a87ec
-
-#[swap]
-#label=SWAP
-#instance=swap
-#command=/home/erik/.config/i3blocks/memory
-#interval=30
-
-[disk-home]
-label=DISK
-instance=$HOME
-command=/home/erik/.config/i3blocks/disk
-interval=30
-color=#7a87ec
+separator=true
 
 [wireless]
 label=W

@@ -137,23 +137,12 @@ workspace 6 output DVI-D-0
 workspace 8 output DVI-D-0
 workspace 10 output DVI-D-0
 
-# Assign applications to specific workspaces 
-#assign [class="telegram"] 1
-#assign [class="Mumble"] 4
-#assign [class="TeamSpeak 3"] 4
-#assign [class="pavucontrol"] 4
-#assign [class="Skype"] 4
-#assign [class="Steam"] 4
-#assign [class="Thunderbird"] 6 
-#assign [class="Clementine"] 6 
-
 ###########
 # Cosmetics
 
 # Start i3bar to display a workspace bar 
 bar {
         status_command i3blocks
-#       status_command i3status
         position top
 }
 
@@ -179,7 +168,6 @@ exec --not-startup-id owncloud
 
 # Launch applications
 bindsym Mod4+c exec firefox
-bindsym Mod4+b exec firefox
 
 # Take printscreen with shutter
 bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/' 

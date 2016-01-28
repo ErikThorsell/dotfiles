@@ -35,8 +35,9 @@ map <leader>q gqap
 nnoremap <C-l> :nohl<CR>
 inoremap <C-l> <Esc>:nohl<CR>
 
-" Help opening a new tab
+" Faster console access
 noremap <C-t> :tabedit<Space>
+"noremap <C-s> :spellgood<Space>
 
 " f7 to cycle spell
 nnoremap <F7> :call CycleSpell()<CR>
