@@ -7,7 +7,11 @@ let g:tex_flavor = "latex"
 " Eye goodies
 set number                      "Display line numbers.
 set ruler                       "Display the cursor position in the lower right.
+set relativenumber
 set showmatch
+set cursorline
+highlight CursorLine cterm=none ctermbg=white
+set cursorcolumn
 
 " Text formatting
 set ignorecase                  "Ignore case in search patterns.
