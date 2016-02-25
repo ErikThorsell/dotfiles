@@ -1,6 +1,6 @@
 """"" LaTeX
 set wrap
-noremap <C-w><C-w> :w \| ! pdflatex report.tex<Enter><Enter>
+noremap <C-w><C-w> :w \| ! ./compile<Enter><Enter>
 
 " res
 nnoremap new <Esc>ggdG:.-1read ~/.res/latex/default.tex<Enter>
