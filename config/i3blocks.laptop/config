@@ -4,7 +4,7 @@ separator_block_width=15
 [weather]
 label=Weather
 command=/home/erik/.config/i3blocks/iconweather.sh "EUR|SE|41279|GOTHENBURG"
-interval=1800
+interval=300
 min_width=30
 color=#1aa12a
 separator=true
