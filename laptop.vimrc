@@ -9,9 +9,8 @@ set number                      "Display line numbers.
 set ruler                       "Display the cursor position in the lower right.
 set relativenumber
 set showmatch
-set cursorline
-highlight CursorLine cterm=none ctermbg=white
-set cursorcolumn
+hi CursorLine   cterm=NONE ctermbg=white
+hi CursorColumn cterm=NONE ctermbg=white
 
 " Text formatting
 set ignorecase                  "Ignore case in search patterns.
@@ -35,6 +34,7 @@ set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 " Chose leader key for simpler mapping
 let mapleader = ','
 map <leader>q gqap
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 "Get rid of hl in normal and insert mode
 nnoremap <C-l> :nohl<CR>

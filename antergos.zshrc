@@ -24,8 +24,7 @@ autoload -U compinit
 compinit
 
 # Exports
-export PATH=$PATH:$HOME/Pkg/postgresql-9.4.1207.jar:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:opt/local/bin:/sbin:/usr/local/lib:$HOME/.gem/ruby/2.2.0/bin
-#export CLASSPATH=$HOME/Pkg/postgresql-9.4.1207.jar
+export PATH=$PATH:$HOME/Programming/git/school/DATX02_BsC_Thesis/ignored/upos/bin:$HOME/.cabal/bin:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:opt/local/bin:/sbin:/usr/local/lib:$HOME/.gem/ruby/2.2.0/bin
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -65,11 +64,11 @@ alias clrerl="rm *.beam"
 alias clrj="rm *.class"
 alias clrtex="rm *.aux *.log"
 alias clrtexz="rm *.aux *.log *.synctex.gz"
-alias la="ls -al"
-alias ll="ls -l"
-alias ls="ls --color=auto"
-alias lsa="ls -al"
-alias lsl="ls -l"
+alias la="ls -hal"
+alias ll="ls -hl"
+alias ls="ls -h --color=auto"
+alias lsa="ls -hal"
+alias lsl="ls -hl"
 alias mv="mv -i"
 alias open="xdg-open"
 alias s="sudo"
