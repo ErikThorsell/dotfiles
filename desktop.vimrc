@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""Welcome, you are awaited"""""""""""""""""""""""""""
 
-" tex = latex
+" File recognition
+filetype plugin on
 let g:tex_flavor = "latex"
 
 " Eye goodies

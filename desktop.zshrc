@@ -124,6 +124,7 @@ alias ytdlm="youtube-dl -x"
 alias ytdlmp="youtube-dl -x --yes-playlist"
 
 # System
+alias cppath="pwd|xclip -selection clipboard"
 alias mountbackup="sudo rpcbind && sudo mount.nfs 192.168.0.89:/mnt/volume1/backup ~/Backup"
 alias mountmedia="sudo mount.nfs 192.168.0.89:/mnt/volume1/media /home/erik/Media"
 alias pms="sudo pm-suspend"
