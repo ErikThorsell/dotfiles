@@ -69,6 +69,16 @@ endfun
 nnoremap <f9> :set paste!<cr>
 inoremap <f9> <esc>:set paste!<cr>a
 
+" navigate through search resulst using m and M
+noremap m n
+noremap M N
+
+" use htns to navigate cursor
+" noremap h h
+noremap t j
+noremap n k
+noremap s l
+
 """""""""""""""""""""""""""""""End of remaps"""""""""""""""""""""""""""""""""""
 " Vim split
 set wmh=0                       "Don't show ruler when minimized.
