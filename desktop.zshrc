@@ -60,6 +60,8 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
+export BROWSER="/usr/bin/firefox"
+export LD_PRELOAD='/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1' steam
 
 # Set environment variables
 if [[ -n $SSH_CONNECTION ]]; then
