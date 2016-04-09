@@ -19,6 +19,13 @@ interval=1
 signal=10
 color=#a9169c
 
+[media]
+command=/home/erik/.config/i3blocks/mediaplayer
+align=right
+min_width=125
+interval=1
+color=#FF8000
+
 [memory]
 label=RAM
 command=/home/erik/.config/i3blocks/memory

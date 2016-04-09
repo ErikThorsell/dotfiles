@@ -5,7 +5,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-# font pango:DejaVu Sans Mono 10
+font xft:Droid Sans Mono 10
 
 # use Mouse+Mod1 to drag floating windows to their wanted position
 # floating_modifier Mod4
@@ -18,18 +18,6 @@ bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
 
 # Start dmenu
 bindsym Mod4+Shift+d exec dmenu_run -i
-
-# alternatively, you can use the cursor keys:
-bindsym Mod4+Left focus left
-bindsym Mod4+Down focus down
-bindsym Mod4+Up focus up
-bindsym Mod4+Right focus right
-
-# alternatively, you can use the cursor keys:
-bindsym Mod4+Shift+Left move left
-bindsym Mod4+Shift+Down move down
-bindsym Mod4+Shift+Up move up
-bindsym Mod4+Shift+Right move right
 
 # enter fullscreen mode for the focused container
 bindsym Mod4+f fullscreen
@@ -164,7 +152,7 @@ client.urgent           #2f343a #900000 #ffffff #900000
 
 # Autostart dropbox
 exec --no-startup-id dropbox start
-exec --not-startup-id owncloud
+exec --no-startup-id owncloud
 
 # Launch applications
 bindsym Mod4+c exec firefox
@@ -187,7 +175,7 @@ bindsym Mod4+h focus left
 bindsym Mod4+t focus down
 bindsym Mod4+n focus up
 bindsym Mod4+s focus right
-bindsym Mod1+Tab focus parent 
+bindsym Mod1+Tab focus parent
 # alt
 #bindsym Mod4+j focus left
 #bindsym Mod4+k focus down
@@ -208,11 +196,9 @@ bindsym Mod4+Shift+s move right
 
 # Split in horizontal orientation
 bindsym Mod4+l split h
-#bindsym Mod4+h split h
 
 # split in vertical orientation
-bindsym Mod4+u split v
-#bindsym Mod4+v split v
+bindsym Mod4+v split v
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

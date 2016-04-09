@@ -44,7 +44,10 @@ inoremap <C-l> <Esc>:nohl<CR>
 noremap <C-t> :tabedit<Space>
 "noremap <C-s> :spellgood<Space>
 
-" f7 to cycle spell
+"" Delete trailing whitespace
+:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+"" f7 to cycle spell
 nnoremap <F7> :call CycleSpell()<CR>
 inoremap <F7> <Esc>:call CycleSpell()<CR>a
 

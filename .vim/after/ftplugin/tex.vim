@@ -9,4 +9,3 @@ nnoremap enum <esc>:.-1read ~/.res/latex/enumerate.tex<enter>j$a
 nnoremap fig <esc>:.-1read ~/.res/latex/figure.tex<enter>jj$i
 
 " one liners
-nnoremap ip i\input{}<esc>i
