@@ -1,13 +1,12 @@
 # Global properties
 separator_block_width=15
 
-[weather]
-label=Weather
-command=/home/erik/.config/i3blocks/iconweather.sh "EUR|SE|41279|GOTHENBURG"
-interval=300
-min_width=30
-color=#1aa12a
-separator=true
+[media]
+command=/home/erik/.config/i3blocks/mediaplayer
+align=right
+min_width=125
+interval=1
+color=#FF8000
 
 [volume]
 label=VOL
@@ -19,12 +18,13 @@ interval=1
 signal=10
 color=#a9169c
 
-[media]
-command=/home/erik/.config/i3blocks/mediaplayer
-align=right
-min_width=125
-interval=1
-color=#FF8000
+[weather]
+label=Weather
+command=/home/erik/.config/i3blocks/iconweather.sh "EUR|SE|41279|GOTHENBURG"
+interval=300
+min_width=30
+color=#1aa12a
+separator=true
 
 [memory]
 label=RAM
