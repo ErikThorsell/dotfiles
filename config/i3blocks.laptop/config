@@ -54,6 +54,24 @@ command=/home/erik/.config/i3blocks/network enp0s25
 color=#00FF00
 interval=10
 
+[upload]
+label=↑
+command=/home/erik/.config/i3blocks/bandwidth.sh tx
+min_width=0000000 kB/s
+align=left
+color=#e22c56
+interval=1 # IMPORTANT
+
+[download]
+label=↓
+command=/home/erik/.config/i3blocks/bandwidth.sh rx
+min_width=0000000 kB/s
+align=left
+color=#00ff00
+interval=1 # IMPORTANT
+separator=true
+
+
 #[cpu]
 #label=CPU
 #command=/home/erik/.config/i3blocks/cpu_usage
