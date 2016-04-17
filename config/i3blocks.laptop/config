@@ -58,7 +58,6 @@ interval=10
 label=↑
 command=/home/erik/.config/i3blocks/bandwidth.sh tx
 min_width=0000000 kB/s
-align=left
 color=#e22c56
 interval=1 # IMPORTANT
 
