@@ -138,7 +138,7 @@ bar {
 focus_follows_mouse no
 
 # Border style for applications
-new_window 1pixel
+new_window pixel 2
 
 # Colors
 # class                 border  backgr  text    indicator
