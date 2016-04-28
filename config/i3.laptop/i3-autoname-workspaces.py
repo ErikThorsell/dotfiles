@@ -32,6 +32,7 @@ FA_SPOTIFY = '\uf1bc'
 FA_TERMINAL = '\uf120'
 FA_ENVELOPE_O = '\uf003'
 FA_PAPER_PLANE_O = '\uf1d9'
+FA_CONNECTDEVELOP = '\uf20e'
 WINDOW_ICONS = {
     'terminator': FA_TERMINAL,
     'google-chrome': FA_CHROME,
@@ -47,6 +48,7 @@ WINDOW_ICONS = {
     'nautilus': FA_FILES_O,
     'Mail': FA_ENVELOPE_O,
     'Telegram' : FA_PAPER_PLANE_O,
+    'Mathematica' : FA_CONNECTDEVELOP
 }
 
 
