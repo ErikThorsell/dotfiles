@@ -82,6 +82,7 @@ alias gpr="git pull --rebase"
 alias gs="git status"
 
 # Programs
+alias newbg="feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*"
 alias matrix="cmatrix -b"
 alias train="sl -ac"
 alias ttytter="ttytter -ssl -dostream -readline -ansi -newline -exts=/home/erik/.ttytter/oxhak_ttytter_output.pl"
@@ -90,6 +91,7 @@ alias xpw="pwd|xclip -selection clipboard"
 alias ytdl="youtube-dl --prefer-free-formats"
 alias ytdlm="youtube-dl -x"
 alias ytdlmp="youtube-dl -x --yes-playlist"
+alias quote="clear && fortune -a | cowsay"
 
 # System
 alias lock="i3lock-fancy -p"

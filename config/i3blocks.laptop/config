@@ -1,6 +1,8 @@
 # Global properties
 separator_block_width=15
 
+#m4pomodoro --action i3blocks
+
 [media]
 command=/home/erik/.config/i3blocks/mediaplayer
 align=right
