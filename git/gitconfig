@@ -4,6 +4,7 @@
 
 [alias]
     save = commit -m
+    saveall = commit -a
     precommit = diff --cached --diff-algorithm=minimal -w
     branches = branch -a
     tags = tag
