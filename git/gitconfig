@@ -1,0 +1,26 @@
+[user]
+    email = erithor@student.chalmers.se
+    name = Erik Thorsell
+
+[alias]
+    save = commit -m
+    precommit = diff --cached --diff-algorithm=minimal -w
+    branches = branch -a
+    tags = tag
+    solved = rebase --continue
+    stashes = stash list
+    unstage = reset -q HEAD --
+    discard = checkout --
+    uncommit = reset --mixed HEAD~
+    amend = commit --amend
+    authors = shortlog -s -n
+    unmerged = diff --name-only --diff-filter=U
+    remotes = remote -v
+    last = log -1 HEAD --format=format:"%Cred%H"
+    history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
+    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+
+[pull]
+    rebase = true
+[core]
+    editor = vim

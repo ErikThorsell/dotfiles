@@ -156,12 +156,14 @@ client.urgent           #2f343a #900000 #ffffff #900000
 ##############
 # Applications
 
-# Autostart dropbox
+# Autostart dropbox and owncloud
 exec --no-startup-id dropbox start
 exec --no-startup-id owncloud
 
 # Launch applications
 bindsym Mod4+c exec firefox
+bindsym Mod4+Mod1+Return exec terminator -c Weechat
+bindsym Mod4+Escape exec i3lock-fancy -p
 
 # Take printscreen with shutter
 bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/' 

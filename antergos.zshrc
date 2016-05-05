@@ -74,13 +74,6 @@ alias mv="mv -i"
 alias open="xdg-open"
 alias s="sudo"
 
-# Git
-alias gca="git commit -a"
-alias gl="git log"
-alias gpm="git push -u origin master"
-alias gpr="git pull --rebase"
-alias gs="git status"
-
 # Programs
 alias newbg="feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*"
 alias matrix="cmatrix -b"
