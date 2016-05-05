@@ -11,7 +11,7 @@ font xft:Droid Sans Mono 9
 floating_modifier Mod4
 
 # Start a terminal
-bindsym Mod4+Return exec terminator 
+bindsym Mod4+Return exec terminator
 
 # Start i3-dmenu-desktop which only displays applications
 bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
@@ -86,6 +86,13 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 ############
 # Workspaces
 
+# automatically remane workspaces based on contents
+# note that in order to make the movement between workspaces work you need to
+# change: bindsym Mod4+1 workspace 1 > bindsym Mod4+1 workspace number 1
+# and similarly for all workspaces. You also need Awesome Font and i3ipc
+# installed.
+exec /home/erik/programming/git/dotfiles/config/i3-autoname-workspaces.py &
+
 # switch to workspace
 bindsym Mod4+1 workspace number 1
 bindsym Mod4+2 workspace number 2
@@ -157,12 +164,13 @@ client.urgent           #2f343a #900000 #ffffff #900000
 ##############
 # Applications
 
-# Autostart dropbox
+# Autostarts
 exec --no-startup-id dropbox start
 exec --no-startup-id owncloud
 
 # Launch applications
 bindsym Mod4+c exec firefox
+bindsym Mod4+Mod1+Return exec terminator -c Weechat
 
 # Take printscreen with shutter
 bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/' 

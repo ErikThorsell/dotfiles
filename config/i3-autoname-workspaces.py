@@ -33,12 +33,13 @@ FA_TERMINAL = '\uf120'
 FA_ENVELOPE_O = '\uf003'
 FA_PAPER_PLANE_O = '\uf1d9'
 FA_CONNECTDEVELOP = '\uf20e'
+FA_COMMENT_O = '\uf0e5'
 WINDOW_ICONS = {
     'terminator': FA_TERMINAL,
     'google-chrome': FA_CHROME,
     'vim': FA_CODE,
     'subl3': FA_CODE,
-    'spotify': FA_MUSIC,
+    'spotify': FA_SPOTIFY,
     'Firefox': FA_FIREFOX,
     'libreoffice': FA_FILE_TEXT_O,
     'feh': FA_PICTURE_O,
@@ -47,8 +48,11 @@ WINDOW_ICONS = {
     'evince': FA_FILE_PDF_O,
     'nautilus': FA_FILES_O,
     'Mail': FA_ENVELOPE_O,
+    'Thunderbird': FA_ENVELOPE_O,
+    'thunderbird': FA_ENVELOPE_O,
     'Telegram' : FA_PAPER_PLANE_O,
-    'Mathematica' : FA_CONNECTDEVELOP
+    'Mathematica' : FA_CONNECTDEVELOP,
+    'Weechat' : FA_COMMENT_O
 }
 
 
