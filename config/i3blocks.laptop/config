@@ -56,6 +56,12 @@ command=/home/erik/.config/i3blocks/network enp0s25
 color=#00FF00
 interval=10
 
+[public]
+instance=wlp3s0
+command=/home/erik/.config/i3blocks/ip wlp3s0
+color=#E55D00
+interval=600
+
 [upload]
 label=↑
 command=/home/erik/.config/i3blocks/bandwidth.sh tx
@@ -71,7 +77,6 @@ align=left
 color=#00ff00
 interval=1 # IMPORTANT
 separator=true
-
 
 #[cpu]
 #label=CPU

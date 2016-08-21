@@ -23,8 +23,10 @@ zstyle ':completion:*' menu select
 autoload -U compinit
 compinit
 
-# Exports
-export PATH=$PATH:$HOME/Programming/git/school/DATX02_BsC_Thesis/ignored/upos/bin:$HOME/.cabal/bin:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:opt/local/bin:/sbin:/usr/local/lib:$HOME/.gem/ruby/2.2.0/bin
+## Exports
+
+# Path
+export PATH=$PATH:$HOME/Programming/git/school/DATX02_BsC_Thesis/ignored/upos/bin:$HOME/.cabal/bin:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:opt/local/bin:/sbin:/usr/local/lib:$HOME/.gem/ruby/2.2.0/bin:/opt/intel/bin
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -46,6 +48,7 @@ PROMPT="%{$fg_bold[blue]%}%n%{$fg[magenta]%}@%{$fg_no_bold[cyan]%}%m %{$fg_no_bo
 source /home/erik/Programming/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## Functions
+
 # Make directory and cd into it.
 mkcd() {
     mkdir -p "$1"
@@ -84,7 +87,9 @@ alias xpw="pwd|xclip -selection clipboard"
 alias ytdl="youtube-dl --prefer-free-formats"
 alias ytdlm="youtube-dl -x"
 alias ytdlmp="youtube-dl -x --yes-playlist"
-alias quote="clear && fortune -a | cowsay"
+alias quote="clear && fortune -a | cowsay -f tux"
+alias pdfpres="qpdfpresenterconsole"
+alias telegram="telegram-cli -N -l 1"
 
 # System
 alias lock="i3lock-fancy -p"
@@ -93,6 +98,7 @@ alias mountmedia="sudo mount.nfs 192.168.0.89:/mnt/volume1/media /home/erik/Medi
 alias pms="sudo pm-suspend"
 alias shn="sudo shutdown -h now"
 alias spy="sudo pacman -Syu"
+alias bground="feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*&"
 
 # Temporary
 alias jdot="java Main >> /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot && dot -Tpng /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot -o /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.png"

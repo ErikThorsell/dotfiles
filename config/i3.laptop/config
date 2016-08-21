@@ -23,9 +23,9 @@ bindsym Mod4+Shift+d exec dmenu_run -i
 bindsym Mod4+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
-# bindsym Mod4+s layout stacking
-# bindsym Mod4+w layout tabbed
-# bindsym Mod4+e layout toggle split
+#bindsym Mod4+z layout stacking
+#bindsym Mod4+w layout tabbed
+#bindsym Mod4+w layout toggle split
 
 # toggle tiling / floating
 bindsym Mod4+Shift+space floating toggle

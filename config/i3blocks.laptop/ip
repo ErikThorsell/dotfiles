@@ -1,0 +1,18 @@
+#!/bin/bash
+
+INTERFACE="${1:-}"
+LABEL="${2:-IP}"
+LABEL=""
+
+state="$(cat /sys/class/net/$INTERFACE/operstate)"
+
+if [ "$state" != "up" ]; then
+	echo "$LABEL: down"
+	echo "$LABEL: down"
+	echo "#FF0000"
+	exit 0
+fi
+
+ipaddr=$(wget http://ipinfo.io/ip -qO -)
+
+echo "$LABEL  $ipaddr"

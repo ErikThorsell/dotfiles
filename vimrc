@@ -28,6 +28,7 @@ set tabstop=4                   "How many columns does a tab count for.
 set list                        "Display some nonprintable characters.
 set listchars=tab:.\ ,trail:-   "Select what characters to display.
 set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
+inoremap <S-Tab> <C-V><Tab>
 
 
 """"""""""""""""""""""""""""""""""Remaps"""""""""""""""""""""""""""""""""""""""
@@ -45,7 +46,7 @@ noremap <C-t> :tabedit<Space>
 "noremap <C-s> :spellgood<Space>
 
 "" Delete trailing whitespace
-:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 "" f7 to cycle spell
 nnoremap <F7> :call CycleSpell()<CR>

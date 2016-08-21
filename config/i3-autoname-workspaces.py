@@ -51,6 +51,8 @@ WINDOW_ICONS = {
     'Thunderbird': FA_ENVELOPE_O,
     'thunderbird': FA_ENVELOPE_O,
     'Telegram' : FA_PAPER_PLANE_O,
+    'telegram' : FA_PAPER_PLANE_O,
+    'telegram-desktop' : FA_PAPER_PLANE_O,
     'Mathematica' : FA_CONNECTDEVELOP,
     'Weechat' : FA_COMMENT_O
 }
