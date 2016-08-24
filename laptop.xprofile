@@ -1,0 +1,7 @@
+setxkbmap svorak
+setxkbmap -option caps:swapescape 
+numlockx
+xsetroot -solid black
+xset r rate 200 70
+xset s off
+xset -dpms

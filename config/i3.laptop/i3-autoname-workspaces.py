@@ -1,0 +1,1 @@
+/home/erik/pkg/dotfiles/config/i3-autoname-workspaces.py

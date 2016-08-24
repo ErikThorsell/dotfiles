@@ -94,9 +94,9 @@ bindsym XF86Explorer exec synclient TouchpadOff=$(synclient -l | grep -c 'Touchp
 # change: bindsym Mod4+1 workspace 1 > bindsym Mod4+1 workspace number 1
 # and similarly for all workspaces. You also need Awesome Font and i3ipc
 # installed.
-exec /home/erik/Programming/git/dotfiles/config/i3-autoname-workspaces.py &
+exec /home/erik/.config/i3/i3-autoname-workspaces.py &
 # For some reason the script stops running after suspend. Restart with >
-bindsym Mod4+Mod1+a exec /home/erik/Programming/git/dotfiles/config/i3-autoname-workspaces.py &
+bindsym Mod4+Mod1+a exec /home/erik/.config/i3/i3-autoname-workspaces.py &
 
 bindsym Mod4+1 workspace number 1
 bindsym Mod4+2 workspace number 2

@@ -1,16 +1,8 @@
 # History
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=SAVEHIST=99999
-setopt APPEND_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_FCNTL_LOCK
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_STORE
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_VERIFY
-setopt INC_APPEND_HISTORY
+setopt appendhistory autocd extendedglob nomatch
+unsetopt beep notify
 
 # Completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}'
@@ -20,13 +12,13 @@ zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' menu select
 
-autoload -U compinit
+zstyle :compinstall filename '/home/erik/.zshrc'
+autoload -Uz compinit
 compinit
 
 ## Exports
 
 # Path
-export PATH=$PATH:$HOME/Programming/git/school/DATX02_BsC_Thesis/ignored/upos/bin:$HOME/.cabal/bin:$HOME/Pkg/nvidia-utils-beta:$HOME/Pkg/Telegram:opt/local/bin:/sbin:/usr/local/lib:$HOME/.gem/ruby/2.2.0/bin:/opt/intel/bin
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -45,7 +37,7 @@ promptinit
 
 # Configure prompt
 PROMPT="%{$fg_bold[blue]%}%n%{$fg[magenta]%}@%{$fg_no_bold[cyan]%}%m %{$fg_no_bold[yellow]%}%~ %{$reset_color%}>%"
-source /home/erik/Programming/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## Functions
 
