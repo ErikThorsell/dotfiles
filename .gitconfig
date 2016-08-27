@@ -1,5 +1,0 @@
-[user]
-	name = Erik Thorsell
-	email = erithor@student.chalmers.se
-[credential]
-	helper = cache --timeout=3600
