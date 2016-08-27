@@ -27,7 +27,6 @@ set shiftwidth=4
 set tabstop=4                   "How many columns does a tab count for.
 set list                        "Display some nonprintable characters.
 set listchars=tab:.\ ,trail:-   "Select what characters to display.
-set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 
 
 """"""""""""""""""""""""""""""""""Remaps"""""""""""""""""""""""""""""""""""""""

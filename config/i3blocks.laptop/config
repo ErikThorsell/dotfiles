@@ -26,13 +26,12 @@ min_width=30
 color=#1aa12a
 separator=true
 
-# If you use ZFS this doesn't really tell you anything.
-#[memory]
-#label=RAM
-#command=/home/erik/.config/i3blocks/memory
-#interval=30
-#color=#7a87ec
-#separator=false
+[memory]
+label=RAM
+command=/home/erik/.config/i3blocks/memory
+interval=30
+color=#7a87ec
+separator=false
 
 [disk-root]
 label=Disk
@@ -42,20 +41,21 @@ color=#7a87ec
 separator=true
 
 [wireless]
-label=W
+label=W:
 instance=wlp3s0
 command=/home/erik/.config/i3blocks/network wlp3s0
 color=#00FF00
 interval=10
 
 [ethernet]
-label=E
+label=E:
 instance=enp0s25
 command=/home/erik/.config/i3blocks/network enp0s25
 color=#00FF00
 interval=10
 
 [public]
+label=P:
 command=/home/erik/.config/i3blocks/ip wlp3s0
 color=#E55D00
 interval=600

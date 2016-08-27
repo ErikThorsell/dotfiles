@@ -21,8 +21,8 @@ LABEL="${2:-IP}"
 state="$(cat /sys/class/net/$INTERFACE/operstate)"
 
 if [ "$state" != "up" ]; then
-	echo "$LABEL: down"
-	echo "$LABEL: down"
+	echo "$LABEL down"
+	echo "$LABEL down"
 	echo "#FF0000"
 	exit 0
 fi
@@ -33,8 +33,8 @@ ipaddr="$(ip addr show $INTERFACE | perl -n -e'/inet (.+)\// && print $1')"
 ipaddr="${ipaddr:-0.0.0.0}"
 
 # full text
-echo -n "$LABEL: $ipaddr"
+echo -n "$LABEL $ipaddr"
 [ -n "$speed" ] && echo " ($speed Mbits/s)" || echo
 
 # short text
-echo "$LABEL: $ipaddr"
+echo "$LABEL $ipaddr"
