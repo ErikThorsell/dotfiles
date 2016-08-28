@@ -35,25 +35,28 @@ FA_PAPER_PLANE_O = '\uf1d9'
 FA_CONNECTDEVELOP = '\uf20e'
 FA_COMMENT_O = '\uf0e5'
 WINDOW_ICONS = {
-    'terminator': FA_TERMINAL,
+    'chromium': FA_CHROME,
+    'clementine': FA_MUSIC,
+    'eog': FA_PICTURE_O,
+    'evince': FA_FILE_PDF_O,
+    'feh': FA_PICTURE_O,
+    'Firefox': FA_FIREFOX,
     'google-chrome': FA_CHROME,
-    'vim': FA_CODE,
+    'libreoffice': FA_FILE_TEXT_O,
+    'mupdf': FA_FILE_PDF_O,
+    'Mail': FA_ENVELOPE_O,
+    'Mathematica' : FA_CONNECTDEVELOP,
+    'nautilus': FA_FILES_O,
     'subl3': FA_CODE,
     'spotify': FA_SPOTIFY,
-    'Firefox': FA_FIREFOX,
-    'libreoffice': FA_FILE_TEXT_O,
-    'feh': FA_PICTURE_O,
-    'eog': FA_PICTURE_O,
-    'mupdf': FA_FILE_PDF_O,
-    'evince': FA_FILE_PDF_O,
-    'nautilus': FA_FILES_O,
-    'Mail': FA_ENVELOPE_O,
+    'terminator': FA_TERMINAL,
     'Thunderbird': FA_ENVELOPE_O,
     'thunderbird': FA_ENVELOPE_O,
     'Telegram' : FA_PAPER_PLANE_O,
     'telegram' : FA_PAPER_PLANE_O,
     'telegram-desktop' : FA_PAPER_PLANE_O,
     'Mathematica' : FA_CONNECTDEVELOP,
+    'vim': FA_CODE,
     'Weechat' : FA_COMMENT_O
 }
 

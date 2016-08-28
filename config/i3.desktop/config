@@ -92,6 +92,8 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 # and similarly for all workspaces. You also need Awesome Font and i3ipc
 # installed.
 exec /home/erik/programming/git/dotfiles/config/i3-autoname-workspaces.py &
+# For some reason suspends causes the script to stop working. Restart w >
+bindsym Mod4+Mod1+a exec /home/erik/programming/git/dotfiles/config/i3-autoname-workspaces.py &
 
 # switch to workspace
 bindsym Mod4+1 workspace number 1
