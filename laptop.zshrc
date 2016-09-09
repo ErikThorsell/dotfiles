@@ -17,6 +17,7 @@ autoload -Uz compinit
 compinit
 
 ## Exports
+export BROWSER=/usr/bin/firefox
 
 # Path
 
@@ -86,11 +87,18 @@ alias telegram="telegram-cli -N -l 1"
 # System
 alias lock="i3lock-fancy -p"
 alias mountbackup="sudo rpcbind && sudo mount.nfs 192.168.0.89:/mnt/volume1/backup ~/Backup"
-alias mountmedia="sudo mount.nfs 192.168.0.89:/mnt/volume1/media /home/erik/Media"
 alias pms="sudo pm-suspend"
 alias shn="sudo shutdown -h now"
 alias spy="sudo pacman -Syu"
 alias bground="feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*&"
+
+# Docking
+alias dmount="sudo mount freenas:/mnt/volume1/media /home/erik/media"
+alias dumount="sudo umount /home/erik/media"
+alias dxon="xrandr --output DP2-1 --mode 2560x1440 --pos 1920x-720 --rotate normal"
+alias dxoff="xrandr --output DP2-1 --off"
+alias dock="dmount && dxon && sh .xprofile"
+alias undock="dumount && dxoff"
 
 # Temporary
 alias jdot="java Main >> /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot && dot -Tpng /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot -o /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.png"

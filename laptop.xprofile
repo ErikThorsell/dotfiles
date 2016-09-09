@@ -1,6 +1,6 @@
 setxkbmap svorak
 setxkbmap -option caps:swapescape 
-xsetroot -solid black
 xset r rate 200 70
 xset s off
 xset -dpms
+feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*&
