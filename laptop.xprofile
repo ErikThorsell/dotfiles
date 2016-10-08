@@ -3,4 +3,3 @@ setxkbmap -option caps:swapescape
 xset r rate 200 70
 xset s off
 xset -dpms
-feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*&

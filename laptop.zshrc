@@ -1,20 +1,20 @@
-# History
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=SAVEHIST=99999
-setopt appendhistory autocd extendedglob nomatch
-unsetopt beep notify
-
-# Completion
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
-zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
-zstyle ':completion:*' special-dirs true
-zstyle ':completion:*' menu select
-
+zstyle ':completion:*' completer _complete _ignored
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '/home/erik/.zshrc'
+
 autoload -Uz compinit
 compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory nomatch notify
+unsetopt autocd beep extendedglob
+bindkey -v
+# End of lines configured by zsh-newuser-install
 
 ## Exports
 export BROWSER=/usr/bin/firefox
