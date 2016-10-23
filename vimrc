@@ -1,8 +1,15 @@
 """"""""""""""""""""""""""""Welcome, you are awaited"""""""""""""""""""""""""""
 
+" Get rid of VI behaviour
+set nocompatible
+
 " File recognition
 filetype plugin on
 let g:tex_flavor = "latex"
+
+" Enable tab completion
+set path+=**
+set wildmenu
 
 " Eye goodies
 set number                      "Display line numbers.

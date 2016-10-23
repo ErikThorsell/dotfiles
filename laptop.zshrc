@@ -71,6 +71,7 @@ alias open="xdg-open"
 alias s="sudo"
 
 # Programs
+alias calc="eru.pl"
 alias newbg="feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*"
 alias matrix="cmatrix -b"
 alias train="sl -ac"
@@ -83,17 +84,16 @@ alias ytdlmp="youtube-dl -x --yes-playlist"
 alias quote="clear && fortune -a | cowsay -f tux"
 alias pdfpres="qpdfpresenterconsole"
 alias telegram="telegram-cli -N -l 1"
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
 # System
 alias lock="i3lock-fancy -p"
-alias mountbackup="sudo rpcbind && sudo mount.nfs 192.168.0.89:/mnt/volume1/backup ~/Backup"
-alias pms="sudo pm-suspend"
-alias shn="sudo shutdown -h now"
-alias spy="sudo pacman -Syu"
-alias bground="feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*&"
+alias pms="systemctl suspend"
+alias shn="dumount && dxoff && sudo shutdown -h now"
+alias bground="feh --bg-scale /home/erik/Pictures/bgrounds/low_polygon4.jpg&"
 
 # Docking
-alias dmount="sudo mount freenas:/mnt/volume1/media /home/erik/media"
+alias dmount="sudo mount 192.168.1.14:/mnt/volume1/media /home/erik/media"
 alias dumount="sudo umount /home/erik/media"
 alias dxon="xrandr --output DP2-1 --mode 2560x1440 --pos 1920x-720 --rotate normal"
 alias dxoff="xrandr --output DP2-1 --off"
@@ -101,4 +101,3 @@ alias dock="dmount && dxon && sh .xprofile"
 alias undock="dumount && dxoff"
 
 # Temporary
-alias jdot="java Main >> /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot && dot -Tpng /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.dot -o /home/erik/Programming/git/school/ENM155_Modelling_ESystems/graphs/graph.png"

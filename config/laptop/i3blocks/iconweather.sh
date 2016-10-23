@@ -11,7 +11,7 @@ fi
 
 case $BLOCK_BUTTON in
   2) set locCode="EUR|SE|41279|GOTHENBURG" ;;
-  3) set locCode="US|MD|20740|GREENBELT" ;;
+  3) set locCode="US|VA|20171|HERNDON" ;;
 esac
 
 curl -s http://rss.accuweather.com/rss/liveweather_rss.asp\?metric\=${METRIC}\&locCode\=$1 | perl -ne 'use utf8; if (/Currently/) {chomp;/\<title\>Currently: (.*)?\<\/title\>/; my @values=split(":",$1); if( $values[0] eq "Sunny" || $values[0] eq "Mostly Sunny" || $values[0] eq "Partly Sunny" || $values[0] eq "Intermittent Clouds" || $values[0] eq "Hazy Sunshine" || $values[0] eq "Hazy Sunshine" || $values[0] eq "Hot") 

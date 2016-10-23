@@ -21,22 +21,22 @@
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False
-  [[dark_mocha]]
-    palette = "#3b3228:#cb6077:#beb55b:#f4bc87:#8ab3b5:#a89bb9:#7bbda4:#d0c8c6:#7e705a:#cb6077:#beb55b:#f4bc87:#8ab3b5:#a89bb9:#7bbda4:#f5eeeb"
-    foreground_color = "#d0c8c6"
-    background_color = "#3b3228"
-    cursor_color = "#d0c8c6"
-    cursor_shape = underline
-    icon_bell = False
-    scrollback_infinite = True
-    scrollbar_position = hidden
-    show_titlebar = False
- [[bright_solarized]]
+  [[bright_solarized]]
     background_color = "#fdf6e3"
     background_image = None
     cursor_shape = underline
     foreground_color = "#657b83"
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollback_infinite = True
+    scrollbar_position = hidden
+    show_titlebar = False
+  [[weechat]]
+    background_color = "#030303"
+    background_image = None
+    cursor_shape = underline
+    foreground_color = "#d5d5d5"
+    icon_bell = False
+    palette = "#7b98a2:#8f9771:#836fad:#aa7553:#749fad:#9fab75:#a1af71:#c5d3b6:#7b98a2:#8f9771:#836fad:#aa7553:#749fad:#9fab75:#a1af71:#d8976e"
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False

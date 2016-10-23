@@ -6,7 +6,10 @@ LABEL="${2:-}"
 
 state="$(cat /sys/class/net/$INTERFACE/operstate)"
 
-if [ "$state" != "up" ]; then
+wifi="$(cat /sys/class/net/wlp3s0/operstate)"
+ethernet="$(cat /sys/class/net/enp0s25/operstate)"
+
+if [ "$wifi" != "up" and "$ethernet" != "up" ]; then
 	echo "$LABEL down"
 	echo "$LABEL down"
 	echo "#FF0000"
