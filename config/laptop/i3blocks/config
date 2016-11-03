@@ -54,11 +54,11 @@ command=/home/erik/.config/i3blocks/network enp0s25
 color=#00FF00
 interval=10
 
-[public]
-label=P:
-command=/home/erik/.config/i3blocks/ip wlp3s0
-color=#E55D00
-interval=600
+#[public]
+#label=P:
+#command=/home/erik/.config/i3blocks/ip wlp3s0
+#color=#E55D00
+#interval=600
 
 [upload]
 label=↑
