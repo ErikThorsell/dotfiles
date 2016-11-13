@@ -19,6 +19,7 @@ bindkey -v
 ## Exports
 export BROWSER=/usr/bin/firefox
 export CLASSPATH=.:~/pkg/javatools/:~/pkg/javatools/Cup:${CLASSPATH}
+export PATH=:$HOME/.cargo/bin:${PATH}
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -52,9 +53,6 @@ bindkey "^[[3~" delete-char
 ## Aliases
 # Common
 alias ..="cd .."
-alias cdsi="cd ~/Storage/Dropbox/Chalmers/Supplemental\ Instructions/SI-Pass/Matematisk\ Analys"
-alias cdcte="cd /home/erik/ownCloud/Chalmers/CTE031/report"
-alias cdkan="cd /home/erik/Programming/git/school/DATX02_BsC_Thesis"
 alias cdnevs="cd /home/erik/ownCloud/NEVS"
 alias clr="clear"
 alias clrerl="rm *.beam"
@@ -85,6 +83,7 @@ alias quote="clear && fortune -a | cowsay -f tux"
 alias pdfpres="qpdfpresenterconsole"
 alias telegram="telegram-cli -N -l 1"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+alias livestreamer="livestreamer --http-header Client-ID=jzkbprff40iqj646a697cyrvl0zt2m6"
 
 # System
 alias lock="i3lock-fancy -p"
