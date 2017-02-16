@@ -1,10 +1,17 @@
 [global_config]
+  broadcast_default = off
+  homogeneous_tabbar = False
+  inactive_color_offset = 1.0
+  scroll_tabbar = True
+  title_font = Ubuntu Mono 9
+  title_use_system_font = False
 [keybindings]
   layout_launcher = <Primary><Shift><Alt>l
 [layouts]
   [[default]]
     [[[child1]]]
       parent = window0
+      profile = default
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -13,30 +20,39 @@
 [profiles]
   [[default]]
     background_color = "#2b303b"
-    background_image = None
+    cursor_color = "#c0c5ce"
+    cursor_color_fg = False
     cursor_shape = underline
+    font = Ubuntu Mono 12
     foreground_color = "#c0c5ce"
     icon_bell = False
-    palette = "#2b303b:#bf616a:#a3be8c:#ebcb8b:#8fa1b3:#b48ead:#96b5b4:#c0c5ce:#65737e:#bf616a:#a3be8c:#ebcb8b:#8fa1b3:#b48ead:#96b5b4:#eff1f5"
+    palette = "#2b303b:#bf616a:#a3be8c:#ebcb8b:#8fa1b3:#b48ead:#96b5b4:#1e355e:#65737e:#bf616a:#a3be8c:#ebcb8b:#8fa1b3:#b48ead:#96b5b4:#eff1f5"
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False
+    use_system_font = False
   [[bright_solarized]]
     background_color = "#fdf6e3"
-    background_image = None
+    cursor_color = "#657b83"
     cursor_shape = underline
     foreground_color = "#657b83"
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False
-  [[weechat]]
-    background_color = "#030303"
-    background_image = None
-    cursor_shape = underline
-    foreground_color = "#d5d5d5"
+  [[cmus]]
+    cursor_color = "#aaaaaa"
+    foreground_color = "#ffffff"
     icon_bell = False
-    palette = "#7b98a2:#8f9771:#836fad:#aa7553:#749fad:#9fab75:#a1af71:#c5d3b6:#7b98a2:#8f9771:#836fad:#aa7553:#749fad:#9fab75:#a1af71:#d8976e"
+    show_titlebar = False
+  [[weechat]]
+    cursor_color = "#d5d5d5"
+    cursor_shape = underline
+    font = Ubuntu Mono 13
+    foreground_color = "#ffffff"
+    icon_bell = False
+    palette = "#000000:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False
+    use_system_font = False
