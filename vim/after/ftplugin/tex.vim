@@ -9,5 +9,7 @@ nnoremap enum <esc>:.-1read ~/.res/latex/enumerate.tex<enter>j$a
 nnoremap fig <esc>:.-1read ~/.res/latex/figure.tex<enter>jj$i
 nnoremap tab <esc>:.-1read ~/.res/latex/table.tex<enter>jj$i
 nnoremap mini <esc>:.-1read ~/.res/latex/minipage.tex<enter>jj$i
+nnoremap optprob <esc>:.-1read ~/.res/latex/optprob.tex<enter>jj$i
+nnoremap lstset <esc>:.-1read ~/.res/latex/lstset.tex<enter>t$
 
 " one liners
