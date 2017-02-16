@@ -1,6 +1,7 @@
 zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' menu select=1
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '/home/erik/.zshrc'
 
@@ -48,6 +49,10 @@ mkcd() {
     cd "$1"
 }
 
+wcpdf() {
+    pdftotext "$1" - | wc -w
+}
+
 bindkey "^[[3~" delete-char
 
 ## Aliases
@@ -90,13 +95,14 @@ alias lock="i3lock-fancy -p"
 alias pms="systemctl suspend"
 alias shn="dumount && dxoff && sudo shutdown -h now"
 alias bground="feh --bg-scale /home/erik/Pictures/bgrounds/low_polygon4.jpg&"
+alias battery="sudo powertop --auto-tune"
 
 # Docking
 alias dmount="sudo mount 192.168.1.14:/mnt/volume1/media /home/erik/media"
 alias dumount="sudo umount /home/erik/media"
 alias dxon="xrandr --output DP2-1 --mode 2560x1440 --pos 1920x-720 --rotate normal"
 alias dxoff="xrandr --output DP2-1 --off"
-alias dock="dmount && dxon && sh .xprofile"
+alias dock="dmount && dxon && source ~/.xprofile"
 alias undock="dumount && dxoff"
 
 # Temporary
