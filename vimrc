@@ -14,7 +14,7 @@ set wildmenu
 " Eye goodies
 set number                      "Display line numbers.
 set ruler                       "Display the cursor position in the lower right.
-set relativenumber
+"set relativenumber             "Display current line as 0 and relative numbers from that. MAY CAUSE LAG!
 set showmatch
 hi CursorLine   cterm=NONE ctermbg=white
 hi CursorColumn cterm=NONE ctermbg=white
@@ -30,15 +30,15 @@ set textwidth=79
 " Tabbing
 set smartindent                 "Do smart autoindenting when starting a new line.
 set expandtab                   "Uses spaces instead of tabs.
-set shiftwidth=4
-set tabstop=4                   "How many columns does a tab count for.
+set shiftwidth=2
+set tabstop=2                   "How many columns does a tab count for.
 set list                        "Display some nonprintable characters.
 set listchars=tab:.\ ,trail:-   "Select what characters to display.
 set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 inoremap <S-Tab> <C-V><Tab>
 
 
-""""""""""""""""""""""""""""""""""Remaps"""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""Remaps"""""""""""""""""""""""""""""""""""""""
 " Chose leader key for simpler mapping
 let mapleader = ','
 map <leader>q gqap
@@ -50,7 +50,6 @@ inoremap <C-l> <Esc>:nohl<CR>
 
 " Faster console access
 noremap <C-t> :tabedit<Space>
-"noremap <C-s> :spellgood<Space>
 
 "" Delete trailing whitespace
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
