@@ -77,9 +77,9 @@ bindsym XF86AudioNext exec cmus-remote --next
 bindsym XF86AudioPrev exec cmus-remote --prev
 
 # Audio controls
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%-
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+
+bindsym XF86AudioMute exec amixer -q sset Master toggle
 
 # Brightness Controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
@@ -127,6 +127,9 @@ bindsym Mod4+Shift+0 move container to workspace number 10
 bindsym Mod4+m move workspace to DP2-1
 bindsym Mod4+Shift+m move workspace to eDP1
 
+# Make matlab figures float
+#for_window [class="MATLAB R2016b - academic use" instance="sun-awt-X11-XFramePeer" title="^Fig"] floating enable
+
 ###########
 # Cosmetics
 
@@ -159,7 +162,7 @@ exec --no-startup-id owncloud
 # Launch applications
 bindsym Mod4+c exec firefox
 bindsym Mod4+Mod1+Return exec terminator -c Weechat
-bindsym Mod4+Escape exec "i3lock-fancy -p"
+bindsym Mod4+Escape exec "i3lock -u -i /home/erik/Pictures/bgrounds/bground1.png"
 
 # Take printscreen with shutter
 bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/' 

@@ -59,7 +59,7 @@ bindkey "^[[3~" delete-char
 # Common
 alias ..="cd .."
 alias cdnevs="cd /home/erik/ownCloud/NEVS"
-alias clr="clear"
+alias clc="clear"
 alias clrerl="rm *.beam"
 alias clrj="rm *.class"
 alias clrtex="rm *.aux *.log"
@@ -96,6 +96,7 @@ alias pms="systemctl suspend"
 alias shn="dumount && dxoff && sudo shutdown -h now"
 alias bground="feh --bg-scale /home/erik/Pictures/bgrounds/low_polygon4.jpg&"
 alias battery="sudo powertop --auto-tune"
+alias qq="exit"
 
 # Docking
 alias dmount="sudo mount 192.168.1.14:/mnt/volume1/media /home/erik/media"

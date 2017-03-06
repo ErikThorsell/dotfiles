@@ -4,8 +4,9 @@
 set nocompatible
 
 " File recognition
-filetype plugin on
+filetype plugin indent on
 let g:tex_flavor = "latex"
+"let g:tex_fast = ""            "Makes relativenumber work (w/o lagging) but causes all right parentheses to be red-marked xD
 
 " Enable tab completion
 set path+=**
