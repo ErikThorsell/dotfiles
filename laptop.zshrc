@@ -2,7 +2,7 @@ zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
-zstyle ':completion:*:*:vim:*' file-patterns '^*.(out|aux|log|pdf):source-files' '*:all-files'
+zstyle ':completion:*:*:vim:*' file-patterns '^*.(class|out|aux|log|pdf):source-files' '*:all-files'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '/home/erik/.zshrc'
 
