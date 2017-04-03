@@ -2,7 +2,7 @@ zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
-zstyle ':completion:*:*:vim:*' file-patterns '^*.(class|out|aux|log|pdf):source-files' '*:all-files'
+zstyle ':completion:*:*:nvim:*' file-patterns '^*.(class|out|aux|log|pdf):source-files' '*:all-files'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '/home/erik/.zshrc'
 
@@ -25,9 +25,9 @@ export PATH=:$HOME/.cargo/bin:${PATH}
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
+    export EDITOR='nvim'
 else
-    export EDITOR='vim'
+    export EDITOR='nvim'
 fi
 
 # Enable colors
