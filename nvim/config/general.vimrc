@@ -1,29 +1,9 @@
-""""""""""""""""""""""""""""Welcome, you are awaited"""""""""""""""""""""""""""
-
-" Get rid of VI behaviour
-set nocompatible
-
-" File recognition
-filetype plugin indent on
-let g:tex_flavor = "latex"
-"let g:tex_fast = ""            "Makes relativenumber work (w/o lagging) but causes all right parentheses to be red-marked xD
-
-" Enable auto completion
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-" let g:deoplete#disable_auto_complete = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Enable tab completion
-set path+=**
-set wildmenu
-
+" $HOME/.config/nvim/config/general.vimrc
+"
 " Eye goodies
 set number                      "Display line numbers.
 set ruler                       "Display the cursor position in the lower right.
-"set relativenumber             "Display current line as 0 and relative numbers from that. MAY CAUSE LAG!
+set relativenumber             "Display current line as 0 and relative numbers from that. MAY CAUSE LAG!
 set showmatch
 hi CursorLine   cterm=NONE ctermbg=white
 hi CursorColumn cterm=NONE ctermbg=white
@@ -46,59 +26,12 @@ set listchars=tab:.\ ,trail:-   "Select what characters to display.
 set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 inoremap <S-Tab> <C-V><Tab>
 
+" Use an undo directory
+set undodir=$HOME/.config/nvim/undodir
+set undofile
+set undolevels=100
+set undoreload=1000
 
-"""""""""""""""""""""""""""""""""""Remaps"""""""""""""""""""""""""""""""""""""""
-" Chose leader key for simpler mapping
-let mapleader = ','
-map <leader>q gqap
-nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
-
-"Get rid of hl in normal and insert mode
-nnoremap <C-l> :nohl<CR>
-inoremap <C-l> <Esc>:nohl<CR>
-
-" Faster console access
-noremap <C-t> :tabedit<Space>
-
-"" Delete trailing whitespace
-nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-
-"" f7 to cycle spell
-nnoremap <F7> :call CycleSpell()<CR>
-inoremap <F7> <Esc>:call CycleSpell()<CR>a
-
-fun! CycleSpell()
-    let langs = ['', 'en', 'sv']
-
-    let i = index(langs, &spl)
-    let j = (i+1)%len(langs)
-    let &spl = langs[j]
-
-    if empty(&spl)
-        set nospell
-        echo "set nospell"
-    else
-        set spell
-        echo "spelllang="&spl
-    endif
-
-endfun
-
-" f9 to toggle paste
-nnoremap <f9> :set paste!<cr>
-inoremap <f9> <esc>:set paste!<cr>a
-
-" navigate through search resulst using m and M
-noremap m n
-noremap M N
-
-" use htns to navigate cursor
-" noremap h h
-noremap t j
-noremap n k
-noremap s l
-
-"""""""""""""""""""""""""""""""End of remaps"""""""""""""""""""""""""""""""""""
 " Vim split
 set wmh=0                       "Don't show ruler when minimized.
 
@@ -131,3 +64,9 @@ let g:rbpt_colorpairs = [
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 au bufreadpre,bufnewfile *.cf set ft=lbnf
+
+" detect .md as markdown instead of modula-2
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" stop highlighting of underscores in markdown files
+autocmd BufNewFile,BufRead,BufEnter *.md,*.markdown :syntax match markdownIgnore "_"
