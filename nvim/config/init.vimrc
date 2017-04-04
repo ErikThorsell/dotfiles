@@ -11,7 +11,7 @@ endif
 call plug#begin('$HOME/.config/nvim/plugged')
 
 Plug 'Shougo/deoplete.nvim'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 

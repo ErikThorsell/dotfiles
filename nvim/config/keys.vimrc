@@ -60,6 +60,3 @@ inoremap <silent><expr> <C-Space>
         return !col || getline('.')[col - 1]  =~ '\s'
     endfunction"}}}
 
-" Move to a variable definition using Tern
-autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
-
