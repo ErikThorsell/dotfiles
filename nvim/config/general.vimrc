@@ -5,8 +5,8 @@ set number                      "Display line numbers.
 set ruler                       "Display the cursor position in the lower right.
 set relativenumber             "Display current line as 0 and relative numbers from that. MAY CAUSE LAG!
 set showmatch
-hi CursorLine   cterm=NONE ctermbg=white
-hi CursorColumn cterm=NONE ctermbg=white
+hi CursorLine   cterm=NONE ctermbg=Black
+hi CursorColumn cterm=NONE ctermbg=Black
 
 " Text formatting
 set ignorecase                  "Ignore case in search patterns.
@@ -32,16 +32,26 @@ set undofile
 set undolevels=100
 set undoreload=1000
 
+" Do NOT enable mouse
+set mouse=c
+
 " Vim split
 set wmh=0                       "Don't show ruler when minimized.
 
 " Highlighting
+set t_Co=256
 set hlsearch
 syntax on
 highlight ColorColumn ctermbg=101010 ctermfg=Red
 let &colorcolumn=80
 let &colorcolumn=join(range(81,999),",")
 let &colorcolumn="80,".join(range(120,999),",")
+
+" Change of Spell* behave
+hi clear SpellBad
+hi SpellBad cterm=underline,bold ctermfg=red
+hi clear SpellCap
+hi SpellCap cterm=underline,bold ctermfg=blue
 
 " detect .md as markdown instead of modula-2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown

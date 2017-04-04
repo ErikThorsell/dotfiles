@@ -51,7 +51,14 @@ noremap n k
 noremap s l
 
 " make deoplete use tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <silent><expr> <C-Space>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+    function! s:check_back_space() abort "{{{
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
 
 " Move to a variable definition using Tern
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
