@@ -3,7 +3,7 @@
 " Eye goodies
 set number                      "Display line numbers.
 set ruler                       "Display the cursor position in the lower right.
-set relativenumber             "Display current line as 0 and relative numbers from that. MAY CAUSE LAG!
+"set relativenumber             "Display current line as 0 and relative numbers from that. MAY CAUSE LAG!
 set showmatch
 hi CursorLine   cterm=NONE ctermbg=Black
 hi CursorColumn cterm=NONE ctermbg=Black
@@ -14,7 +14,7 @@ set smartcase                   "Override the 'ignorecase' option if the search 
 set incsearch                   "While typing a search command, show where the pattern, as it was typed so far, matches.
 set nowrap
 set linebreak
-set textwidth=79
+set textwidth=80
 
 " Tabbing
 set smartindent                 "Do smart autoindenting when starting a new line.

@@ -1,6 +1,6 @@
 """"" LaTeX
 set wrap
-noremap <C-w><C-w> :w \| ! ./compile<Enter><Enter>
+noremap <C-w><C-w> :w \| call Compile()<CR>
 
 " res
 nnoremap new <Esc>ggdG:.-1read ~/.res/latex/default.tex<Enter>
@@ -12,4 +12,15 @@ nnoremap mini <esc>:.-1read ~/.res/latex/minipage.tex<enter>jj$i
 nnoremap optprob <esc>:.-1read ~/.res/latex/optprob.tex<enter>jj$i
 nnoremap lstset <esc>:.-1read ~/.res/latex/lstset.tex<enter>t$
 
-" one liners
+" Functions
+" Smart compile function that checks if comile script exsists:
+function! Compile()
+    if filereadable("compile.sh")
+        echo "Using compile script"
+        execute '!./compile.sh'
+    else
+        echo "Compiling with pdflatex"
+        execute '!pdflatex -shell-escape %'
+    endif
+endfunction
+

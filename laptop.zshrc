@@ -2,7 +2,7 @@ zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
-zstyle ':completion:*:*:nvim:*' file-patterns '^*.(class|out|aux|log|pdf):source-files' '*:all-files'
+zstyle ':completion:*:*:nvim:*' file-patterns '^*.(class|out|aux|log|pdf|bbl|blg|bib|xml|run):source-files' '*:all-files'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '/home/erik/.zshrc'
 
@@ -16,12 +16,14 @@ SAVEHIST=1000
 setopt appendhistory nomatch notify
 unsetopt autocd beep extendedglob
 bindkey -v
+bindkey '^R' history-incremental-search-backward
 # End of lines configured by zsh-newuser-install
 
 ## Exports
 export BROWSER=/usr/bin/firefox
 export CLASSPATH=.:~/pkg/javatools/:~/pkg/javatools/Cup:${CLASSPATH}
 export PATH=:$HOME/.cargo/bin:${PATH}
+export MANPAGER="nvim -c 'set ft=man' -"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -51,7 +53,7 @@ mkcd() {
 }
 
 wcpdf() {
-    pdftotext "$1" - | wc -w
+    pdftotext "$1" - | wc
 }
 
 bindkey "^[[3~" delete-char
@@ -100,7 +102,7 @@ alias battery="sudo powertop --auto-tune"
 alias qq="exit"
 
 # Docking
-alias dmount="sudo mount 192.168.1.14:/mnt/volume1/media /home/erik/media"
+alias dmount="sudo mount 192.168.1.111:/mnt/volume1/media /home/erik/media"
 alias dumount="sudo umount /home/erik/media"
 alias dxon="xrandr --output DP2-1 --mode 2560x1440 --pos 1920x-720 --rotate normal"
 alias dxoff="xrandr --output DP2-1 --off"
