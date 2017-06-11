@@ -20,9 +20,21 @@
     last = log -1 HEAD --format=format:"%Cred%H"
     history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
     graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
-	alias = config --get-regexp ^alias\\.
+    alias = config --get-regexp ^alias\\.
+    blame-plus = "!f() { git ls-tree -r -z --name-only HEAD -- $1 | xargs -0 -n1 git blame --line-porcelain HEAD |grep \"^author \"|sort|uniq -c|sort -nr ; }; f"
 
 [pull]
     rebase = true
+
 [core]
-    editor = vim
+    editor = nvim
+
+[merge]
+  tool = vimdiff
+
+[mergetool]
+  prompt = true
+
+[mergetool "vimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
