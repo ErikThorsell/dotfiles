@@ -17,7 +17,7 @@ set linebreak
 set textwidth=80
 
 " Tabbing
-set smartindent                 "Do smart autoindenting when starting a new line.
+"set smartindent                 "Do smart autoindenting when starting a new line.
 set expandtab                   "Uses spaces instead of tabs.
 set shiftwidth=4
 set tabstop=4                   "How many columns does a tab count for.
@@ -25,6 +25,16 @@ set list                        "Display some nonprintable characters.
 set listchars=tab:.\ ,trail:-   "Select what characters to display.
 set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
 inoremap <S-Tab> <C-V><Tab>
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+            \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
 
 " Use an undo directory
 set undodir=$HOME/.config/nvim/undodir
@@ -43,9 +53,9 @@ set t_Co=256
 set hlsearch
 syntax on
 highlight ColorColumn ctermbg=101010 ctermfg=Red
-let &colorcolumn=80
-let &colorcolumn=join(range(81,999),",")
-let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn=81
+let &colorcolumn=join(range(82,999),",")
+let &colorcolumn="81,".join(range(120,999),",")
 
 " Change of Spell* behave
 hi clear SpellBad
