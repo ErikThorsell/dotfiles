@@ -12,6 +12,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'vim-airline/vim-airline'
+Plug 'rhysd/vim-crystal'
 
 call plug#end()
 
