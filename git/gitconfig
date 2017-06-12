@@ -3,25 +3,33 @@
     name = Erik Thorsell
 
 [alias]
+
+##### Commit oriented aliases
+    amend = commit --amend
+    discard = checkout --
+    precommit = diff --cached --diff-algorithm=minimal -w
     save = commit -m
     saveall = commit -a
-    precommit = diff --cached --diff-algorithm=minimal -w
+    uncommit = reset --mixed HEAD~
+    unstage = reset -q HEAD --
+
+##### Merge oriented aliases
     branches = branch -a
-    tags = tag
     solved = rebase --continue
     stashes = stash list
-    unstage = reset -q HEAD --
-    discard = checkout --
-    uncommit = reset --mixed HEAD~
-    amend = commit --amend
-    authors = shortlog -s -n
+    tags = tag
     unmerged = diff --name-only --diff-filter=U
-    remotes = remote -v
-    last = log -1 HEAD --format=format:"%Cred%H"
-    history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
-    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
-    alias = config --get-regexp ^alias\\.
+
+##### Info/Status oriented aliases
+    authors = shortlog -s -n
     blame-plus = "!f() { git ls-tree -r -z --name-only HEAD -- $1 | xargs -0 -n1 git blame --line-porcelain HEAD |grep \"^author \"|sort|uniq -c|sort -nr ; }; f"
+    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+    history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
+    last = log -1 HEAD --format=format:"%Cred%H"
+    remotes = remote -v
+
+##### Alias oriented aliases
+    alias = config --get-regexp ^alias\\.
 
 [pull]
     rebase = true
@@ -30,10 +38,10 @@
     editor = nvim
 
 [merge]
-  tool = vimdiff
+    tool = vimdiff
 
 [mergetool]
-  prompt = true
+    prompt = false
 
 [mergetool "vimdiff"]
   cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
