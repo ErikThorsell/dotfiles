@@ -11,8 +11,9 @@ endif
 call plug#begin('$HOME/.config/nvim/plugged')
 
 Plug 'Shougo/deoplete.nvim'
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
 Plug 'rhysd/vim-crystal'
+Plug 'amjith/git-vim'
 
 call plug#end()
 
