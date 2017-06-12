@@ -15,6 +15,13 @@ noremap <C-t> :tabedit<Space>
 "" Delete trailing whitespace
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
+"" Toggle windows with Leader + Number
+let i = 1
+while i <= 9
+    execute 'nnoremap <Leader>' . i . ' :' . i . 'wincmd w<CR>'
+    let i = i + 1
+endwhile
+
 "" f7 to cycle spell
 nnoremap <F7> :call CycleSpell()<CR>
 inoremap <F7> <Esc>:call CycleSpell()<CR>a
