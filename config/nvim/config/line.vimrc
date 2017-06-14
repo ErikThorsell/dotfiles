@@ -1,45 +1,66 @@
-" $HOME/.config/nvim/config/line.vimrc
-"
-" all status line configuration goes here
-"set cmdheight=1
-"set display+=lastline
-"
-"" general config
-"set laststatus=2        " always show status line
-"set showtabline=2       " always show tabline
-"set noshowmode          " hide default mode text (e.g. INSERT) as airline already displays it
-"
-"" airline config
-"let g:airline#extensions#tabline#enabled = 1        " buffers at the top as tabs
-"let g:airline#extensions#tabline#show_tabs = 0      " puts ``tab m/n'' instead of name of tab in right corner
-"let g:airline#extensions#tabline#show_tab_type = 0  " disallows ``buffers'' to appear in top right corner
-"let g:airline#extensions#tabline#show_splits = 0    " display open splits per tab
-"
-"
-"" symbols
-"if !exists('g:airline_symbols')
-"  let g:airline_symbols = {}
-"endif
-"
-"let g:airline_symbols.linenr = ''
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.readonly = ''
-
-
 "statusline
 
-hi StatusLine term=bold cterm=bold ctermfg=White ctermbg=235
-hi StatusEnd term=bold cterm=bold ctermfg=107 ctermbg=235 guifg=#799d6a
-hi StatusGitBranch term=bold cterm=bold ctermfg=215 ctermbg=235 guifg=#ffb964
+" enable tabline and statusline
+set tabline="%1T"
+set laststatus=2
 
-function! MyGitBranchStyle()
-    let branch = GitBranch()
-    if branch == ''
-        let branchStyle = ''
+"disable showmode
+set noshowmode
+
+" set colors to use | color table -> http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+hi Mode             term=bold cterm=bold ctermfg=190   ctermbg=235
+hi Numbers          term=bold cterm=bold ctermfg=15    ctermbg=235
+hi BufferAndWindow  term=None cterm=None ctermfg=15    ctermbg=235
+hi GitInfo          term=Bold cterm=Bold ctermfg=198   ctermbg=235
+hi FilePath         term=None cterm=None ctermfg=7     ctermbg=235
+hi FileType         term=None cterm=None ctermfg=7     ctermbg=235
+hi Divider          term=Bold cterm=Bold ctermfg=198   ctermbg=235
+hi Space            term=None cterm=None ctermfg=None  ctermbg=235
+hi Warning          term=Bold cterm=Bold ctermfg=0     ctermbg=Red
+
+" Automatically change the statusline color depending on mode
+function! ChangeStatuslineColor()
+    if (mode() ==? 'n' || mode() ==? 'no')
+        exe 'hi! Mode term=Bold cterm=Bold ctermfg=190 ctermbg=235'
+    elseif (mode() ==? 'v' || mode() ==? 'V' || mode() ==? '')
+        exe 'hi! Mode term=Bold cterm=Bold ctermfg=198 ctermbg=235'
+    elseif (mode() ==? 'i' || mode() ==? 'R')
+        exe 'hi! Mode term=Bold cterm=Bold ctermfg=39 ctermbg=235'
     else
-        let branchStyle = 'git:' . branch
-    end
-    return branchStyle
+        exe 'hi! Mode term=Bold cterm=Bold ctermfg=15 ctermbg=235'
+    endif
+    return ''
+endfunction
+
+" Find out current buffer's size and output it.
+function! FileSize()
+  let bytes = getfsize(expand('%:p'))
+  if (bytes >= 1024)
+    let kbytes = bytes / 1024
+  endif
+  if (exists('kbytes') && kbytes >= 1000)
+    let mbytes = kbytes / 1000
+  endif
+
+  if bytes <= 0
+    return '0'
+  endif
+
+  if (exists('mbytes'))
+    return mbytes . 'MB '
+  elseif (exists('kbytes'))
+    return kbytes . 'KB '
+  else
+    return bytes . 'B '
+  endif
+endfunction
+
+function! GitInfo()
+  let git = fugitive#head()
+  if git != ''
+    return ''.fugitive#head().''
+  else
+    return ''
 endfunction
 
 function! WindowNumber()
@@ -47,8 +68,23 @@ function! WindowNumber()
     return str
 endfunction
 
-set laststatus=2
-"set statusline=%#StatusLine#%F%h%m%r\ %h%w%y\ col:%c\ lin:%l\,%L\ buf:%n\ win:%{WindowNumber()}\ reg:%{v:register}\ %#StatusGitBranch#%{MyGitBranchStyle()}\ \%=%#StatusLine#%{strftime(\"%d/%m/%Y-%H:%M\")}\ %#StatusHostname#%{hostname()}
-"set statusline=%#StatusLine#%F%h%m%r\ %h%w%y\ %=%#StatusGitBranch#%{MyGitBranchStyle()}\ \%=col:%c\ lin:%l\,%L\ buf:%n\ win:%{WindowNumber()}\ reg:%{v:register}}
-set statusline=%#StatusLine#%F%h%m%r\ %=%#StatusGitBranch#%{MyGitBranchStyle()}\ \%=%#StatusEnd#col:%c\ lin:%l\/%L\ buf:%n\ win:%{WindowNumber()}\ reg:%{v:register}
+set statusline =
+set statusline+=%{ChangeStatuslineColor()}                          " mode color
+set statusline+=%#Mode#\%3{toupper(mode())}\                        " current mode
+set statusline+=%#Divider#\|                                        " divider
+set statusline+=%#BufferAndWindow#\ b:%n\                           " buffernr
+set statusline+=%#BufferAndWindow#\ w:%{WindowNumber()}\            " windownr
+set statusline+=%#Divider#\|                                        " divider
+set statusline+=%#FilePath#\ %<%F\                                  " file path
+set statusline+=%#FilePath#\ %4m\                                   " modified
+set statusline+=%#Space#\ %=                                        " space
+set statusline+=%#Warning#%{v:warningmsg}                           " warnings
+set statusline+=%#Space#\ %=                                        " space
+set statusline+=%#GitInfo#\ %{GitInfo()}\                           " git
+set statusline+=%#Space#\ %=                                        " space
+set statusline+=%#FileType#\ %y\                                    " file type
+set statusline+=%#FileType#\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\    " encoding & fileformat
+set statusline+=%#FileType#\ %-3(%{FileSize()}%)                    " file size
+set statusline+=%#Numbers#\%4l\/%-4L\                               " row/rownr
+set statusline+=%#Numbers#\%3c\                                     " columnnr
 
