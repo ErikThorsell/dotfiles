@@ -27,8 +27,8 @@ bindsym Mod4+Shift+d exec dmenu_run -i
 bindsym Mod4+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
-#bindsym Mod4+s layout stacking
-bindsym Mod4+Shift+z layout tabbed
+#bindsym Mod4+s layout tabbed
+bindsym Mod4+Shift+z layout stacking
 bindsym Mod4+z layout toggle split
 
 # toggle tiling / floating
@@ -165,13 +165,11 @@ exec --no-startup-id owncloud
 # Launch applications
 bindsym Mod4+c exec firefox
 bindsym Mod4+Mod1+Return exec terminator -c Weechat
-bindsym Mod4+Escape exec "i3lock -u -i /home/erik/Pictures/bgrounds/bground1.png"
+bindsym Mod4+Shift+Escape exec "i3lock -u -i /home/erik/Pictures/bgrounds/bground1.png"
 
-# Take printscreen with shutter
-bindsym --release Print exec shutter --min_at_startup -n -s -e -o '~/Pictures/screenshots/%Y-%m-%d-$T-$wx$h.png'
-bindsym --release Mod4+Print exec shutter --min_at_startup -n -f -e -o '~/Pictures/screenshots/%Y-%m-%d-$T-$wx$h.png'
-#bindsym --release Print exec scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/' 
-#bindsym --release Mod4+Print exec scrotpush
+# PrintScreen to clipboard using gnome-screenshot
+bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
+bindsym --release Mod4+Print exec scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
 
 ###############################################################################
 # Toggle between keyboard layouts
