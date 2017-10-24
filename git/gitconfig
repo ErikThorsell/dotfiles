@@ -38,7 +38,8 @@
     editor = nvim
 
 [merge]
-    tool = vimdiff
+#    tool = vimdiff
+    tool = meld
 
 [mergetool]
     prompt = false
@@ -46,3 +47,8 @@
 [mergetool "vimdiff"]
   cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
+[mergetool "meld"]
+    cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+
+[rerere]
+    enabled = true
