@@ -68,8 +68,26 @@ function! WindowNumber()
     return str
 endfunction
 
+" `Smart` wordcount (works for LaTeX)
+let g:word_count="<unknown>"
+function WordCount()
+    return g:word_count
+endfunction
+
+function! UpdateWordCount()
+    let filename = expand("%")
+    let cmd = "detex " . filename . " | wc -w | tr -d '[:space:]'"
+    let result = system(cmd)
+    let g:word_count = result
+endfunction
+
+set updatetime=1000
+augroup WordCounter
+    au! CursorHold,CursorHoldI * call UpdateWordCount()
+augroup END
+
 set statusline =
-set statusline+=%{ChangeStatuslineColor()}                          " mode color
+"set statusline+=%{ChangeStatuslineColor()}                          " mode color
 set statusline+=%#Mode#\%3{toupper(mode())}\                        " current mode
 set statusline+=%#Divider#\|                                        " divider
 set statusline+=%#BufferAndWindow#\ b:%n\                           " buffernr
@@ -79,12 +97,18 @@ set statusline+=%#FilePath#\ %<%F\                                  " file path
 set statusline+=%#FilePath#\ %4m\                                   " modified
 set statusline+=%#Space#\ %=                                        " space
 set statusline+=%#Warning#%{v:warningmsg}                           " warnings
+" added from syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+" added from syntastic
 set statusline+=%#Space#\ %=                                        " space
 set statusline+=%#GitInfo#\ %{GitInfo()}\                           " git
 set statusline+=%#Space#\ %=                                        " space
 set statusline+=%#FileType#\ %y\                                    " file type
 set statusline+=%#FileType#\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\    " encoding & fileformat
 set statusline+=%#FileType#\ %-3(%{FileSize()}%)                    " file size
+set statusline+=\(%{WordCount()}\ w)                                  " word count in latex files
 set statusline+=%#Numbers#\%4l\/%-4L\                               " row/rownr
 set statusline+=%#Numbers#\%3c\                                     " columnnr
 

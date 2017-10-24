@@ -12,9 +12,12 @@ call plug#begin('$HOME/.config/nvim/plugged')
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'tpope/vim-fugitive'
+"Plug 'vim-syntastic/syntastic'
 "Plug 'vim-airline/vim-airline'
 Plug 'rhysd/vim-crystal'
 Plug 'amjith/git-vim'
+Plug 'tmhedberg/SimpylFold'         " Folding for Python
+"Plug 'Konfekt/FastFold'             " Increase folding performance
 
 call plug#end()
 

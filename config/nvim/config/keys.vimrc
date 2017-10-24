@@ -3,6 +3,7 @@
 " Chose leader key for simpler mapping
 let mapleader = ','
 map <leader>q gqap
+map <leader>s gqas
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 "Get rid of hl in normal and insert mode
