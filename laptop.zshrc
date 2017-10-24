@@ -52,6 +52,11 @@ mkcd() {
     cd "$1"
 }
 
+# Make simple calculations
+calc() {
+    python -c "print($1)"
+}
+
 wcpdf() {
     pdftotext "$1" - | wc
 }
@@ -77,7 +82,6 @@ alias open="xdg-open"
 alias s="sudo"
 
 # Programs
-alias calc="eru.pl"
 alias newbg="feh --randomize --bg-scale /home/erik/Pictures/bgrounds/*"
 alias matrix="cmatrix -b"
 alias train="sl -ac"
@@ -92,6 +96,7 @@ alias pdfpres="qpdfpresenterconsole"
 alias telegram="telegram-cli -N -l 1"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias livestreamer="livestreamer --http-header Client-ID=jzkbprff40iqj646a697cyrvl0zt2m6"
+alias nvimrc="nvim ~/git/dotfiles/config/nvim/config/"
 
 # System
 alias lock="i3lock-fancy -p"
