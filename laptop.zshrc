@@ -21,15 +21,12 @@ bindkey '^R' history-incremental-search-backward
 
 ## Exports
 export BROWSER=/usr/bin/firefox
-export CLASSPATH=.:~/pkg/javatools/:~/pkg/javatools/Cup:${CLASSPATH}
-export PATH=:$HOME/.cargo/bin:${PATH}
-export MANPAGER="nvim -c 'set ft=man' -"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='nvim'
+    export EDITOR='vim'
 else
-    export EDITOR='nvim'
+    export EDITOR='vim'
 fi
 
 # Enable colors
@@ -42,9 +39,14 @@ promptinit
 
 # Configure prompt
 PROMPT="%{$fg_bold[blue]%}%n%{$fg[magenta]%}@%{$fg_no_bold[cyan]%}%m %{$fg_no_bold[yellow]%}%~ %{$reset_color%}>%"
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## Functions
+
+# Use VIM as manpage reader
+man() {
+    PAGER="/bin/sh -c \"col -b | vim -R -c 'set ft=man' -\"" command man $@
+}
 
 # Make directory and cd into it.
 mkcd() {

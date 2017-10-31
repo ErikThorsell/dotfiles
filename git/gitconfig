@@ -35,7 +35,7 @@
     rebase = true
 
 [core]
-    editor = nvim
+    editor = vim
 
 [merge]
 #    tool = vimdiff
@@ -45,7 +45,7 @@
     prompt = false
 
 [mergetool "vimdiff"]
-  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+  cmd = vim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [mergetool "meld"]
     cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"

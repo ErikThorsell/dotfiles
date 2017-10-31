@@ -94,15 +94,6 @@ bindsym XF86Explorer exec -no-startup-id synclient TouchpadOff=$(synclient -l | 
 ############
 # Workspaces
 
-# automatically remane workspaces based on contents
-# note that in order to make the movement between workspaces work you need to
-# change: bindsym Mod4+1 workspace 1 > bindsym Mod4+1 workspace number 1
-# and similarly for all workspaces. You also need Awesome Font and i3ipc
-# installed.
-exec /home/erik/.config/i3/i3-autoname-workspaces.py &
-# For some reason the script stops running after suspend. Restart with >
-bindsym Mod4+Mod1+a exec /home/erik/.config/i3/i3-autoname-workspaces.py &
-
 bindsym Mod4+1 workspace number 1
 bindsym Mod4+2 workspace number 2
 bindsym Mod4+3 workspace number 3
@@ -160,12 +151,13 @@ client.urgent           #2f343a #900000 #ffffff #900000
 
 # Autostart dropbox and owncloud
 exec --no-startup-id dropbox start
-exec --no-startup-id owncloud
+exec --no-startup-id nextcloud
+exec --no-startup-id "feh --randomize --bg-fill ~/Pictures/bgrounds/*"
 
 # Launch applications
 bindsym Mod4+c exec firefox
 bindsym Mod4+Mod1+Return exec terminator -c Weechat
-bindsym Mod4+Shift+Escape exec "i3lock -u -i /home/erik/Pictures/bgrounds/bground1.png"
+bindsym Mod4+Shift+Escape exec "i3lock -u -i /home/erik/Pictures/bgrounds/lockscreen.png"
 
 # PrintScreen to clipboard using gnome-screenshot
 bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
@@ -174,12 +166,10 @@ bindsym --release Mod4+Print exec scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pict
 ###############################################################################
 # Toggle between keyboard layouts
 # First line:  Svorak A5
-# Second line: QWERTY A5
 #
 
 # Kill focused window
 bindsym Mod4+Shift+aring kill
-#bindsym Mod4+Shift+q kill
 
 # Change focus
 bindsym Mod4+h focus left
@@ -187,23 +177,12 @@ bindsym Mod4+t focus down
 bindsym Mod4+n focus up
 bindsym Mod4+s focus right
 bindsym Mod1+Tab focus parent
-# alt
-#bindsym Mod4+j focus left
-#bindsym Mod4+k focus down
-#bindsym Mod4+l focus up
-#bindsym Mod4+semicolon focus right
-#bindsym Mod1+Tab focus parent 
 
 # move focused window
 bindsym Mod4+Shift+h move left
 bindsym Mod4+Shift+t move down
 bindsym Mod4+Shift+n move up
 bindsym Mod4+Shift+s move right
-# alt
-#bindsym Mod4+Shift+j move left
-#bindsym Mod4+Shift+k move down
-#bindsym Mod4+Shift+l move up
-#bindsym Mod4+Shift+odiaresis move right
 
 # Split in horizontal orientation
 bindsym Mod4+l split h
@@ -218,12 +197,6 @@ mode "resize" {
         bindsym t       resize grow height 1 px or 1 ppt
         bindsym n       resize shrink height 1 px or 1 ppt
         bindsym s       resize grow width 1 px or 1 ppt
-
-        # Same bindings, but for the arrow keys and larger changes
-        #bindsym h       resize shrink width 10 px or 10 ppt
-        #bindsym t       resize grow height 10 px or 10 ppt
-        #bindsym n       resize shrink height 10 px or 10 ppt
-        #bindsym s       resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
