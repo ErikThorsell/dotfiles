@@ -4,4 +4,4 @@ setxkbmap -option caps:swapescape
 xset r rate 200 70
 xset s off
 xset -dpms
-feh --bg-scale /home/erik/Pictures/bgrounds/BLACK_II_desktop-1.jpg &
+feh --randomize --bg-fill ~/Pictures/bgrounds/* &
