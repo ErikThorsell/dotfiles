@@ -13,6 +13,10 @@ inoremap <C-l> <Esc>:nohl<CR>
 " Faster console access
 noremap <C-t> :tabedit<Space>
 
+" Open file under cursor using :edit or :tabedit
+nnoremap gF :edit <cfile><CR>
+nnoremap gf :tabedit <cfile><CR>
+
 "" Delete trailing whitespace
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
@@ -58,13 +62,13 @@ noremap t j
 noremap n k
 noremap s l
 
-" make deoplete use tab-complete
-inoremap <silent><expr> <C-Space>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-    function! s:check_back_space() abort "{{{
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
+"" make deoplete use tab-complete
+"inoremap <silent><expr> <C-Space>
+"    \ pumvisible() ? "\<C-n>" :
+"    \ <SID>check_back_space() ? "\<TAB>" :
+"    \ deoplete#mappings#manual_complete()
+"    function! s:check_back_space() abort "{{{
+"        let col = col('.') - 1
+"        return !col || getline('.')[col - 1]  =~ '\s'
+"    endfunction"}}}
 

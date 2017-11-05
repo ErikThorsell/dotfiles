@@ -37,7 +37,7 @@ autocmd BufReadPost *
             \ endif
 
 " Use an undo directory
-set undodir=$HOME/.config/vim/undodir
+set undodir=$HOME/.vim/undodir
 set undofile
 set undolevels=100
 set undoreload=1000
@@ -51,7 +51,11 @@ set wmh=0                       "Don't show ruler when minimized.
 " Highlighting
 set t_Co=256
 set hlsearch
-syntax on
+
+" Syntax
+syntax enable
+
+" Mark where 80 and 119 c are
 highlight ColorColumn ctermbg=101010 ctermfg=Red
 let &colorcolumn=81
 let &colorcolumn=join(range(82,999),",")
@@ -68,3 +72,4 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " stop highlighting of underscores in markdown files
 autocmd BufNewFile,BufRead,BufEnter *.md,*.markdown :syntax match markdownIgnore "_"
+
