@@ -38,7 +38,6 @@
     editor = vim
 
 [merge]
-#    tool = vimdiff
     tool = meld
 
 [mergetool]
