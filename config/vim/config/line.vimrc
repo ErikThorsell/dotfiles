@@ -8,15 +8,15 @@ set laststatus=2
 set noshowmode
 
 " set colors to use | color table -> http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-hi Mode             term=bold cterm=bold ctermfg=190   ctermbg=235
-hi Numbers          term=bold cterm=bold ctermfg=15    ctermbg=235
-hi BufferAndWindow  term=None cterm=None ctermfg=15    ctermbg=235
-hi GitInfo          term=Bold cterm=Bold ctermfg=198   ctermbg=235
-hi FilePath         term=None cterm=None ctermfg=7     ctermbg=235
-hi FileType         term=None cterm=None ctermfg=7     ctermbg=235
-hi Divider          term=Bold cterm=Bold ctermfg=198   ctermbg=235
-hi Space            term=None cterm=None ctermfg=None  ctermbg=235
-hi Warning          term=Bold cterm=Bold ctermfg=0     ctermbg=Red
+hi Mode             gui=bold   guifg=purple  guibg=bg
+hi Numbers          gui=bold   guifg=fg      guibg=bg
+hi BufferAndWindow  gui=None   guifg=fg      guibg=bg
+hi GitInfo          gui=Bold   guifg=green   guibg=bg
+hi FilePath         gui=None   guifg=fg      guibg=bg
+hi FileType         gui=None   guifg=gray    guibg=bg
+hi Divider          gui=Bold   guifg=aqua    guibg=bg
+hi Space            gui=None   guifg=bg      guibg=bg
+hi Warning          gui=Bold   guifg=fg      guibg=red
 
 " Find out current buffer's size and output it.
 "function! FileSize()

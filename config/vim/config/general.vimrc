@@ -3,6 +3,7 @@
 " Eye goodies
 set number                      "Display line numbers.
 set ruler                       "Display the cursor position in the lower right.
+set termguicolors               " Get nice colors!
 "set relativenumber             "Display current line as 0 and relative numbers from that. MAY CAUSE LAG!
 set showmatch
 hi CursorLine   cterm=NONE ctermbg=Black
@@ -56,16 +57,16 @@ set hlsearch
 syntax enable
 
 " Mark where 80 and 119 c are
-highlight ColorColumn ctermbg=101010 ctermfg=Red
+highlight ColorColumn guifg=red
 let &colorcolumn=81
 let &colorcolumn=join(range(82,999),",")
 let &colorcolumn="81,".join(range(120,999),",")
 
 " Change of Spell* behave
 hi clear SpellBad
-hi SpellBad cterm=underline,bold ctermfg=red
+hi SpellBad cterm=underline,bold guifg=red
 hi clear SpellCap
-hi SpellCap cterm=underline,bold ctermfg=blue
+hi SpellCap cterm=underline,bold guifg=blue
 
 " detect .md as markdown instead of modula-2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown

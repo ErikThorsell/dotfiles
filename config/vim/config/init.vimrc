@@ -10,11 +10,17 @@ endif
 " Start invoking vim-plug
 call plug#begin('$HOME/.vim/plugged')
 
+" Addons
 Plug 'tpope/vim-fugitive'            " The best Git wrapper of all time
+
+" Coding
+Plug 'vim-syntastic/syntastic'       " Syntax error help
+
+" Visuals
+Plug 'morhetz/gruvbox'               " Gruvbox color scheme
 "Plug 'tmhedberg/SimpylFold'         " Folding for Python
 "Plug 'Konfekt/FastFold'             " Increase folding performance
-Plug 'vim-syntastic/syntastic'       " Syntax error help
-"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'      " Statusline
 
 call plug#end()
 
