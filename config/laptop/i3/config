@@ -1,5 +1,5 @@
 ## Programs to launch at boot
-exec nm-applet
+exec --no-startup-id nm-applet
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -18,10 +18,10 @@ floating_modifier Mod4
 bindsym Mod4+Return exec --no-startup-id terminator
 
 # Start i3-dmenu-desktop which only displays applications
-bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
+bindsym Mod4+Shift+d exec --no-startup-id i3-dmenu-desktop
 
 # Start dmenu
-bindsym Mod4+Shift+d exec dmenu_run -i
+bindsym Mod4+d exec dmenu_run -i
 
 # enter fullscreen mode for the focused container
 bindsym Mod4+f fullscreen
@@ -72,12 +72,9 @@ bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 #Media keys
 
 # Media player controls (GIU applications)
-#bindsym XF86AudioPlay exec playerctl play-pause
-#bindsym XF86AudioNext exec playerctl next
-#bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioPlay exec cmus-remote --pause
-bindsym XF86AudioNext exec cmus-remote --next
-bindsym XF86AudioPrev exec cmus-remote --prev
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Audio controls
 bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%-
@@ -155,7 +152,7 @@ exec --no-startup-id nextcloud
 exec --no-startup-id "feh --randomize --bg-fill ~/Pictures/bgrounds/*"
 
 # Launch applications
-bindsym Mod4+c exec firefox-nightly
+bindsym Mod4+c exec firefox
 bindsym Mod4+Mod1+Return exec terminator -c Weechat
 bindsym Mod4+Shift+Escape exec "i3lock -u -i /home/erik/Pictures/bgrounds/lockscreen.png"
 
