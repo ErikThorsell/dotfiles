@@ -11,16 +11,19 @@ endif
 call plug#begin('$HOME/.vim/plugged')
 
 " Addons
-Plug 'tpope/vim-fugitive'            " The best Git wrapper of all time
+Plug 'tpope/vim-fugitive'           " The best Git wrapper of all time
 
 " Coding
-Plug 'vim-syntastic/syntastic'       " Syntax error help
+Plug 'vim-syntastic/syntastic'      " Syntax error help
+
+" Navigation
+Plug 'scrooloose/nerdtree'          " NerdTREE
+Plug 'Xuyuanp/nerdtree-git-plugin'  " Git support for NerdTREE
 
 " Visuals
-Plug 'morhetz/gruvbox'               " Gruvbox color scheme
-"Plug 'tmhedberg/SimpylFold'         " Folding for Python
-"Plug 'Konfekt/FastFold'             " Increase folding performance
-"Plug 'vim-airline/vim-airline'      " Statusline
+Plug 'morhetz/gruvbox'              " Gruvbox color scheme
+"Plug 'tmhedberg/SimpylFold'        " Folding for Python
+"Plug 'Konfekt/FastFold'            " Increase folding performance
 
 call plug#end()
 

@@ -6,9 +6,12 @@ map <leader>q gqap
 map <leader>s gqas
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
-"Get rid of hl in normal and insert mode
+" Get rid of hl in normal and insert mode
 nnoremap <C-l> :nohl<CR>
 inoremap <C-l> <Esc>:nohl<CR>
+
+" Open definition (ctags) in vertical split
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR> 
 
 " Faster console access
 noremap <C-t> :tabedit<Space>
@@ -62,13 +65,5 @@ noremap t j
 noremap n k
 noremap s l
 
-"" make deoplete use tab-complete
-"inoremap <silent><expr> <C-Space>
-"    \ pumvisible() ? "\<C-n>" :
-"    \ <SID>check_back_space() ? "\<TAB>" :
-"    \ deoplete#mappings#manual_complete()
-"    function! s:check_back_space() abort "{{{
-"        let col = col('.') - 1
-"        return !col || getline('.')[col - 1]  =~ '\s'
-"    endfunction"}}}
-
+" toggle NERDTree
+map <C-n> :NERDTreeToggle<CR>

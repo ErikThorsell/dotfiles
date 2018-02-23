@@ -148,7 +148,7 @@ client.urgent           #2f343a #900000 #ffffff #900000
 
 # Autostart dropbox and owncloud
 exec --no-startup-id dropbox start
-exec --no-startup-id nextcloud
+#exec --no-startup-id nextcloud
 exec --no-startup-id "feh --randomize --bg-fill ~/Pictures/bgrounds/*"
 
 # Launch applications

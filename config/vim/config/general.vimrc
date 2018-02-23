@@ -74,3 +74,5 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " stop highlighting of underscores in markdown files
 autocmd BufNewFile,BufRead,BufEnter *.md,*.markdown :syntax match markdownIgnore "_"
 
+" close vim if NERDTree is the only buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

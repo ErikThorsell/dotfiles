@@ -1,5 +1,5 @@
 """"" LaTeX
-set wrap
+set nowrap
 noremap <C-w><C-w> :w \| call Compile()<CR>
 
 " res
