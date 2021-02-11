@@ -29,7 +29,7 @@ set t_ut=                            " extend color scheme to entire terminal
 colorscheme gruvbox                  " enable scheme
 
 " NERDTree git labels
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
