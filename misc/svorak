@@ -1,7 +1,6 @@
 partial alphanumeric_keys
 xkb_symbols "svorak" {
 	include "se(basic)"
-
 	key <AD01> { [ aring,      Aring,      braceleft,           none ] };
 	key <AD02> { [ adiaeresis, Adiaeresis, braceright,          none ] };
 	key <AD03> { [ odiaeresis, Odiaeresis, bracketleft,         none ] };
@@ -37,5 +36,4 @@ xkb_symbols "svorak" {
 	key <AB08> { [ w,          W,          lstroke,             none ] };
 	key <AB09> { [ v,          V,          leftdoublequotemark, none ] };
 	key <AB10> { [ z,          Z,          guillemotleft,       none ] };
-
 };
