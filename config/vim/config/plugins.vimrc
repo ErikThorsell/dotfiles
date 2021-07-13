@@ -30,7 +30,7 @@ set background=dark
 colorscheme gruvbox                  " enable scheme
 
 " NERDTree git labels
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
