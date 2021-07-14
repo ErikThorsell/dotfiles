@@ -1,0 +1,20 @@
+# Include all the default stuff that .bashrc usually contains
+if [ -f $HOME/dotfiles/bash/bashrc_settings ]; then
+    source $HOME/dotfiles/bash/bashrc_settings
+fi
+
+# Include path changes and other application related things
+if [ -f $HOME/dotfiles/bash/bashrc_path ]; then
+    source $HOME/dotfiles/bash/bashrc_path
+fi
+
+# Include a prompt
+if [ -f $HOME/dotfiles/bash/bashrc_prompt ]; then
+    source $HOME/dotfiles/bash/bashrc_prompt
+fi
+
+# Include aliases
+if [ -f $HOME/dotfiles/bash/bashrc_aliases ]; then
+    source $HOME/dotfiles/bash/bashrc_aliases
+fi
+
