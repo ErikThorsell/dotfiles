@@ -1,5 +1,5 @@
 [user]
-    email = erik.thorsell@ericsson.com
+    email = <work email goes here>
     name = Erik Thorsell
 
 [alias]
@@ -23,7 +23,7 @@
 ##### Info/Status oriented aliases
     authors = shortlog -s -n
     blame-plus = "!f() { git ls-tree -r -z --name-only HEAD -- $1 | xargs -0 -n1 git blame --line-porcelain HEAD |grep \"^author \"|sort|uniq -c|sort -nr ; }; f"
-    graph = log --graph -25 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+    graph = log --graph --full-history --all --format=format:'%Cgreen%h %Creset %<(60,trunc)%s (%cN, %cr) %Cred%d' --date-order
     history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
     last = log -1 HEAD --format=format:"%Cred%H"
     remotes = remote -v
@@ -64,4 +64,5 @@
 
 #### Activate re-re-re
 [rerere]
-    enabled = true
+  enabled = true
+
