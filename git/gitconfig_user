@@ -1,0 +1,7 @@
+[user]
+  name = Erik Thorsell
+  email = erik@thorsell.io
+
+[include]
+  path = ~/dotfiles/git/gitconfig_common
+  
