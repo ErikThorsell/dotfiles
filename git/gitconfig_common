@@ -1,0 +1,56 @@
+[alias]
+
+# Commit oriented aliases
+  amend = commit --amend
+  discard = checkout --
+  precommit = diff --cached --diff-algorithm=minimal -w
+  save = commit -m
+  saveall = commit -a
+  uncommit = reset --mixed HEAD~
+  unstage = reset -q HEAD --
+
+# Merge oriented aliases
+  branches = branch -a
+  solved = rebase --continue
+  stashes = stash list
+  tags = tag
+  unmerged = diff --name-only --diff-filter=U
+
+# Info/Status oriented aliases
+  authors = shortlog -s -n
+  blame-plus = "!f() { git ls-tree -r -z --name-only HEAD -- $1 | xargs -0 -n1 git blame --line-porcelain HEAD |grep \"^author \"|sort|uniq -c|sort -nr ; }; f"
+  graph = log --graph -25 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+  history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
+  last = log -1 HEAD --format=format:"%Cred%H"
+  remotes = remote -v
+
+# Alias oriented aliases
+  alias = config --get-regexp ^alias\\.
+
+# Settings
+[pull]
+  rebase = true
+
+[core]
+  editor = vim
+
+[diff]
+  tool = vimdiff
+
+[difftool]
+  prompt = false
+
+[merge]
+  tool = vimdiff
+
+[mergetool]
+  prompt = false
+
+[mergetool "vimdiff"]
+  cmd = vim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[rerere]
+  enabled = true
+
+[init]
+  defaultBranch = main

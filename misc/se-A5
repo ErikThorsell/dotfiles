@@ -1,0 +1,34 @@
+partial alphanumeric_keys
+xkb_symbols "se-symbols" {
+    include "se(basic)"
+
+    key <AD01> { [ q,          Q,          braceleft,           none ] };
+    key <AD02> { [ w,          W,          braceright,          none ] };
+    key <AD03> { [ e,          E,          bracketleft,         none ] };
+    key <AD04> { [ r,          R,          bracketright,        none ] };
+    key <AD05> { [ t,          T,          dollar,              none ] };
+    key <AD06> { [ y,          Y,          quotedbl,            none ] };
+    key <AD07> { [ u,          U,          question,            none ] };
+    key <AD08> { [ i,          I,          ampersand,           none ] };
+    key <AD09> { [ o,          O,          less,                none ] };
+    key <AD10> { [ p,          P,          greater,             none ] };
+	
+    key <AC01> { [ a,          A,          semicolon,           none ] };
+    key <AC02> { [ s,          S,          slash,               none ] };
+    key <AC03> { [ d,          D,          parenleft,           none ] };
+    key <AC04> { [ f,          F,          parenright,          none ] };
+    key <AC05> { [ g,          G,          bar,                 none ] };
+    key <AC06> { [ h,          H,          numbersign,          none ] };
+    key <AC07> { [ j,          J,          asciicircum,         none ] };
+    key <AC08> { [ k,          K,          numbersign,          none ] };
+    key <AC09> { [ l,          L,          quotedbl,            none ] };
+	
+    key <AB01> { [ z,          Z,          colon,               none ] };
+    key <AB02> { [ x,          X,          equal,               none ] };
+    key <AB03> { [ c,          C,          at,                  none ] };
+    key <AB04> { [ v,          V,          exclam,              none ] };
+    key <AB05> { [ b,          B,          backslash,           none ] };
+    key <AB06> { [ n,          N,          percent,             none ] };
+    key <AB07> { [ m,          M,          grave,               none ] };
+
+};

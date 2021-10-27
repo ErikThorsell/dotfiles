@@ -1,0 +1,5 @@
+# ASDF stuff
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+echo " > .bashrc_sources sourced"

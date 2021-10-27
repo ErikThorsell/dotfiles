@@ -1,0 +1,22 @@
+echo "New shell, new opportunities!"
+# Include all the default stuff that .bashrc usually contains
+if [ -f $HOME/dotfiles/bash/bashrc_settings ]; then
+    source $HOME/dotfiles/bash/bashrc_settings
+fi
+
+# Include a prompt
+if [ -f $HOME/dotfiles/bash/bashrc_prompt ]; then
+    source $HOME/dotfiles/bash/bashrc_prompt
+fi
+
+# Include aliases
+if [ -f $HOME/dotfiles/bash/bashrc_aliases ]; then
+    source $HOME/dotfiles/bash/bashrc_aliases
+fi
+
+# Source stuff
+if [ -f $HOME/dotfiles/bash/bashrc_sources ]; then
+    source $HOME/dotfiles/bash/bashrc_sources
+fi
+
+echo "-----------------------------"

@@ -1,0 +1,8 @@
+# ignore to ensure we don't overwrite the user info with work stuff
+git/gitconfig_user
+
+# vim
+vim/undodir
+vim/plugged
+vim/spell
+vim/.netrwhist
