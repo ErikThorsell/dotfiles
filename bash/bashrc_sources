@@ -2,4 +2,12 @@
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
+# Check if terraform is installed; if so, install autocomplete
+if ! command -v terraform -help &> /dev/null
+then
+    exit
+else
+  complete -C /usr/bin/terraform terraform
+fi
+
 echo " > .bashrc_sources sourced"
