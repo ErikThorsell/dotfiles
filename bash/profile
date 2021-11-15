@@ -33,3 +33,9 @@ export PATH="$HOME/gems/bin:$PATH"
 
 # Golang binary
 export PATH="$HOME/pkg/go/bin:$PATH"
+
+# Set default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+echo " > .profile loaded"

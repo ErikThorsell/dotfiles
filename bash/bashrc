@@ -18,5 +18,3 @@ fi
 if [ -f $HOME/dotfiles/bash/bashrc_sources ]; then
     source $HOME/dotfiles/bash/bashrc_sources
 fi
-
-echo "-----------------------------"
