@@ -1,0 +1,44 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: FontAwesome;
+    font-size: 14px;
+    padding: 0 5px;
+    background: #282828;
+}
+
+#workspaces button {
+    padding: 0 2px;
+    color: #928374;
+}
+#workspaces button.focused {
+    color: #b8bb26;
+}
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+#workspaces button:hover {
+    background: #cc241d;
+    border: #cc241d;
+    padding: 0 3px;
+}
+
+#pulseaudio {
+    padding: 0 20px;
+    color: #ebdbb2;
+}
+
+#memory
+#cpu
+#disk
+#temperature {
+    padding: 0 20px;
+    color: #ebdbb2;
+}
+
+#custom-clock {
+    padding: 0 10px;
+    color: #ebdbb2;
+}
+

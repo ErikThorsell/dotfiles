@@ -38,6 +38,21 @@ mkdir -p $HOME/.vim/undodir
 echo "~~oo##> INSTALLING asdf <##oo~~"
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 
+sway="n"
+echo -e "\nDo you want to link configuration for sway and waybar? (y/n)"
+read -n 1 sway
+if [[ $sway == 'y' ]]; then
+    [ -f $HOME/.config/sway ] && mv $HOME/.config/sway $HOME/sway.bak
+    echo " $ ln -s $PWD/config/sway $HOME/.config/sway"
+    ln -s $PWD/config/sway $HOME/.config/sway
+
+    [ -f $HOME/.config/waybar ] && mv $HOME/.config/waybar $HOME/waybar.bak
+    echo " $ ln -s $PWD/config/waybar $HOME/.config/waybar"
+    ln -s $PWD/config/waybar $HOME/.config/waybar
+else
+    echo "OK - Skipping sway and waybar!"
+fi;
+
 echo "~~oo##> ALMOST READY <##oo~~"
 echo " 1. Don't forget to update user information in $HOME/.gitconfig"
 echo " 2. Install all vim plugins by executing :PlugInstall in vim"
