@@ -39,9 +39,10 @@ echo "~~oo##> INSTALLING asdf <##oo~~"
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 
 sway="n"
-echo -e "\nDo you want to link configuration for sway and waybar? (y/n)"
+echo -e "\nDo you want to link configuration for sway, waybar and wofi? (y/n)"
 read -n 1 sway
 if [[ $sway == 'y' ]]; then
+
     [ -f $HOME/.config/sway ] && mv $HOME/.config/sway $HOME/sway.bak
     echo " $ ln -s $PWD/config/sway $HOME/.config/sway"
     ln -s $PWD/config/sway $HOME/.config/sway
@@ -49,8 +50,13 @@ if [[ $sway == 'y' ]]; then
     [ -f $HOME/.config/waybar ] && mv $HOME/.config/waybar $HOME/waybar.bak
     echo " $ ln -s $PWD/config/waybar $HOME/.config/waybar"
     ln -s $PWD/config/waybar $HOME/.config/waybar
+
+    [ -f $HOME/.config/wofi ] && mv $HOME/.config/wofi $HOME/wofi.bak
+    echo " $ ln -s $PWD/config/wofi $HOME/.config/wofi"
+    ln -s $PWD/config/wofi $HOME/.config/wofi
+
 else
-    echo "OK - Skipping sway and waybar!"
+    echo "OK - Skipping!"
 fi;
 
 echo "~~oo##> ALMOST READY <##oo~~"

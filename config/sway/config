@@ -9,7 +9,6 @@ seat "*" hide_cursor 5000
 
 
 ### Variables
-# Use Super (L_GUI) as modifier
 set $mod Mod4
 
 # Navigate with vim keys (on Dvorak)
@@ -22,10 +21,7 @@ set $right s
 set $term gnome-terminal
 
 # Specify launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
-
+set $menu wofi --show=drun -I | xargs swaymsg exec --
 
 ### Output configuration
 output DP-3 resolution 5120x2160
@@ -75,9 +71,8 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
 
 
 ### Applications
-# Autostart dropbox and owncloud
 exec --no-startup-id dropbox start
-exec --no-startup-id nextcloud
+exec nextcloud
 
 # Take print screen and move it to clipboard
 bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
@@ -166,5 +161,5 @@ focus_follows_mouse no
 
 
 ### Scripts
-exec_always pgrep -x waybar && killall waybar; waybar -c $HOME/.config/waybar/config -s $HOME/.config/waybar/styles.css
+exec pgrep -x waybar && killall waybar; waybar -c $HOME/.config/waybar/config -s $HOME/.config/waybar/styles.css
 
