@@ -1,5 +1,5 @@
+### Inputs
 # Ensure we use the correct keyboard layout
-# The keyboard takes care of the rest
 input * xkb_layout "se"
 
 
@@ -69,10 +69,13 @@ bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- unmute
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ unmute
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
 
+# Lock session
+bindsym $mod+Shift+l exec systemctl suspend
+
 
 ### Applications
 exec --no-startup-id dropbox start
-exec nextcloud
+exec --no-startup-id nextcloud
 
 # Take print screen and move it to clipboard
 bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
@@ -161,5 +164,5 @@ focus_follows_mouse no
 
 
 ### Scripts
-exec pgrep -x waybar && killall waybar; waybar -c $HOME/.config/waybar/config -s $HOME/.config/waybar/styles.css
+exec waybar -c $HOME/.config/waybar/config -s $HOME/.config/waybar/styles.css
 
