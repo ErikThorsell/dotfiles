@@ -2,8 +2,8 @@
 
 ready="n"
 while [[ $ready != 'y' ]]; do
-    echo -e "\nDo your dotfiles repository reside in $HOME/dotfiles? (y/n)"
-    read -n 1 ready
+  echo "\nDo your dotfiles repository reside in $HOME/dotfiles? (y/n)"
+  read -n 1 ready
 done;
 
 echo "~~oo##> SETTING UP DOTFILES <##oo~~"
@@ -12,13 +12,34 @@ echo "If everything works, just remove the .bak-files"
 
 echo "Creating symlinks in $HOME/"
 
-[ -f $HOME/.bashrc ] && mv $HOME/.bashrc $HOME/bashrc.bak
-echo " $ ln -s $PWD/bash/bashrc $HOME/.bashrc"
-ln -s $PWD/bash/bashrc $HOME/.bashrc
+shell=""
+echo "\nWhich shell do you want to use? (bash/zsh)"
+read shell
+if [[ $shell == 'bash' ]]; then
 
-[ -f $HOME/.profile ] && mv $HOME/.profile $HOME/profile.bak
-echo " $ ln -s $PWD/bash/profile $HOME/.profile"
-ln -s $PWD/bash/profile $HOME/.profile
+  [ -f $HOME/.bashrc ] && mv $HOME/.bashrc $HOME/bashrc.bak
+  echo " $ ln -s $PWD/bash/bashrc $HOME/.bashrc"
+  ln -s $PWD/bash/bashrc $HOME/.bashrc
+
+  [ -f $HOME/.profile ] && mv $HOME/.profile $HOME/profile.bak
+  echo " $ ln -s $PWD/bash/profile $HOME/.profile"
+  ln -s $PWD/bash/profile $HOME/.profile
+
+elif [[ $shell == 'zsh' ]]; then
+
+  [ -f $HOME/.zshrc ] && mv $HOME/.zshrc $HOME/zshrc.bak
+  echo " $ ln -s $PWD/zsh/zshrc $HOME/.zshrc"
+  ln -s $PWD/zsh/zshrc $HOME/.zshrc
+
+  [ -f $HOME/.zprofile ] && mv $HOME/.zprofile $HOME/zprofile.bak
+  echo " $ ln -s $PWD/zsh/zshrc_zprofile $HOME/.zprofile"
+  ln -s $PWD/zsh/zshrc_zprofile $HOME/.zprofile
+
+else
+
+  echo " The shell $shell is not supported!"
+
+fi
 
 [ -f $HOME/.vimrc ] && mv $HOME/.vimrc $HOME/vimrc.bak
 echo " $ ln -s $PWD/vim/init.vim $HOME/.vimrc"
@@ -39,24 +60,24 @@ echo "~~oo##> INSTALLING asdf <##oo~~"
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 
 sway="n"
-echo -e "\nDo you want to link configuration for sway, waybar and wofi? (y/n)"
+echo "\nDo you want to link configuration for sway, waybar and wofi? (y/n)"
 read -n 1 sway
 if [[ $sway == 'y' ]]; then
 
-    [ -f $HOME/.config/sway ] && mv $HOME/.config/sway $HOME/sway.bak
-    echo " $ ln -s $PWD/config/sway $HOME/.config/sway"
-    ln -s $PWD/config/sway $HOME/.config/sway
+  [ -f $HOME/.config/sway ] && mv $HOME/.config/sway $HOME/sway.bak
+  echo " $ ln -s $PWD/config/sway $HOME/.config/sway"
+  ln -s $PWD/config/sway $HOME/.config/sway
 
-    [ -f $HOME/.config/waybar ] && mv $HOME/.config/waybar $HOME/waybar.bak
-    echo " $ ln -s $PWD/config/waybar $HOME/.config/waybar"
-    ln -s $PWD/config/waybar $HOME/.config/waybar
+  [ -f $HOME/.config/waybar ] && mv $HOME/.config/waybar $HOME/waybar.bak
+  echo " $ ln -s $PWD/config/waybar $HOME/.config/waybar"
+  ln -s $PWD/config/waybar $HOME/.config/waybar
 
-    [ -f $HOME/.config/wofi ] && mv $HOME/.config/wofi $HOME/wofi.bak
-    echo " $ ln -s $PWD/config/wofi $HOME/.config/wofi"
-    ln -s $PWD/config/wofi $HOME/.config/wofi
+  [ -f $HOME/.config/wofi ] && mv $HOME/.config/wofi $HOME/wofi.bak
+  echo " $ ln -s $PWD/config/wofi $HOME/.config/wofi"
+  ln -s $PWD/config/wofi $HOME/.config/wofi
 
 else
-    echo "OK - Skipping!"
+  echo "OK - Skipping!"
 fi;
 
 echo "~~oo##> ALMOST READY <##oo~~"

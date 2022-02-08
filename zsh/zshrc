@@ -1,0 +1,20 @@
+echo "New shell, new opportunities!"
+# Some settings
+if [ -f $HOME/dotfiles/zsh/zshrc_settings ]; then
+    source $HOME/dotfiles/zsh/zshrc_settings
+fi
+
+# Set a nice theme
+if [ -f $HOME/dotfiles/zsh/zshrc_theme ]; then
+    source $HOME/dotfiles/zsh/zshrc_theme
+fi
+
+# Include aliases
+if [ -f $HOME/dotfiles/zsh/zshrc_aliases ]; then
+    source $HOME/dotfiles/zsh/zshrc_aliases
+fi
+
+# Source stuff
+if [ -f $HOME/dotfiles/zsh/zshrc_sources ]; then
+    source $HOME/dotfiles/zsh/zshrc_sources
+fi
