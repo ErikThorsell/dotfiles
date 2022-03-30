@@ -1,0 +1,15 @@
+function k_list {
+    readonly namespace=${1:?"Namespace must be specified."}
+    kubectl get -n "$namespace" pod,replicaset,deployment,service,ingress
+}
+
+function k_getsecrets {
+    readonly namespace=${1:?"Namespace must be specified."}
+    kubectl get secrets -n "$namespace"
+}
+
+function k_getsecret {
+    readonly namespace=${1:?"Namespace must be specified."}
+    readonly secret=${2:?"Name of secret must be specified."}
+    kubectl get -n "$namespace" secret "$secret" -o json
+}

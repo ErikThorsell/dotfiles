@@ -18,3 +18,4 @@ fi
 if [ -f $HOME/dotfiles/zsh/zshrc_sources ]; then
     source $HOME/dotfiles/zsh/zshrc_sources
 fi
+

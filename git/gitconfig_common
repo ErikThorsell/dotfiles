@@ -15,6 +15,8 @@
   stashes = stash list
   tags = tag
   unmerged = diff --name-only --diff-filter=U
+  squash-branch = "!f() { git reset $(git merge-base main $(git rev-parse --abbrev-ref HEAD)) ; }; f"
+
 
 # Info/Status oriented aliases
   authors = shortlog -s -n
