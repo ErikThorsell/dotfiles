@@ -13,3 +13,10 @@ function k_getsecret {
     readonly secret=${2:?"Name of secret must be specified."}
     kubectl get -n "$namespace" secret "$secret" -o json
 }
+
+function k_getsecret_appsettings_decode {
+    readonly namespace=${1:?"Namespace must be specified."}
+    readonly secret=${2:?"Name of secret must be specified."}
+    kubectl get -n "$namespace" secret "$secret" -o json | jq -r '.data."appsettings.json"' | base64 -d
+}
+
