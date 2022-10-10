@@ -4,4 +4,7 @@
 
 [include]
   path = ~/dotfiles/git/gitconfig_common
-  
+
+[includeIf "gitdir:~/work/kgh/"]
+    path = ~/work/kgh/.gitconfig_include
+

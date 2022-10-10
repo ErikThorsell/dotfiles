@@ -33,6 +33,9 @@
 [pull]
   rebase = true
 
+[push]
+  autoSetupRemote = true
+
 [core]
   editor = vim
 
