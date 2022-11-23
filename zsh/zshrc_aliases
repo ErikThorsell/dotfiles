@@ -10,6 +10,12 @@ function k_list {
     kubectl get -n "$namespace" pod,replicaset,deployment,service,ingress
 }
 
+function k_get_shell {
+    readonly namespace=${1:?"Namespace must be specified."}
+    readonly pod=${2:?"Namespace must be specified."}
+    kubectl -n "$namespace" exec --stdin --tty "$pod" -- /bin/bash
+}
+
 function k_getsecrets {
     readonly namespace=${1:?"Namespace must be specified."}
     kubectl get secrets -n "$namespace"
