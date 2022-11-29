@@ -5,6 +5,8 @@ alias aliases="vim ~/dotfiles/zsh/zshrc_aliases"
 alias restart-sound="sudo kill -9 `ps ax | grep 'coreaudio[a-z]' | awk '{print $1}'` && echo Done"
 
 #Kubernetes
+alias k="kubectl"
+
 function k_list {
     readonly namespace=${1:?"Namespace must be specified."}
     kubectl get -n "$namespace" pod,replicaset,deployment,service,ingress
@@ -33,7 +35,7 @@ function k_getsecret_appsettings_decode {
     kubectl get -n "$namespace" secret "$secret" -o json | jq -r '.data."appsettings.json"' | base64 -d
 }
 
-# Docke
+# Docker
 alias d_kill="docker ps -q | xargs docker kill"
 alias d_rcon_all="docker ps -aq | xargs docker rm"
 alias d_rmi="docker images -aq | xargs docker rmi"
