@@ -1,4 +1,12 @@
+# ASDF
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
+# Include pkg
+path+=("/Users/erik/pkg")
+export PATH
+
+# Auto-completion for Kubectl
+source <(kubectl completion zsh)
 
 echo " > .zshrc_sources loaded"

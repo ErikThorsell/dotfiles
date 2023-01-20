@@ -8,3 +8,5 @@
 [includeIf "gitdir:~/work/kgh/"]
     path = ~/work/kgh/.gitconfig_include
 
+[includeIf "gitdir:~/work/tmh/"]
+    path = ~/work/tmh/.gitconfig_include

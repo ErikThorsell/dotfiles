@@ -19,3 +19,8 @@ if [ -f $HOME/dotfiles/zsh/zshrc_sources ]; then
     source $HOME/dotfiles/zsh/zshrc_sources
 fi
 
+# Export environment variables
+# This file is NOT in VCS because it contains secret stuf!
+if [ -f $HOME/.env ]; then
+    source $HOME/.env
+fi
