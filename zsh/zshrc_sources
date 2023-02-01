@@ -3,10 +3,16 @@
 . $HOME/.asdf/completions/asdf.bash
 
 # Include pkg
-path+=("/Users/erik/pkg")
+path+=("$HOME/pkg")
+path+=("$HOME/pkg/bin")
 export PATH
 
-# Auto-completion for Kubectl
+# Include scripts
+path+=("$HOME/scripts")
+export PATH
+
+# Auto-completion
 source <(kubectl completion zsh)
+source '/home/erik/pkg/azure-cli/az.completion'
 
 echo " > .zshrc_sources loaded"

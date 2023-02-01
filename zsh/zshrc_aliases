@@ -1,3 +1,6 @@
+# TMH Aliases
+alias tmh-monitors="xrandr --output DP-3-3 --primary --right-of eDP-1 --output DP-3-2-8 --right-of DP-3-3"
+
 # Conveniance
 alias aliases="vim ~/dotfiles/zsh/zshrc_aliases"
 
