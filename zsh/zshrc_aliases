@@ -1,8 +1,30 @@
 # TMH Aliases
-alias tmh-monitors="xrandr --output DP-3-3 --primary --right-of eDP-1 --output DP-3-2-8 --right-of DP-3-3"
+alias tmh-monitors="xrandr --output DP-3-3 --primary --right-of eDP-1 --output DP-3-2 --right-of DP-3-3"
+alias date180='date "+%Y-%m-%d" -d "+180 days"'
+
+function sshci {
+    readonly host=${1:?"Host must be specified"}
+    ssh -i ~/.ssh/work/tmh/ciadmin-rsa ciadmin@"$host"
+}
 
 # Conveniance
 alias aliases="vim ~/dotfiles/zsh/zshrc_aliases"
+
+function note {
+    d=$(date --iso-8601)
+    if [ ! -f "$HOME/Nextcloud/notes/$d.md" ]; then
+        cp $HOME/Nextcloud/notes/template.md $HOME/Nextcloud/notes/$d.md
+        sed -i "s/DATE/$d/" $HOME/Nextcloud/notes/$d.md
+    fi
+    vim $HOME/Nextcloud/notes/$d.md
+}
+
+#function note {
+#    readonly topic=${@:?"Specify the topic for the note"}
+#    d=$(date --iso-8601)
+#    t=$(echo $topic | tr " " "-")
+#    vim $HOME/work/tmh/notes/$d-$t.md
+#}
 
 # System
 alias restart-sound="sudo kill -9 `ps ax | grep 'coreaudio[a-z]' | awk '{print $1}'` && echo Done"

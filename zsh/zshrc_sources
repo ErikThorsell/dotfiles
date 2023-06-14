@@ -1,6 +1,9 @@
 # ASDF
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+. $HOME/.asdf/plugins/golang/set-env.zsh
+
+
 
 # Include pkg
 path+=("$HOME/pkg")
