@@ -14,12 +14,13 @@ function note {
 
     # ${1-0} means "take argument 1 if present, else use value 0"
     d=$(date "+%Y-%m-%d" -d "${1-0} days")
+    p=$HOME/Nextcloud/notes/$d.md
 
-    if [ ! -f "$HOME/Nextcloud/notes/$d.md" ]; then
-        cp $HOME/Nextcloud/notes/template.md $HOME/Nextcloud/notes/$d.md
-        sed -i "s/DATE/$d/" $HOME/Nextcloud/notes/$d.md
+    if [ ! -f "$p" ]; then
+        cp $HOME/Nextcloud/notes/template.md $p
+        sed -i "s/DATE/$d/" $p
     fi
-    vim $HOME/Nextcloud/notes/$d.md
+    vim $p
 }
 
 #function note {
