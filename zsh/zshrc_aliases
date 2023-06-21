@@ -11,7 +11,10 @@ function sshci {
 alias aliases="vim ~/dotfiles/zsh/zshrc_aliases"
 
 function note {
-    d=$(date --iso-8601)
+
+    # ${1-0} means "take argument 1 if present, else use value 0"
+    d=$(date "+%Y-%m-%d" -d "${1-0} days")
+
     if [ ! -f "$HOME/Nextcloud/notes/$d.md" ]; then
         cp $HOME/Nextcloud/notes/template.md $HOME/Nextcloud/notes/$d.md
         sed -i "s/DATE/$d/" $HOME/Nextcloud/notes/$d.md
