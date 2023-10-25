@@ -8,6 +8,7 @@
   saveall = commit -a
   uncommit = reset --mixed HEAD~
   unstage = reset -q HEAD --
+  force = !git add . && git amend --no-edit && git push --force-with-lease && :
 
 # Merge oriented aliases
   branches = branch -a
