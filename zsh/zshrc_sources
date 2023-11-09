@@ -16,4 +16,7 @@ export PATH
 source <(kubectl completion zsh)
 source '/home/erik/pkg/azure-cli/az.completion'
 
+# Kubernetes diff wrapper
+export KUBECTL_EXTERNAL_DIFF=kubectl_diff
+
 echo " > .zshrc_sources loaded"
