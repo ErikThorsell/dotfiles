@@ -26,6 +26,8 @@
   history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
   last = log -1 HEAD --format=format:"%Cred%H"
   remotes = remote -v
+  squash-branch = "!f() { branch=$(git symbolic-ref --short HEAD); git rebase -i $(git merge-base $branch \"$1\"); }; f"
+
 
 # Alias oriented aliases
   alias = config --get-regexp ^alias\\.
