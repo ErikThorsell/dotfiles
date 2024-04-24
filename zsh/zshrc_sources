@@ -1,7 +1,6 @@
 # ASDF
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
-. $HOME/.asdf/plugins/golang/set-env.zsh
 
 # Include pkg
 path+=("$HOME/pkg")
@@ -13,10 +12,11 @@ path+=("$HOME/scripts")
 export PATH
 
 # Auto-completion
-source <(kubectl completion zsh)
-source '/home/erik/pkg/azure-cli/az.completion'
-
-# Kubernetes diff wrapper
-export KUBECTL_EXTERNAL_DIFF=kubectl_diff
+if kubectl_loc="$(type -p kubectl version)" || [[ -z $kubectl_loc ]]; then
+  source <(kubectl completion zsh)
+  source "$HOME/pkg/azure-cli/az.completion"
+  # Kubernetes diff wrapper
+  export KUBECTL_EXTERNAL_DIFF=kubectl_diff
+fi
 
 echo " > .zshrc_sources loaded"

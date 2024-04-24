@@ -1,12 +1,9 @@
 [user]
   name = Erik Thorsell
-  email = erik@thorsell.io
+  email = <email goes here>
 
 [include]
   path = ~/dotfiles/git/gitconfig_common
 
-[includeIf "gitdir:~/work/kgh/"]
-    path = ~/work/kgh/.gitconfig_include
-
-[includeIf "gitdir:~/work/tmh/"]
-    path = ~/work/tmh/.gitconfig_include
+[includeIf "gitdir:~/work/<company>/"]
+    path = ~/work/<company>/.gitconfig_include

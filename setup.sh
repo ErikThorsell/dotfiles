@@ -27,6 +27,13 @@ if [[ $shell == 'bash' ]]; then
 
 elif [[ $shell == 'zsh' ]]; then
 
+  omz="y"
+  echo "\nDo you want to install Oh-my-ZSH? (Y/n)"
+  read omz
+  if [[ ${omz,,} == 'y' ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  fi
+
   [ -f $HOME/.zshrc ] && mv $HOME/.zshrc $HOME/zshrc.bak
   echo " $ ln -s $PWD/zsh/zshrc $HOME/.zshrc"
   ln -s $PWD/zsh/zshrc $HOME/.zshrc
