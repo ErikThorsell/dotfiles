@@ -11,6 +11,10 @@ export PATH
 path+=("$HOME/scripts")
 export PATH
 
+# Include locally installed binaries
+path+=("$HOME/.local/bin")
+export PATH
+
 # Auto-completion
 if kubectl_loc="$(type -p kubectl version)" || [[ -z $kubectl_loc ]]; then
   source <(kubectl completion zsh)
