@@ -13,13 +13,13 @@ set smartcase                   "Override the 'ignorecase' option if the search 
 set incsearch                   "While typing a search command, show where the pattern, as it was typed so far, matches.
 set nowrap
 set linebreak
-set textwidth=80
+set textwidth=120
 
 " Tabbing
-"set smartindent                 "Do smart autoindenting when starting a new line.
+"set smartindent                "Do smart autoindenting when starting a new line.
 set expandtab                   "Uses spaces instead of tabs.
-set shiftwidth=4
-set tabstop=4                   "How many columns does a tab count for.
+set shiftwidth=2
+set tabstop=2                   "How many columns does a tab count for.
 set list                        "Display some nonprintable characters.
 set listchars=tab:.\ ,trail:-   "Select what characters to display.
 set fillchars="stl:\ ,stlnc:\ ,vert:| ,fold:\
