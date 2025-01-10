@@ -90,4 +90,5 @@ fi;
 echo "~~oo##> ALMOST READY <##oo~~"
 echo " 1. Don't forget to update user information in $HOME/.gitconfig"
 echo " 2. Install all vim plugins by executing :PlugInstall in vim"
+echo " 3. Install delta (github.com/dandavision/delta)"
 

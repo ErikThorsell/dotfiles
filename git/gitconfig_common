@@ -41,6 +41,14 @@
 
 [core]
   editor = vim
+  pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  side-by-side = true
 
 [diff]
   tool = vimdiff
@@ -50,6 +58,7 @@
 
 [merge]
   tool = vimdiff
+  conflictstyle = zdiff3
 
 [mergetool]
   prompt = false
