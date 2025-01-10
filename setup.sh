@@ -57,8 +57,18 @@ echo " $ ln -s $PWD/vim $HOME/.vim"
 ln -s $PWD/vim $HOME/.vim
 
 [ -f $HOME/.gitconfig ] && mv $HOME/.gitconfig $HOME/gitconfig.bak
-echo " $ ln -s $PWD/git/gitconfig_user $HOME/.gitconfig"
-ln -s $PWD/git/gitconfig_user $HOME/.gitconfig
+cat <<EOF > $HOME/.gitconfig
+[user]
+  name = Erik Thorsell
+  email = erik@thorsell.io
+
+[include]
+  path = ~/dotfiles/git/gitconfig_common
+
+[includeIf "gitdir:~/work/<company>/"]
+  path = ~/work/<company>/.gitconfig_include
+EOF
+echo "Created new .gitconfig with specified content."
 
 echo "Creating undodir for vim"
 mkdir -p $HOME/.vim/undodir

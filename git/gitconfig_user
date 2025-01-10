@@ -1,9 +1,0 @@
-[user]
-  name = Erik Thorsell
-  email = <email goes here>
-
-[include]
-  path = ~/dotfiles/git/gitconfig_common
-
-[includeIf "gitdir:~/work/<company>/"]
-    path = ~/work/<company>/.gitconfig_include
