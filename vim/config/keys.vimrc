@@ -65,3 +65,13 @@ noremap s l
 
 " toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
+
+" Yank to both default and clipboard registers in normal mode
+augroup YankToClipboard
+  autocmd!
+  autocmd TextYankPost * if v:event.operator ==# 'y' | call setreg('+', getreg('"')) | endif
+augroup END
+
+" Yank to both registers in visual mode
+vnoremap y y:call setreg('+', getreg('"'))<CR>
+
