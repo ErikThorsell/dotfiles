@@ -8,4 +8,9 @@ then
   complete -C /usr/bin/terraform terraform
 fi
 
+# Source secret environment variables
+if [ -f $HOME/.secretenv ]; then
+    source $HOME/.secretenv
+fi
+
 echo " > .bashrc_sources sourced"
