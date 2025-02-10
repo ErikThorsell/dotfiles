@@ -8,6 +8,15 @@ then
   complete -C /usr/bin/terraform terraform
 fi
 
+# Check if kubernetes is installed; if so, install autocomplete
+if command -v kubectl help &> /dev/null
+then
+  source <(kubectl completion bash)
+  complete -o default -F __start_kubectl k
+fi
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 # Source secret environment variables
 if [ -f $HOME/.secretenv ]; then
     source $HOME/.secretenv

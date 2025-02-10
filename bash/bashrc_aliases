@@ -14,21 +14,8 @@ alias l='ls -CF'
 alias aliases='vim ~/dotfiles/bash/bashrc_aliases'
 
 # Tools
-alias jira='jira-ctl'
+alias k='kubectl'
+alias jira='jira-cli'
 alias tctl='talosctl'
-
-# Kubernetes
-k() {
-  if [ $# -lt 3 ]; then
-    echo "Usage: k <context> <namespace> <kubectl command...>"
-    return 1
-  fi
-
-  local context="$1"
-  local namespace="$2"
-  shift 2
-
-  kubectl --context="$context" --namespace="$namespace" "$@"
-}
 
 echo " > .bashrc_aliases loaded"
