@@ -1,5 +1,9 @@
 " File recognition
+set nocompatible
 filetype plugin indent on
+syntax on
+
+" LaTeX flavour
 let g:tex_flavor = "latex"
 
 " Add syntastic default settings

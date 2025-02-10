@@ -23,5 +23,8 @@ Plug 'morhetz/gruvbox'              " Gruvbox color scheme
 "Plug 'tmhedberg/SimpylFold'        " Folding for Python
 "Plug 'Konfekt/FastFold'            " Increase folding performance
 
+" Vim Wiki
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
 
