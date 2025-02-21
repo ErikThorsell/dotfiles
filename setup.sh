@@ -74,7 +74,7 @@ echo "Creating undodir for vim"
 mkdir -p $HOME/.vim/undodir
 
 echo "~~oo##> INSTALLING asdf <##oo~~"
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch $(curl -Ls -o /dev/null -w "%{url_effective}" https://github.com/asdf-vm/asdf/releases/latest | sed 's#.*/##')
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 
 sway="n"
 echo "\nDo you want to link configuration for sway, waybar and wofi? (y/n)"
