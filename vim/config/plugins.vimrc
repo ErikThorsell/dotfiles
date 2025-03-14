@@ -3,6 +3,10 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
+" Use Markdown syntax in VimWiki
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
+let g:vimwiki_global_ext = 0
+
 " LaTeX flavour
 let g:tex_flavor = "latex"
 

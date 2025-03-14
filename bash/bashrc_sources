@@ -1,7 +1,3 @@
-# ASDF stuff
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
 # Check if terraform is installed; if so, install autocomplete
 if command -v terraform -help &> /dev/null
 then
@@ -15,11 +11,16 @@ then
   complete -o default -F __start_kubectl k
 fi
 
+# Add krew to path
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Source secret environment variables
 if [ -f $HOME/.secretenv ]; then
     source $HOME/.secretenv
 fi
+
+## ASDF stuff
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+. <(asdf completion bash)
 
 echo " > .bashrc_sources sourced"
