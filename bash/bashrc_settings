@@ -47,6 +47,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# make auto complete case insensitive
+bind "set completion-ignore-case on"
+
 # Disable Ctrl + s
 stty -ixon
 
