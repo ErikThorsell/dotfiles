@@ -18,4 +18,12 @@ alias k='kubectl'
 alias jira='jira-cli'
 alias tctl='talosctl'
 
+# Redact any string‐valued field whose key contains “secret” (case‐insensitive)
+yq_nosecrets() {
+  yq eval-all '(.. 
+      | select(tag == "!!str") 
+      | select((path | .[-1]) | test("(?i)secret"))
+    ) = "<REDACTED>"'
+}
+
 echo " > .bashrc_aliases loaded"
