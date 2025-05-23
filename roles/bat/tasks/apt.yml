@@ -1,0 +1,20 @@
+---
+- name: Ensure the latest version of bat is installed
+  become: yes
+  apt:
+    name: bat
+    state: latest
+
+- name: Ensure ~/.local/bin existts
+  file:
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Symlink batcat to bat
+  file:
+    src:  "/usr/bin/batcat"
+    dest: "{{ ansible_env.HOME }}/.local/bin/bat"
+    state: link
+    force: yes
+
