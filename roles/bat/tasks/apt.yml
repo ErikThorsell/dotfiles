@@ -5,16 +5,17 @@
     name: bat
     state: latest
 
-- name: Ensure ~/.local/bin existts
+- name: Ensure /usr/local/bin exists
+  become: yes
   file:
-    path: "{{ ansible_env.HOME }}/.local/bin"
+    path: "/usr/local/bin"
     state: directory
     mode: '0755'
 
 - name: Symlink batcat to bat
   file:
     src:  "/usr/bin/batcat"
-    dest: "{{ ansible_env.HOME }}/.local/bin/bat"
+    dest: "/usr/local/bin/bat"
     state: link
     force: yes
 
