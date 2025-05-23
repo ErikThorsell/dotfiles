@@ -1,0 +1,74 @@
+---
+- name: Refresh apt cache
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Ensure gpg package is installed
+  apt:
+    name: gpg
+    state: present
+  become: yes
+
+- name: Ensure /etc/apt/keyrings directory exists
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Ensure the eza GPG key is present in keyring
+  apt_key:
+    url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
+    keyring: /etc/apt/keyrings/gierens.gpg
+    state: present
+  become: yes
+
+- name: Ensure eza APT repository is present
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main"
+    filename: gierens
+    state: present
+  become: yes
+
+- name: Ensure correct permissions on keyring and list file
+  file:
+    path: "{{ item }}"
+    mode: '0644'
+  loop:
+    - /etc/apt/keyrings/gierens.gpg
+    - /etc/apt/sources.list.d/gierens.list
+  become: yes
+
+- name: Refresh apt cache after adding eza repo
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Install eza package
+  apt:
+    name: eza
+    state: present
+  become: yes
+
+- name: Find the path to the eza executable
+  command: which eza
+  register: eza_path
+  changed_when: false
+  failed_when: eza_path.rc != 0
+
+- name: Ensure /usr/local/bin exists
+  file:
+    path: /usr/local/bin
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Symlink ls → eza
+  file:
+    src:  "{{ eza_path.stdout }}"
+    dest: /usr/local/bin/ls
+    state: link
+    force: yes
+  become: yes
+  when: eza_path.rc == 0
