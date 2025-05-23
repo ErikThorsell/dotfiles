@@ -1,0 +1,6 @@
+[macos]
+localhost ansible_connection=local
+
+[ubuntu]
+localhost ansible_connection=local
+

@@ -1,0 +1,13 @@
+echo "New shell, new opportunities!"
+
+# Include all the default stuff that .bashrc usually contains
+source "{{ bash_config_dir }}/bashrc_settings"
+
+# Include a prompt
+source "{{ bash_config_dir }}/bashrc_prompt"
+
+# Include aliases
+source "{{ bash_config_dir }}/bashrc_aliases"
+
+# Source stuff
+source "{{ bash_config_dir }}/bashrc_sources"

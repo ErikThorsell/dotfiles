@@ -1,0 +1,4 @@
+- name: Configure macOS workstation
+  hosts: macos
+  roles: []
+

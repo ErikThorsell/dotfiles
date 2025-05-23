@@ -1,0 +1,19 @@
+---
+- name: Update repositories' cache
+  become: yes
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Upgrade packages installed via apt
+  become: yes
+  apt:
+    name: "*"
+    state: latest
+
+- name: Clean up
+  become: yes
+  apt:
+    autoremove: yes
+    autoclean: yes
+    clean: yes

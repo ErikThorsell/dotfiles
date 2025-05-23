@@ -1,0 +1,7 @@
+---
+- name: Render ~/.bashrc from template
+  template:
+    src:  bashrc.j2
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    mode: '0644'
+

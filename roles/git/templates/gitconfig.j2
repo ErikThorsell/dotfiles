@@ -1,0 +1,14 @@
+[user]
+  name  = {{ git_user_name }}
+  email = {{ git_user_email }}
+
+[include]
+  path = {{ common_path }}
+
+{%- for customer in customers %}
+
+[includeIf "gitdir:{{ work_root }}/{{ customer }}/"]
+  path = {{ work_root }}/{{ customer }}/.gitconfig_include
+
+{%- endfor %}
+

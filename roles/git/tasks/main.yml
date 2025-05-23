@@ -1,0 +1,43 @@
+---
+- name: Ensure the latest version of Git is installed
+  become: yes
+  apt:
+    name: git
+    state: latest
+
+- name: Discover customer override folders
+  find:
+    paths: "{{ customer_src_root }}"
+    file_type: directory
+    depth: 1
+  register: cust_dirs
+
+- name: Build customers list
+  set_fact:
+    customers: >-
+      {{ cust_dirs.files
+         | map(attribute='path')
+         | map('basename')
+         | list
+      }}
+
+- name: Create each customer work directory
+  file:
+    path: "{{ work_root }}/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ customers }}"
+
+- name: Copy customer .gitconfig_include files
+  copy:
+    src:   "customers/{{ item }}/.gitconfig_include"
+    dest:  "{{ work_root }}/{{ item }}/.gitconfig_include"
+    mode:  '0644'
+  loop: "{{ customers }}"
+
+- name: Render main ~/.gitconfig
+  template:
+    src:  gitconfig.j2
+    dest: "{{ git_home }}/.gitconfig"
+    mode: '0644'
+

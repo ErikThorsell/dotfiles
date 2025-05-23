@@ -1,0 +1,21 @@
+- name: Configure Ubuntu workstation
+  hosts: ubuntu
+  gather_facts: yes
+  vars:
+    ansible_become_exe: sudo
+  pre_tasks:
+    - name: Detect dzdo and prefer it if sudo not present
+      stat:
+        path: /usr/bin/sudo
+      register: sudo_bin
+
+    - name: If dzdo is present, use it
+      set_fact:
+        ansible_become_exe: dzdo
+      when: not sudo_bin.stat.exists
+
+  roles:
+    - upgrade
+    - bash
+    - git
+    - vim
