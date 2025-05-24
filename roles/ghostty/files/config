@@ -1,0 +1,24 @@
+# NOTE:
+# docs:
+# ghostty +show-config --default --docs | nvim
+# examples:
+# https://github.com/search?q=path%3Aghostty%2Fconfig&type=code
+
+font-size = 11
+
+alpha-blending = linear-corrected
+
+macos-titlebar-style = tabs
+macos-option-as-alt = true
+
+background-opacity = 0.96
+background-blur-radius = 40
+
+# ghostty +list-themes
+theme = GruvboxDark
+
+mouse-hide-while-typing = true
+
+window-inherit-working-directory = false
+working-directory = home
+

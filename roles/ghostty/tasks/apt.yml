@@ -1,0 +1,29 @@
+---
+- name: Download latest Ghostty via GitHub helper
+  include_role:
+    name: github_release
+  vars:
+    github_release_repo: "mkasberg/ghostty-ubuntu"
+    github_release_asset_pattern: "ghostty_[^/]+amd64_22\\.04\\.deb$"
+    github_release_dest: "/tmp/github_release/ghostty"
+    github_release_overwrite: yes
+
+- name: Find Ghostty deb
+  find:
+    paths: "/tmp/github_release/ghostty"
+    patterns: "ghostty*.deb"
+    file_type: file
+  register: ghostty_deb
+
+- name: Install Ghostty
+  become: yes
+  apt:
+    deb: "{{ ghostty_deb.files[0].path }}"
+
+- name: Symlink Ghostty config file
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ ansible_env.HOME }}/.config/ghostty/config"
+    state: link
+    force: yes
+

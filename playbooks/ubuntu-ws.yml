@@ -25,3 +25,4 @@
     - bat
     - kubectl
     - fd
+    - ghostty
