@@ -1,9 +1,4 @@
 ---
-- name: Refresh apt cache
-  apt:
-    update_cache: yes
-  become: yes
-
 - name: Ensure gpg package is installed
   apt:
     name: gpg
@@ -43,6 +38,7 @@
 - name: Refresh apt cache after adding eza repo
   apt:
     update_cache: yes
+    cache_valid_time: 3600
   become: yes
 
 - name: Install eza package

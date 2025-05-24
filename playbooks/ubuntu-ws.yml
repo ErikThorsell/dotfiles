@@ -2,6 +2,7 @@
   hosts: ubuntu
   gather_facts: yes
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     ansible_become_exe: sudo
   pre_tasks:
     - name: Detect dzdo and prefer it if sudo not present
@@ -15,8 +16,11 @@
       when: not sudo_bin.stat.exists
 
   roles:
-    - upgrade
-    - bash
-    - git
+#    - upgrade
+#    - bash
+#    - git
+#    - asdf
+#    - eza
     - vim
-    - bat
+#    - bat
+#    - kubectl

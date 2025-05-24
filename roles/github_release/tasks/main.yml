@@ -6,12 +6,16 @@
     mode: '0755'
 
 - name: Fetch latest release metadata from GitHub
-  get_url:
+  uri:
     url: "https://api.github.com/repos/{{ github_release_repo }}/releases/latest"
-    dest: "/tmp/github_release_manifest"
+    return_content: yes
     headers:
       Accept: application/vnd.github.v3+json
+      # Ensure we don’t send ETag‐based conditional headers:
+      If-None-Match: ''
+    status_code: [200, 304]
   register: github_release
+  changed_when: false
 
 - name: Pattern match to get correct Download URL
   set_fact:

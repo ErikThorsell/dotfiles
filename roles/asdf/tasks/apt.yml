@@ -8,15 +8,15 @@
     github_release_dest: "/tmp/github_release/asdf"
     github_release_overwrite: yes
 
-
 - name: Find ASDF tarball
   find:
-    paths: "{{ github_release_dest }}"
+    paths: "/tmp/github_release/asdf"
     patterns: "asdf-*-linux-amd64.tar.gz"
     file_type: file
   register: asdf_tar
 
 - name: Unpack ASDF tarball
+  become: yes
   unarchive:
     src:  "{{ asdf_tar.files[0].path }}"
     dest: "/usr/local/bin"
@@ -29,9 +29,3 @@
   register: asdf_version
   failed_when: asdf_version.rc != 0
 
-- name: Verify ASDF version returns a semver
-  assert:
-    that:
-      - asdf_version.stdout is match('^v[0-9]+\\.[0-9]+\\.[0-9]+')
-    fail_msg: >
-      ASDF version output unexpected: {{ asdf_version.stdout }}

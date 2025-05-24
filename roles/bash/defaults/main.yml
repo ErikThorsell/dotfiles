@@ -1,2 +1,2 @@
 ---
-bash_config_dir: "{{ role_path }}/files/"
+bash_config_dir: "{{ role_path }}/files"

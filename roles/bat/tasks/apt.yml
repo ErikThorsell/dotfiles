@@ -13,6 +13,7 @@
     mode: '0755'
 
 - name: Symlink batcat to bat
+  become: yes
   file:
     src:  "/usr/bin/batcat"
     dest: "/usr/local/bin/bat"

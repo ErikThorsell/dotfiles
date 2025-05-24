@@ -1,3 +1,6 @@
+# Include ~/.local/bin
+export PATH="$PATH:/home/erik/.local/bin"
+
 # Check if terraform is installed; if so, install autocomplete
 if command -v terraform -help &> /dev/null
 then
