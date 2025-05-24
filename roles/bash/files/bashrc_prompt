@@ -3,8 +3,8 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-if [ -f $HOME/dotfiles/git/git-prompt.sh ]; then
-    . $HOME/dotfiles/git/git-prompt.sh
+if [ -f $HOME/dotfiles/roles/git/files/git-prompt.sh ]; then
+    . $HOME/dotfiles/roles/git/files/git-prompt.sh
     GIT_PS1_SHOWDIRTYSTATE="yes"
     GIT_PS1_SHOWUNTRACKEDFILES="yes"
     GIT_PS1_SHOWCONFLICTSTATE="yes"
