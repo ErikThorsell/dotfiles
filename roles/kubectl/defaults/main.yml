@@ -1,0 +1,6 @@
+---
+kubectl_version: "stable"
+kubectl_download_base: "https://dl.k8s.io/release"
+kubectl_arch: "amd64"
+kubectl_dest: "/usr/local/bin"
+
