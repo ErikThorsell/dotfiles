@@ -16,11 +16,12 @@
       when: not sudo_bin.stat.exists
 
   roles:
-#    - upgrade
-#    - bash
-#    - git
-#    - asdf
-#    - eza
+    - upgrade
+    - bash
+    - git
+    - asdf
+    - eza
     - vim
-#    - bat
-#    - kubectl
+    - bat
+    - kubectl
+    - fd

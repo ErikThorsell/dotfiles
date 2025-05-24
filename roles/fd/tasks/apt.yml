@@ -1,0 +1,30 @@
+---
+- name: Ensure the latest version of fdfind is installed
+  become: yes
+  apt:
+    name: fd-find
+    state: latest
+
+- name: Ensure /usr/local/bin exists
+  become: yes
+  file:
+    path: "/usr/local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Symlink fdfind to find
+  become: yes
+  file:
+    src:  "/usr/bin/fdfind"
+    dest: "/usr/local/bin/find"
+    state: link
+    force: yes
+
+- name: Symlink fdfind to fd
+  become: yes
+  file:
+    src:  "/usr/bin/fdfind"
+    dest: "/usr/local/bin/fd"
+    state: link
+    force: yes
+
