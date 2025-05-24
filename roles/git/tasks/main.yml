@@ -7,7 +7,7 @@
 
 - name: Discover customer override folders
   find:
-    paths: "{{ customer_src_root }}"
+    paths: "{{ work_root }}"
     file_type: directory
     depth: 1
   register: cust_dirs
@@ -21,18 +21,12 @@
          | list
       }}
 
-- name: Create each customer work directory
-  file:
-    path: "{{ work_root }}/{{ item }}"
-    state: directory
-    mode: '0755'
-  loop: "{{ customers }}"
-
-- name: Copy customer .gitconfig_include files
+- name: Copy generic customer .gitconfig_include files
   copy:
-    src:   "customers/{{ item }}/.gitconfig_include"
+    src:   "gitconfig_include"
     dest:  "{{ work_root }}/{{ item }}/.gitconfig_include"
     mode:  '0644'
+    force: no  # don't overwrite
   loop: "{{ customers }}"
 
 - name: Render main ~/.gitconfig
