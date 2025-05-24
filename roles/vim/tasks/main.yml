@@ -2,7 +2,7 @@
 - name: Ensure latest version of Vim is installed
   become: yes
   apt:
-    name: vim
+    name: vim-gtk3  # vim-gtk3 has +clipboard
     state: latest
 
 - name: Ensure ~/.vim and its runtime dirs exist
