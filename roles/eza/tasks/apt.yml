@@ -1,4 +1,16 @@
 ---
+- name: Remove any old gierens keyring
+  file:
+    path: /etc/apt/keyrings/gierens-archive-keyring.gpg
+    state: absent
+  become: yes
+
+- name: Remove any old gierens source list
+  file:
+    path: /etc/apt/sources.list.d/gierens.list
+    state: absent
+  become: yes
+
 - name: Ensure gpg package is installed
   apt:
     name: gpg
@@ -12,16 +24,20 @@
     mode: '0755'
   become: yes
 
-- name: Ensure the eza GPG key is present in keyring
+- name: Add the Gierens GPG key into /etc/apt/keyrings/gierens.gpg
   apt_key:
-    url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
+    url: https://raw.githubusercontent.com/gierens/wikijs-rs/main/deb.asc
     keyring: /etc/apt/keyrings/gierens.gpg
     state: present
   become: yes
 
-- name: Ensure eza APT repository is present
+- name: Ensure the Gierens APT repo is present (with the same keyring)
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main"
+    repo: >-
+      deb
+      [arch=amd64
+       signed-by=/etc/apt/keyrings/gierens.gpg]
+      http://deb.gierens.de stable main
     filename: gierens
     state: present
   become: yes
@@ -35,7 +51,7 @@
     - /etc/apt/sources.list.d/gierens.list
   become: yes
 
-- name: Refresh apt cache after adding eza repo
+- name: Refresh apt cache after adding gierens repo
   apt:
     update_cache: yes
     cache_valid_time: 3600
