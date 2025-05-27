@@ -19,7 +19,7 @@
   become: yes
   unarchive:
     src:  "{{ nvim_tar.files[0].path }}"
-    dest: "/opt/nvim"
+    dest: "/opt"
     remote_src: yes
   when:
     - nvim_tar.matched == 1
@@ -27,7 +27,7 @@
 - name: Symlink neovim binary
   become: yes
   file:
-    src:  "/opt/nvim/bin/nvim"
+    src:  "/opt/nvim-linux-x86_64/bin/nvim"
     dest: "/usr/local/bin/nvim"
     state: link
     force: yes
@@ -35,7 +35,7 @@
 - name: Symlink neovim to replace vim
   become: yes
   file:
-    src:  "/opt/nvim/bin/nvim"
+    src:  "/opt/nvim-linux-x86_64/bin/nvim"
     dest: "/usr/local/bin/vim"
     state: link
     force: yes
@@ -48,8 +48,8 @@
 
 - name: Symlink init.vim
   file:
-    src:  "{{ role_path }}/files/init.vim"
-    dest: "{{ ansible_env.HOME }}/.config/nvim/init.vim"
+    src:  "{{ role_path }}/files/init.lua"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
     state: link
     force: yes
 
