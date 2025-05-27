@@ -1,0 +1,31 @@
+---
+- name: Download latest OpenTofu binary via GitHub helper
+  include_role:
+    name: github_release
+  vars:
+    github_release_repo: "opentofu/opentofu"
+    github_release_asset_pattern: "tofu_[^/]+-linux-amd64\\.tar\\.gz$"
+    github_release_dest: "/tmp/github_release/tofu"
+    github_release_overwrite: yes
+
+- name: Find OpenTofu tarball
+  find:
+    paths: "/tmp/github_release/tofu"
+    patterns: "tofu_[^/]+-linux-amd64.tar.gz$"
+    file_type: file
+  register: tofu_tar
+
+- name: Unpack OpenTofu tarball
+  become: yes
+  unarchive:
+    src:  "{{ tofu_tar.files[0].path }}"
+    dest: "/usr/local/bin"
+    remote_src: yes
+  when:
+    - tofu_tar.matched == 1
+
+- name: Get installed tofu version
+  command: "/usr/local/bin/tofu --version"
+  register: version
+  failed_when: version.rc != 0
+

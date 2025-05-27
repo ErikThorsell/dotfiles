@@ -27,3 +27,4 @@
     - kubectl
     - fd
     - ghostty
+    - tofu
