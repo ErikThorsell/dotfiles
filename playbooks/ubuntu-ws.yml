@@ -19,6 +19,7 @@
     - upgrade
     - bash
     - git
+    - gitui
     - asdf
     - eza
     - neovim
