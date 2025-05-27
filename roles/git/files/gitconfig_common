@@ -43,7 +43,7 @@
   autoSetupRemote = true
 
 [core]
-  editor = vim
+  editor = nvim
   pager = delta
 
 [interactive]
@@ -53,21 +53,20 @@
   navigate = true
   side-by-side = true
 
-[diff]
-  tool = vimdiff
-
 [difftool]
   prompt = false
 
 [merge]
-  tool = vimdiff
-  conflictstyle = zdiff3
+  tool = neovim
 
 [mergetool]
   prompt = false
 
 [mergetool "vimdiff"]
   cmd = vim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[mergetool "neovim"]
+  cmd = nvim -d $LOCAL $REMOTE $BASE $MERGED
 
 [rerere]
   enabled = true

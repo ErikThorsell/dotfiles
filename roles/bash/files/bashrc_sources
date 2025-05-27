@@ -1,5 +1,9 @@
+# Use nvim
+export GIT_EDITOR="nvim"
+export EDITOR="nvim"
+
 # Include ~/.local/bin
-export PATH="$PATH:/home/erik/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # Check if terraform is installed; if so, install autocomplete
 if command -v terraform -help &> /dev/null

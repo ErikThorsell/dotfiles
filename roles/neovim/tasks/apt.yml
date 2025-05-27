@@ -1,0 +1,62 @@
+---
+- name: Download latest neovim via GitHub helper
+  include_role:
+    name: github_release
+  vars:
+    github_release_repo: "neovim/neovim"
+    github_release_asset_pattern: "nvim-linux-x86_64\\.tar\\.gz$"
+    github_release_dest: "/tmp/github_release/neovim"
+    github_release_overwrite: yes
+
+- name: Find neovim tarball
+  find:
+    paths: "/tmp/github_release/neovim"
+    patterns: "nvim-linux-x86_64.tar.gz"
+    file_type: file
+  register: nvim_tar
+
+- name: Unpack neovim tarball
+  become: yes
+  unarchive:
+    src:  "{{ nvim_tar.files[0].path }}"
+    dest: "/opt/nvim"
+    remote_src: yes
+  when:
+    - nvim_tar.matched == 1
+
+- name: Symlink neovim binary
+  become: yes
+  file:
+    src:  "/opt/nvim/bin/nvim"
+    dest: "/usr/local/bin/nvim"
+    state: link
+    force: yes
+
+- name: Symlink neovim to replace vim
+  become: yes
+  file:
+    src:  "/opt/nvim/bin/nvim"
+    dest: "/usr/local/bin/vim"
+    state: link
+    force: yes
+
+- name: Ensure config directory for neovim existts
+  file:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
+    state: directory
+    mode: '0755'
+
+- name: Symlink init.vim
+  file:
+    src:  "{{ role_path }}/files/init.vim"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/init.vim"
+    state: link
+    force: yes
+
+- name: Symlink remaining configuration files
+  file:
+    src:  "{{ role_path }}/files/lua"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/lua"
+    state: link
+    force: yes
+

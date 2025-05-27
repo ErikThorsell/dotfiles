@@ -21,7 +21,7 @@
     - git
     - asdf
     - eza
-    - vim
+    - neovim
     - bat
     - kubectl
     - fd
