@@ -16,8 +16,11 @@ vim.schedule(function()
 	vim.o.clipboard = "unnamedplus"
 end)
 
--- Enable break indent
-vim.o.breakindent = true
+-- Indentation Settings
+-- local o = vim.opt
+vim.o.tabstop = 2 -- a real Tab is displayed as 2 spaces
+vim.o.shiftwidth = 2 -- >>, auto-indent, etc. are 2 columns
+vim.o.softtabstop = 2 -- Tab/backspace behave as 2 spaces
 
 -- Save undo history
 vim.o.undofile = true
@@ -50,7 +53,7 @@ vim.o.inccommand = "split"
 vim.o.scrolloff = 10
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s)
+-- instead raise a dialogue asking if you wish to save the current file(s)
 vim.o.confirm = true
 
 -- [[ Basic Autocommands ]]
