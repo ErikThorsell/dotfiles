@@ -40,7 +40,7 @@
     state: link
     force: yes
 
-- name: Ensure config directory for neovim existts
+- name: Ensure config directory for neovim exists
   file:
     path: "{{ ansible_env.HOME }}/.config/nvim"
     state: directory
@@ -53,10 +53,17 @@
     state: link
     force: yes
 
-- name: Symlink remaining configuration files
+- name: Symlink lua configuration files
   file:
     src:  "{{ role_path }}/files/lua"
     dest: "{{ ansible_env.HOME }}/.config/nvim/lua"
+    state: link
+    force: yes
+
+- name: Symlink after directory
+  file:
+    src:  "{{ role_path }}/files/after"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/after"
     state: link
     force: yes
 
