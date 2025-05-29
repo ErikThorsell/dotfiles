@@ -20,6 +20,12 @@
   apt:
     deb: "{{ ghostty_deb.files[0].path }}"
 
+- name: Ensure config directory for ghostty exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/ghostty"
+    state: directory
+    mode: '0755'
+
 - name: Symlink Ghostty config file
   file:
     src: "{{ role_path }}/files/config"
