@@ -6,7 +6,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
--- vim.o.mouse = "a"
+vim.o.mouse = "n"
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
@@ -16,8 +16,11 @@ vim.schedule(function()
 	vim.o.clipboard = "unnamedplus"
 end)
 
+-- Textwidth
+vim.o.textwidth = 120
+vim.o.colorcolumn = "120"
+
 -- Indentation Settings
--- local o = vim.opt
 vim.o.tabstop = 2 -- a real Tab is displayed as 2 spaces
 vim.o.shiftwidth = 2 -- >>, auto-indent, etc. are 2 columns
 vim.o.softtabstop = 2 -- Tab/backspace behave as 2 spaces
