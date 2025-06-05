@@ -40,7 +40,6 @@ require("lazy").setup({
 			},
 		},
 	},
-
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
@@ -646,6 +645,18 @@ require("lazy").setup({
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {},
+	},
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("nvim-tree").setup({})
+			vim.keymap.set("n", "<leader>ft", ":NvimTreeToggle<CR>", { silent = true })
+		end,
 	},
 }, {
 	ui = {
