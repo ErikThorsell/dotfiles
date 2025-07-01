@@ -45,3 +45,24 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- in diff mode: <leader>2 pulls from LOCAL, <leader>3 from REMOTE
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "diff",
+	callback = function()
+		-- <leader>2 pulls in your LOCAL (HEAD) version
+		vim.keymap.set("n", "<leader>2", "<cmd>diffget LOCAL<CR>", {
+			buffer = true,
+			noremap = true,
+			silent = true,
+			desc = "Diffget LOCAL (HEAD)",
+		})
+		-- <leader>3 pulls in the REMOTE (rebased) version
+		vim.keymap.set("n", "<leader>3", "<cmd>diffget REMOTE<CR>", {
+			buffer = true,
+			noremap = true,
+			silent = true,
+			desc = "Diffget REMOTE (rebased)",
+		})
+	end,
+})
