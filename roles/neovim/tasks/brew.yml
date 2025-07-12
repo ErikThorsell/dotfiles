@@ -1,0 +1,33 @@
+---
+- name: Ensure Neovim is installed
+  homebrew:
+    name: neovim
+    state: latest
+
+- name: Ensure config directory for neovim exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
+    state: directory
+    mode: '0755'
+
+- name: Symlink init.vim
+  file:
+    src:  "{{ role_path }}/files/init.lua"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
+    state: link
+    force: yes
+
+- name: Symlink lua configuration files
+  file:
+    src:  "{{ role_path }}/files/lua"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/lua"
+    state: link
+    force: yes
+
+- name: Symlink after directory
+  file:
+    src:  "{{ role_path }}/files/after"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/after"
+    state: link
+    force: yes
+

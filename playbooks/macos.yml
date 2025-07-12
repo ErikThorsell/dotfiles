@@ -1,4 +1,13 @@
 - name: Configure macOS workstation
   hosts: macos
-  roles: []
+  gather_facts: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
+  roles:
+    - upgrade
+    - zsh
+    - neovim
+    - git
+    - eza
+    - delta

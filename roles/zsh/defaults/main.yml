@@ -1,0 +1,2 @@
+---
+zsh_config_dir: "{{ role_path }}/files"

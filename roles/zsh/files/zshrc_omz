@@ -1,0 +1,19 @@
+if [ -d "$HOME/.oh-my-zsh" ]; then
+  export ZSH="$HOME/.oh-my-zsh"
+  zstyle ':omz:update' mode reminder
+
+  plugins=(git poetry)
+
+  COMPLETION_WAITING_DOTS="true"
+  ENABLE_CORRECTION="true"
+  HYPHEN_INSENSITIVE="true"
+  HIST_STAMPS="yyyy-mm-dd"
+	DISABLE_LS_COLORS="true"  # clashes with eza
+
+  source $ZSH/oh-my-zsh.sh
+  export EDITOR='vim'
+
+  echo " > .zshrc_omz loaded"
+else
+  echo " > .zshrc_omz was NOT loaded. Oh My ZSH is not installed?"
+fi

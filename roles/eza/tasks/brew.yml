@@ -1,0 +1,26 @@
+---
+- name: Ensure Eza is of the latest version
+  homebrew:
+    name: eza
+    state: latest
+
+- name: Find the path to the eza executable
+  command: which eza
+  register: eza_path
+  changed_when: false
+  failed_when: eza_path.rc != 0
+
+- name: Ensure /usr/local/bin exists
+  file:
+    path: /usr/local/bin
+    state: directory
+    mode: '0755'
+
+- name: Symlink ls → eza
+  file:
+    src:  "{{ eza_path.stdout }}"
+    dest: /usr/local/bin/ls
+    state: link
+    force: yes
+  become: yes
+  when: eza_path.rc == 0

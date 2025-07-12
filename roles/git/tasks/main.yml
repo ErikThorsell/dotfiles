@@ -1,7 +1,6 @@
 ---
 - name: Ensure the latest version of Git is installed
-  become: yes
-  apt:
+  homebrew:
     name: git
     state: latest
 
