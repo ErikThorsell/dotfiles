@@ -1,0 +1,7 @@
+---
+- name: Ensure latest version of Git is installed
+  become: yes
+  apt:
+    name: git
+    state: latest
+
