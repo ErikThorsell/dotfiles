@@ -10,13 +10,20 @@ alias tctl='talosctl'
 
 # ripgrep “filename search” function
 rgf() {
-  if [ $# -lt 1 ]; then
-    echo "Usage: rgf <filename-pattern>"
-    return 1
+  if [ $# -eq 0 ]; then
+    rg --files
+    return
   fi
-  # --files: list paths only
+
+  # Build one --iglob "**/*PAT*" per argument
   # --iglob: case-insensitive glob
-  rg --files --iglob "**/$1"
+  local iglobs=()
+  for pat in "$@"; do
+    iglobs+=(--iglob "**/*${pat}*")
+  done
+
+  # --files: list paths only
+  rg --files "${iglobs[@]}"
 }
 
 
