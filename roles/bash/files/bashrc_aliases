@@ -7,6 +7,17 @@ alias k='kubectl'
 alias jira='jira-cli'
 alias tctl='talosctl'
 
+
+# ripgrep “filename search” function
+rgf() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: rgf <filename-pattern>"
+    return 1
+  fi
+  rg --files --glob "**/$1"
+}
+
+
 # Redact any string‐valued field whose key contains “secret” (case‐insensitive)
 yq_nosecrets() {
   yq eval-all '(.. 
