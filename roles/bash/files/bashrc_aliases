@@ -14,7 +14,9 @@ rgf() {
     echo "Usage: rgf <filename-pattern>"
     return 1
   fi
-  rg --files --glob "**/$1"
+  # --files: list paths only
+  # --iglob: case-insensitive glob
+  rg --files --iglob "**/$1"
 }
 
 
