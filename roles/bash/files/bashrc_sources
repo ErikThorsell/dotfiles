@@ -30,4 +30,13 @@ fi
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 . <(asdf completion bash)
 
+# I don't want to assume all of my roles are executed on every target so I source most things by putting them in a
+# dedicated directory. This way, I can have each tool manage its own sourcing.
+if [ -d $HOME/.sources.d ]; then
+  for f in $HOME/sources.d/*.sh; do
+    [ -r "$f" ] && . "$f"
+  done
+fi
+
 echo " > .bashrc_sources sourced"
+

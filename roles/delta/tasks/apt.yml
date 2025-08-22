@@ -1,0 +1,50 @@
+---
+- name: Ensure git-delta is installed
+  become: yes
+  ansible.builtin.apt:
+    name: git-delta
+    state: latest
+    update_cache: yes
+
+- name: Install kubectl delta wrapper (system-wide)
+  become: yes
+  ansible.builtin.copy:
+    dest: /usr/local/bin/kubectl-delta-diff
+    mode: '0755'
+    owner: root
+    group: root
+    content: |
+      #!/usr/bin/env bash
+      set -o pipefail
+      diff -u -N -r "$1" "$2" | delta {{ kubectl_delta_flags | default('') }}
+      exit ${PIPESTATUS[0]}
+
+- name: Compute current user HOME
+  become: false
+  ansible.builtin.set_fact:
+    _home: "{{ ansible_env.HOME
+               | default(ansible_user_dir, true)
+               | default(lookup('env','HOME'), true) }}"
+
+- name: Compute per-user sources dir
+  become: false
+  ansible.builtin.set_fact:
+    _sources_dir: "{{ _home }}/.sources.d"
+
+- name: Ensure ~/.sources.d exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ _sources_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Enable kubectl delta for the current user only
+  become: false
+  ansible.builtin.copy:
+    dest: "{{ _sources_dir }}/50-kubectl-delta.sh"
+    mode: '0644'
+    content: |
+      if command -v delta >/dev/null 2>&1 && [ -x /usr/local/bin/kubectl-delta-diff ]; then
+        export KUBECTL_EXTERNAL_DIFF=/usr/local/bin/kubectl-delta-diff
+      fi
+

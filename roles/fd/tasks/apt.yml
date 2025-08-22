@@ -12,14 +12,6 @@
     state: directory
     mode: '0755'
 
-- name: Symlink fdfind to find
-  become: yes
-  file:
-    src:  "/usr/bin/fdfind"
-    dest: "/usr/local/bin/find"
-    state: link
-    force: yes
-
 - name: Symlink fdfind to fd
   become: yes
   file:
