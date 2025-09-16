@@ -6,7 +6,7 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
 -- Leader mappings
-map("n", "<leader>p", "gqap", opts)
+map("n", "<leader>p", "gqip", opts)
 map("n", "<leader>s", "gqas", opts)
 map("n", "<leader>c", ":set cursorline! cursorcolumn!<CR>", opts)
 
