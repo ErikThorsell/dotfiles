@@ -35,4 +35,15 @@ yq_nosecrets() {
     ) = "<REDACTED>"'
 }
 
+# Random ASCII letters+digits. Usage: random [LEN]; default LEN=21
+random() {
+  local n="${1:-21}"
+  if ! [[ "$n" =~ ^[1-9][0-9]*$ ]]; then
+    printf 'Usage: random [positive_length]\n' >&2
+    return 2
+  fi
+  # Force C locale so tr ranges mean ASCII and avoid "Illegal byte sequence"
+  LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c "$n"; echo
+}
+
 echo " > .bashrc_aliases loaded"
