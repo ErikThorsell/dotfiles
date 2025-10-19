@@ -1,0 +1,22 @@
+---
+- name: Download latest ripgrep via GitHub helper
+  include_role:
+    name: github_release
+  vars:
+    github_release_repo: "BurntSushi/ripgrep"
+    github_release_asset_pattern: "ripgrep_[^/]+.deb$"
+    github_release_dest: "/tmp/github_release/ripgrep"
+    github_release_overwrite: yes
+
+- name: Find ripgrep deb
+  find:
+    paths: "/tmp/github_release/ripgrep"
+    patterns: "ripgrep*.deb"
+    file_type: file
+  register: ripgrep_deb
+
+- name: Install ripgrep
+  become: yes
+  apt:
+    deb: "{{ ripgrep_deb.files[0].path }}"
+

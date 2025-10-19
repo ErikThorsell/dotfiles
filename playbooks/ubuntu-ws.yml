@@ -20,6 +20,7 @@
     - bash
     - git
     - gitui
+    - ripgrep
     - asdf
     - eza
     - delta
