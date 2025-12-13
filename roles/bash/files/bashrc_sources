@@ -2,8 +2,13 @@
 export GIT_EDITOR="nvim"
 export EDITOR="nvim"
 
-# Include ~/.local/bin
-export PATH="$PATH:$HOME/.local/bin"
+# Extend PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/usr/local/texlive/2025/bin/x86_64-linux:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+. <(asdf completion bash)
+
 
 # Check if terraform is installed; if so, install autocomplete
 if command -v terraform -help &> /dev/null
@@ -18,17 +23,10 @@ then
   complete -o default -F __start_kubectl k
 fi
 
-# Add krew to path
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
 # Source secret environment variables
 if [ -f $HOME/.secretenv ]; then
     source $HOME/.secretenv
 fi
-
-## ASDF stuff
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-. <(asdf completion bash)
 
 # I don't want to assume all of my roles are executed on every target so I source most things by putting them in a
 # dedicated directory. This way, I can have each tool manage its own sourcing.
