@@ -5,3 +5,33 @@
     name: git
     state: latest
 
+- name: Discover customer override folders
+  find:
+    paths: "{{ work_root }}"
+    file_type: directory
+    depth: 1
+  register: cust_dirs
+
+- name: Build customers list
+  set_fact:
+    customers: >-
+      {{ cust_dirs.files
+         | map(attribute='path')
+         | map('basename')
+         | list
+      }}
+
+- name: Copy generic customer .gitconfig_include files
+  copy:
+    src:   "gitconfig_include"
+    dest:  "{{ work_root }}/{{ item }}/.gitconfig_include"
+    mode:  '0644'
+    force: no  # don't overwrite
+  loop: "{{ customers }}"
+
+- name: Render main ~/.gitconfig
+  template:
+    src:  gitconfig.j2
+    dest: "{{ git_home }}/.gitconfig"
+    mode: '0644'
+
