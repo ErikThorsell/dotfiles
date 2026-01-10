@@ -40,6 +40,7 @@
       http://deb.gierens.de stable main
     filename: gierens
     state: present
+    update_cache: no
   become: yes
 
 - name: Ensure correct permissions on keyring and list file
@@ -54,7 +55,6 @@
 - name: Refresh apt cache after adding gierens repo
   apt:
     update_cache: yes
-    cache_valid_time: 3600
   become: yes
 
 - name: Install eza package
@@ -84,3 +84,4 @@
     force: yes
   become: yes
   when: eza_path.rc == 0
+
