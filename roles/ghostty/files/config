@@ -9,7 +9,7 @@ background-opacity = 0.96
 background-blur-radius = 40
 
 # ghostty +list-themes
-theme = GruvboxDark
+theme = Gruvbox Dark
 
 mouse-hide-while-typing = true
 

@@ -1,0 +1,25 @@
+---
+ghostty_repo: "mkasberg/ghostty-ubuntu"
+ghostty_release: "latest"
+
+ghostty_tmp_dir: "/tmp/github_release/ghostty"
+
+# Make sure to keep this up to date with: https://github.com/mkasberg/ghostty-ubuntu/blob/main/install.sh
+ghostty_supported_ubuntu_versions:
+  - "24.04"
+  - "25.04"
+  - "25.10"
+
+ghostty_supported_debian_codenames:
+  - "trixie"
+
+# Mint/Zorin mapping (Ubuntu codename -> Ubuntu version)
+ghostty_ubuntu_codename_to_version:
+  noble: "24.04"
+  plucky: "25.04"
+  questing: "25.10"
+
+# Kali mapping (year -> Debian codename)
+ghostty_kali_year_to_debian:
+  "2025": "trixie"
+
