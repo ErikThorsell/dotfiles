@@ -1,7 +1,9 @@
 ---
-- include_tasks: brew.yml
-  when: ansible_os_family == "Darwin"
-
-- include_tasks: apt.yml
-  when: ansible_os_family == "Debian"
-
+# In this role I put all apt packages that I want to have installed for which I don't really care about the specific
+# version.
+- name: Ensure latets version of standard packages are up to date
+  become: yes
+  apt:
+    pkg:
+    - tree
+    - fonts-hack-ttf
