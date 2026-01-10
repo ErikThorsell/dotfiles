@@ -16,15 +16,31 @@
       when: not sudo_bin.stat.exists
 
   roles:
-    - upgrade
+    # Basic tools and config
     - bash
     - git
+    # ASDF
+    # NOTE: Most tools where the version matters should be installed using ASDF:
+    # Examples:
+    #  - kubectl
+    #  - kustomize
+    #  - yq
+    #  - opentofu
+    #  See ASDF role for the plugins used.
+    - asdf
+    # Small things
     - gitui
     - ripgrep
-    - asdf
     - eza
     - delta
-    - neovim
     - bat
     - fd
+    # Applications
+    # NOTE: I have pyright in my neovim config and it requires nodejs.
+    # Install nodejs using ASDF and then run: nvim --headless "+MasonInstall pyright" +qa
+    - neovim
     - ghostty
+    # Applications from apt
+    - apt_pkgs
+    - upgrade
+
