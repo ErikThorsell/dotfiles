@@ -11,9 +11,3 @@
     name: "*"
     state: latest
 
-- name: Clean up
-  become: yes
-  apt:
-    autoremove: yes
-    autoclean: yes
-    clean: yes

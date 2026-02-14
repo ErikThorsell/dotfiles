@@ -21,12 +21,13 @@
     - git
     # ASDF
     # NOTE: Most tools where the version matters should be installed using ASDF:
-    # Examples:
-    #  - kubectl
-    #  - kustomize
-    #  - yq
-    #  - opentofu
-    #  See ASDF role for the plugins used.
+    #       Examples:
+    #        - compilers and interpreters
+    #        - kubectl
+    #        - kustomize
+    #        - yq
+    #        - opentofu
+    #        See ASDF role for the plugins used.
     - asdf
     # Small things
     - gitui
@@ -37,7 +38,7 @@
     - fd
     # Applications
     # NOTE: I have pyright in my neovim config and it requires nodejs.
-    # Install nodejs using ASDF and then run: nvim --headless "+MasonInstall pyright" +qa
+    #       Install nodejs using ASDF and then run: nvim --headless "+MasonInstall pyright" +qa
     - neovim
     - ghostty
     # Applications from apt

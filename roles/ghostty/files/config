@@ -1,4 +1,4 @@
-font-family = Hack Nerd Font
+font-family = Hack
 font-size = 11
 
 alpha-blending = linear-corrected
@@ -10,7 +10,7 @@ background-opacity = 0.96
 background-blur-radius = 40
 
 # ghostty +list-themes
-theme = Gruvbox Dark
+theme = GruvboxDark
 
 mouse-hide-while-typing = true
 
