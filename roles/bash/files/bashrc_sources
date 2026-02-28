@@ -6,14 +6,15 @@ export EDITOR="nvim"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/texlive/2025/bin/x86_64-linux:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-. <(asdf completion bash)
 
+# Check if mise is installed; if so, activate it
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate bash)"
+fi
 
 # Check if terraform is installed; if so, install autocomplete
-if command -v terraform -help &> /dev/null
-then
-  complete -C /usr/bin/terraform terraform
+if command -v terraform >/dev/null 2>&1; then
+  complete -C "$(command -v terraform)" terraform
 fi
 
 # Check if kubernetes is installed; if so, install autocomplete
@@ -30,11 +31,10 @@ fi
 
 # I don't want to assume all of my roles are executed on every target so I source most things by putting them in a
 # dedicated directory. This way, I can have each tool manage its own sourcing.
-if [ -d $HOME/.sources.d ]; then
-  for f in $HOME/sources.d/*.sh; do
+if [ -d "$HOME/.sources.d" ]; then
+  for f in "$HOME/.sources.d"/*.sh; do
     [ -r "$f" ] && . "$f"
   done
 fi
 
 echo " > .bashrc_sources sourced"
-

@@ -1,31 +1,4 @@
----
-- name: Download latest gitui via GitHub helper
-  include_role:
-    name: github_release
-  vars:
-    github_release_repo: "gitui-org/gitui"
-    github_release_asset_pattern: "gitui-linux-x86_64\\.tar\\.gz$"
-    github_release_dest: "/tmp/github_release/gitui"
-    github_release_overwrite: yes
-
-- name: Find gitui tarball
-  find:
-    paths: "/tmp/github_release/gitui"
-    patterns: "gitui-linux-x86_64.tar.gz"
-    file_type: file
-  register: gitui_tar
-
-- name: Unpack gitui tarball
-  become: yes
-  unarchive:
-    src:  "{{ gitui_tar.files[0].path }}"
-    dest: "/usr/local/bin"
-    remote_src: yes
-  when:
-    - gitui_tar.matched == 1
-
-- name: Get installed gitui version
-  command: "/usr/local/bin/gitui --version"
-  register: gitui_version
-  failed_when: gitui_version.rc != 0
-
+- name: Install/activate gitui via mise (global)
+  command: "{{ ansible_env.HOME }}/.local/bin/mise use -g gitui"
+  register: mise_gitui
+  changed_when: "'installed' in (mise_gitui.stdout | lower) or 'installed' in (mise_gitui.stderr | lower)"

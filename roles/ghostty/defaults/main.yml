@@ -1,0 +1,28 @@
+# This is a rewrite of: https://github.com/mkasberg/ghostty-ubuntu/blob/main/install.sh for Ansible.
+---
+ghostty_ubuntu_repo: "mkasberg/ghostty-ubuntu"
+
+# Matches the installer’s supported Ubuntu-family versions
+ghostty_supported_ubuntu_versions:
+  - "24.04"
+  - "25.10"
+
+# Matches the installer’s supported Debian codename(s)
+ghostty_supported_debian_codenames:
+  - "trixie"
+
+# Linux Mint / Zorin mapping from Ubuntu codename -> Ubuntu version id
+ghostty_ubuntu_codename_to_version:
+  questing: "25.10"
+  noble: "24.04"
+
+# Kali mapping (year -> Debian codename)
+ghostty_kali_year_to_debian:
+  "2025": "trixie"
+
+# Sparky mapping (version -> Debian codename)
+ghostty_sparky_to_debian:
+  "8": "trixie"
+
+# Where to download the .deb
+ghostty_download_dir: "/tmp/ghostty"

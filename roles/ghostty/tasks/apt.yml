@@ -1,174 +1,204 @@
 ---
-- name: Ensure required packages are present
+- name: Ensure prerequisites for download/install are present
   become: true
-  ansible.builtin.apt:
+  apt:
     name:
       - ca-certificates
       - curl
+      - dpkg
     state: present
-    cache_valid_time: 3600
+    update_cache: true
 
-- name: Normalize architecture to Debian package arch
-  ansible.builtin.set_fact:
-    ghostty_arch: >-
-      {{
-        (ansible_architecture == 'x86_64') | ternary('amd64',
-        (ansible_architecture == 'aarch64') | ternary('arm64',
-        ansible_architecture))
-      }}
+- name: Read OS release fields from /etc/os-release (source + print)
+  shell: |
+    set -euo pipefail
+    . /etc/os-release
+    printf 'ID=%s\n' "${ID:-}"
+    printf 'VERSION_ID=%s\n' "${VERSION_ID:-}"
+    printf 'VERSION_CODENAME=%s\n' "${VERSION_CODENAME:-}"
+    printf 'UBUNTU_VERSION_ID=%s\n' "${UBUNTU_VERSION_ID:-}"
+    printf 'UBUNTU_CODENAME=%s\n' "${UBUNTU_CODENAME:-}"
+    printf 'DEBIAN_CODENAME=%s\n' "${DEBIAN_CODENAME:-}"
+  args:
+    executable: /bin/bash
+  register: osr
+  changed_when: false
 
-- name: Compute Ghostty SUFFIX
-  ansible.builtin.set_fact:
-    ghostty_suffix: "{{ _ghostty_suffix | trim }}"
+- name: Set facts from os-release output
+  set_fact:
+    os_id: "{{ (osr.stdout_lines | select('match', '^ID=') | first | regex_replace('^ID=', '')) | default('') }}"
+    os_version_id: "{{ (osr.stdout_lines | select('match', '^VERSION_ID=') | first | regex_replace('^VERSION_ID=', '')) | default('') }}"
+    os_version_codename: "{{ (osr.stdout_lines | select('match', '^VERSION_CODENAME=') | first | regex_replace('^VERSION_CODENAME=', '')) | default('') }}"
+    os_ubuntu_version_id: "{{ (osr.stdout_lines | select('match', '^UBUNTU_VERSION_ID=') | first | regex_replace('^UBUNTU_VERSION_ID=', '')) | default('') }}"
+    os_ubuntu_codename: "{{ (osr.stdout_lines | select('match', '^UBUNTU_CODENAME=') | first | regex_replace('^UBUNTU_CODENAME=', '')) | default('') }}"
+    os_debian_codename: "{{ (osr.stdout_lines | select('match', '^DEBIAN_CODENAME=') | first | regex_replace('^DEBIAN_CODENAME=', '')) | default('') }}"
+
+- name: Determine dpkg architecture (matches upstream installer)
+  command: dpkg --print-architecture
+  register: dpkg_arch
+  changed_when: false
+
+- name: Compute Ghostty suffix (ARCH + distro version/codename)
+  set_fact:
+    ghostty_suffix: "{{ computed_suffix }}"
   vars:
-    os_id: "{{ ansible_distribution | lower }}"
-    # /etc/os-release-like values via Ansible facts
-    ubuntu_version_id: "{{ ansible_distribution_version }}"
-    ubuntu_codename: "{{ ansible_distribution_release | lower }}"
-    debian_codename: "{{ ansible_distribution_release | lower }}"
-    _ghostty_suffix: >-
-      {# Ubuntu-like #}
-      {% if os_id in ['ubuntu','pop!_os','pop','tuxedo','kde neon','neon'] %}
-        {% if ubuntu_version_id in ghostty_supported_ubuntu_versions %}
-          {{ ghostty_arch }}_{{ ubuntu_version_id }}
-        {% else %}
-          unsupported
-        {% endif %}
+    arch: "{{ dpkg_arch.stdout | trim }}"
+    computed_suffix: >-
+      {%- set id = os_id -%}
 
-      {# Elementary often reports itself as Ubuntu-based; best-effort: treat as Ubuntu if version matches #}
-      {% elif os_id in ['elementary'] %}
-        {% if ubuntu_version_id in ghostty_supported_ubuntu_versions %}
-          {{ ghostty_arch }}_{{ ubuntu_version_id }}
-        {% else %}
-          unsupported
-        {% endif %}
+      {# ubuntu|pop|tuxedo|neon => ARCH_VERSION_ID (24.04/25.10 only) #}
+      {%- if id in ['ubuntu','pop','tuxedo','neon'] -%}
+        {%- if os_version_id in ghostty_supported_ubuntu_versions -%}
+          {{ arch }}_{{ os_version_id }}
+        {%- else -%}
+          {{ '' }}
+        {%- endif -%}
 
-      {# Debian #}
-      {% elif os_id in ['debian'] %}
-        {% if debian_codename in ghostty_supported_debian_codenames %}
-          {{ ghostty_arch }}_{{ debian_codename }}
-        {% else %}
-          unsupported
-        {% endif %}
+      {# elementary => ARCH_UBUNTU_VERSION_ID (24.04/25.10 only) #}
+      {%- elif id == 'elementary' -%}
+        {%- if os_ubuntu_version_id in ghostty_supported_ubuntu_versions -%}
+          {{ arch }}_{{ os_ubuntu_version_id }}
+        {%- else -%}
+          {{ '' }}
+        {%- endif -%}
 
-      {# Kali -> Debian codename mapping by year from version like 2025.x #}
-      {% elif os_id in ['kali'] %}
-        {% set kali_year = (ubuntu_version_id.split('.')[0]) %}
-        {% set mapped = ghostty_kali_year_to_debian.get(kali_year) %}
-        {% if mapped %}
-          {{ ghostty_arch }}_{{ mapped }}
-        {% else %}
-          unsupported
-        {% endif %}
+      {# debian => ARCH_VERSION_CODENAME (trixie only) #}
+      {%- elif id == 'debian' -%}
+        {%- if os_version_codename in ghostty_supported_debian_codenames -%}
+          {{ arch }}_{{ os_version_codename }}
+        {%- else -%}
+          {{ '' }}
+        {%- endif -%}
 
-      {# Linux Mint / Zorin: either LMDE (debian) or map ubuntu codename to ubuntu version #}
-      {% elif os_id in ['linux mint','linuxmint','zorin'] %}
-        {# LMDE shows as debian-ish; Ansible often calls it Linux Mint but release is 'trixie' when LMDE tracks it #}
-        {% if debian_codename in ghostty_supported_debian_codenames %}
-          {{ ghostty_arch }}_{{ debian_codename }}
-        {% else %}
-          {% set mapped = ghostty_ubuntu_codename_to_version.get(ubuntu_codename) %}
-          {% if mapped %}
-            {{ ghostty_arch }}_{{ mapped }}
-          {% else %}
-            unsupported
-          {% endif %}
-        {% endif %}
+      {# kali => map year->debian codename #}
+      {%- elif id == 'kali' -%}
+        {%- set year = (os_version_id.split('.')[0] if os_version_id else '') -%}
+        {%- set deb = (ghostty_kali_year_to_debian.get(year) if year else None) -%}
+        {%- if deb -%}
+          {{ arch }}_{{ deb }}
+        {%- else -%}
+          {{ '' }}
+        {%- endif -%}
 
-      {# Other Ubuntu-based: best-effort use ubuntu_version_id #}
-      {% else %}
-        {% if ubuntu_version_id in ghostty_supported_ubuntu_versions %}
-          {{ ghostty_arch }}_{{ ubuntu_version_id }}
-        {% else %}
-          unsupported
-        {% endif %}
-      {% endif %}
+      {# sparky => map version->debian codename #}
+      {%- elif id == 'sparky' -%}
+        {%- set deb = ghostty_sparky_to_debian.get(os_version_id) -%}
+        {%- if deb -%}
+          {{ arch }}_{{ deb }}
+        {%- else -%}
+          {{ '' }}
+        {%- endif -%}
 
-- name: Fail if OS/version is unsupported
-  ansible.builtin.fail:
-    msg: >-
-      Ghostty installer role does not support:
-      distro={{ ansible_distribution }} version={{ ansible_distribution_version }} release={{ ansible_distribution_release }}
-      arch={{ ansible_architecture }} (normalized={{ ghostty_arch }}).
-      Expected Ubuntu versions {{ ghostty_supported_ubuntu_versions | join(', ') }}
-      or Debian codenames {{ ghostty_supported_debian_codenames | join(', ') }}.
-  when: ghostty_suffix == "unsupported"
+      {# linuxmint|zorin:
+         - if DEBIAN_CODENAME=trixie => LMDE => ARCH_trixie
+         - else map UBUNTU_CODENAME to Ubuntu version id (noble->24.04, questing->25.10)
+      #}
+      {%- elif id in ['linuxmint','zorin'] -%}
+        {%- if os_debian_codename == 'trixie' -%}
+          {{ arch }}_{{ os_debian_codename }}
+        {%- else -%}
+          {%- set v = ghostty_ubuntu_codename_to_version.get(os_ubuntu_codename) -%}
+          {%- if v -%}
+            {{ arch }}_{{ v }}
+          {%- else -%}
+            {{ '' }}
+          {%- endif -%}
+        {%- endif -%}
 
-- name: Ensure temp download directory exists
-  ansible.builtin.file:
-    path: "{{ ghostty_tmp_dir }}"
+      {# fallback: if UBUNTU_VERSION_ID supported, use that #}
+      {%- else -%}
+        {%- if os_ubuntu_version_id in ghostty_supported_ubuntu_versions -%}
+          {{ arch }}_{{ os_ubuntu_version_id }}
+        {%- else -%}
+          {{ '' }}
+        {%- endif -%}
+      {%- endif -%}
+
+- name: Fail if this distro/version is not supported by ghostty-ubuntu installer logic
+  fail:
+    msg: |
+      This host is not supported by ghostty-ubuntu release assets.
+      ID={{ os_id }} VERSION_ID={{ os_version_id }} UBUNTU_VERSION_ID={{ os_ubuntu_version_id }}
+      VERSION_CODENAME={{ os_version_codename }} DEBIAN_CODENAME={{ os_debian_codename }} ARCH={{ dpkg_arch.stdout | trim }}
+      (Computed suffix was empty)
+  when: ghostty_suffix | length == 0
+
+- name: Query latest Ghostty Ubuntu release from GitHub API
+  uri:
+    url: "https://api.github.com/repos/{{ ghostty_ubuntu_repo }}/releases/latest"
+    return_content: true
+    status_code: 200
+    headers:
+      Accept: "application/vnd.github+json"
+  register: ghostty_release
+
+- name: Debug release assets (names only)
+  debug:
+    msg: "{{ ghostty_release.json.assets | map(attribute='name') | list }}"
+  changed_when: false
+
+- name: Find matching Ghostty .deb asset for suffix
+  set_fact:
+    ghostty_deb_url: ""
+    ghostty_deb_name: ""
+
+- name: Select Ghostty asset
+  set_fact:
+    ghostty_deb_url: "{{ item.browser_download_url }}"
+    ghostty_deb_name: "{{ item.name }}"
+  loop: "{{ ghostty_release.json.assets }}"
+  when: item.name is match(".*{{ ghostty_suffix | regex_escape }}\\.deb$")
+  loop_control:
+    label: "{{ item.name }}"
+  vars:
+    # ensure regex_escape is available and string-safe
+    ghostty_suffix: "{{ ghostty_suffix }}"
+  # Stop after first match
+  until: ghostty_deb_url | length > 0
+  retries: 1
+  delay: 0
+
+- name: Debug chosen asset
+  debug:
+    msg: "Chosen asset: {{ ghostty_deb_name }} ({{ ghostty_deb_url }})"
+  changed_when: false
+
+- name: Fail if no matching .deb asset exists for this suffix
+  fail:
+    msg: |
+      Could not find a matching Ghostty .deb asset for suffix={{ ghostty_suffix }}.
+      Latest release is: {{ ghostty_release.json.tag_name | default('unknown') }}
+      Repo: {{ ghostty_ubuntu_repo }}
+  when: ghostty_deb_url | length == 0
+
+- name: Ensure download directory exists
+  file:
+    path: "{{ ghostty_download_dir }}"
     state: directory
     mode: "0755"
 
-- name: Fetch latest release metadata from GitHub
-  ansible.builtin.uri:
-    url: "https://api.github.com/repos/{{ ghostty_repo }}/releases/{{ ghostty_release }}"
-    method: GET
-    headers:
-      Accept: "application/vnd.github.v3+json"
-    return_content: true
-    body_format: json
-  register: ghostty_release_meta
-  retries: 6
-  delay: 3
-  until: ghostty_release_meta.status == 200
-
-- name: Build regex pattern (escaped) for the asset
-  ansible.builtin.set_fact:
-    ghostty_asset_pattern: "^ghostty_.*_{{ ghostty_suffix | trim | regex_escape }}\\.deb$"
-
-#- name: Debug suffix/pattern
-#  ansible.builtin.debug:
-#    msg:
-#      suffix_raw: "{{ ghostty_suffix }}"
-#      suffix_trimmed: "{{ ghostty_suffix | trim }}"
-#      pattern: "{{ ghostty_asset_pattern }}"
-#      available: "{{ ghostty_release_meta.json.assets | map(attribute='name') | list }}"
-#      matched: >-
-#        {{
-#          ghostty_release_meta.json.assets
-#          | selectattr('name', 'match', ghostty_asset_pattern)
-#          | map(attribute='name')
-#          | list
-#        }}
-
-- name: Pick matching .deb asset for this platform
-  ansible.builtin.set_fact:
-    ghostty_asset: >-
-      {{
-        ghostty_release_meta.json.assets
-        | selectattr('name', 'match', ghostty_asset_pattern)
-        | list
-        | first
-        | default({})
-      }}
-
-- name: Fail if no matching asset exists in the release
-  ansible.builtin.fail:
-    msg: >-
-      No Ghostty .deb asset matched suffix {{ ghostty_suffix }} in GitHub release.
-      Available assets: {{
-        (ghostty_release_meta.json.assets | default([])) | map(attribute='name') | list
-      }}
-  when: ghostty_asset == {}
-
 - name: Download Ghostty .deb
-  ansible.builtin.get_url:
-    url: "{{ ghostty_asset.browser_download_url }}"
-    dest: "{{ ghostty_tmp_dir }}/{{ ghostty_asset.name }}"
+  get_url:
+    url: "{{ ghostty_deb_url }}"
+    dest: "{{ ghostty_download_dir }}/{{ ghostty_deb_url | basename }}"
     mode: "0644"
   register: ghostty_download
 
-- name: Install Ghostty .deb
+- name: Install Ghostty .deb (handles deps)
   become: true
-  ansible.builtin.apt:
-    deb: "{{ ghostty_tmp_dir }}/{{ ghostty_asset.name }}"
-    state: present
+  apt:
+    deb: "{{ ghostty_download.dest }}"
 
 - name: Remove downloaded .deb
-  ansible.builtin.file:
-    path: "{{ ghostty_tmp_dir }}/{{ ghostty_asset.name }}"
+  file:
+    path: "{{ ghostty_download.dest }}"
     state: absent
+
+- name: Verify Ghostty is installed (best-effort)
+  command: ghostty --version
+  register: ghostty_version
+  changed_when: false
+  failed_when: false
 
 - name: Ensure Ghostty config directory exists
   ansible.builtin.file:
@@ -182,4 +212,3 @@
     dest: "{{ ansible_env.HOME }}/.config/ghostty/config"
     state: link
     force: true
-

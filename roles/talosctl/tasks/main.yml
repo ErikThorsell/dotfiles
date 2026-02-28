@@ -1,6 +1,5 @@
----
-- name: Install/activate ripgrep via mise (global)
-  command: "{{ ansible_env.HOME }}/.local/bin/mise use -g ripgrep"
+- name: Install/activate talosctl via mise (global)
+  command: "{{ ansible_env.HOME }}/.local/bin/mise use -g talosctl"
   register: mise_rg
   changed_when: "'installed' in (mise_rg.stdout | lower) or 'installed' in (mise_rg.stderr | lower)"
 

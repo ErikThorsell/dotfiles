@@ -1,7 +1,5 @@
----
-- include_tasks: brew.yml
-  when: ansible_os_family == "Darwin"
-
-- include_tasks: ubuntu.yml
-  when: ansible_os_family == "Debian"
+- name: Install/activate kubectl via mise (global)
+  command: "{{ ansible_env.HOME }}/.local/bin/mise use -g kubectl"
+  register: mise_rg
+  changed_when: "'installed' in (mise_rg.stdout | lower) or 'installed' in (mise_rg.stderr | lower)"
 
