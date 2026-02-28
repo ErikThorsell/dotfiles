@@ -21,9 +21,27 @@ Hence, the way I usually go about this is to:
 3. Install [pipx](https://pipx.pypa.io/stable/installation/)
 4. Install Ansible using pipx
 
-Even though I use mise and pipx, I still try to keep my dependencies in order. For instance, I use virtual environments
-for my Python projects and I often have pinned Python interpreters, via mise, for each project. I only install Python
-dependencies with pipx if it's really necessary.
+So, something like this:
+
+```bash
+# Install mise
+curl https://mise.run | sh  # add the following to your .bashrc: eval "$(mise activate bash)"
+
+# Install the latest Python interpreter and make it the default for your user
+mise use -g python
+
+# Install pipx
+python -m pip install --user --upgrade pipx
+python -m pipx ensurepath
+exec $SHELL -l
+
+# Install ansible
+pipx install --include-deps ansible
+```
+
+Another alternative would be to stop after you have installed `mise` and then treat this repository like any other
+Python project. That is, install `uv`, `poetry`, or just rock a _venv_ using `python -m venv .venv`; and then install
+Ansible in an environment dedicated to this project.
 
 ## Usage
 
