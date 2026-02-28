@@ -1,9 +1,0 @@
-" Separate runtime files from configuration files
-set runtimepath^=$HOME/.vim/config
-
-" Source configuration files
-source $HOME/.vim/config/rc/init.vimrc
-source $HOME/.vim/config/rc/plugins.vimrc
-source $HOME/.vim/config/rc/general.vimrc
-source $HOME/.vim/config/rc/line.vimrc
-source $HOME/.vim/config/rc/keys.vimrc

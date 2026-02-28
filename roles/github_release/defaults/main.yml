@@ -1,6 +1,0 @@
----
-github_release_repo: ""           # e.g. "asdf-vm/asdf"
-github_release_asset_pattern: ""  # e.g. "asdf-[a-z]+-x86_64\.tar\.gz$"
-github_release_dest: ""           # e.g. "/usr/local/bin"
-github_release_overwrite: no
-

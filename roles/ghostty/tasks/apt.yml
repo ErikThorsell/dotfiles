@@ -132,11 +132,6 @@
       Accept: "application/vnd.github+json"
   register: ghostty_release
 
-- name: Debug release assets (names only)
-  debug:
-    msg: "{{ ghostty_release.json.assets | map(attribute='name') | list }}"
-  changed_when: false
-
 - name: Find matching Ghostty .deb asset for suffix
   set_fact:
     ghostty_deb_url: ""
@@ -157,11 +152,6 @@
   until: ghostty_deb_url | length > 0
   retries: 1
   delay: 0
-
-- name: Debug chosen asset
-  debug:
-    msg: "Chosen asset: {{ ghostty_deb_name }} ({{ ghostty_deb_url }})"
-  changed_when: false
 
 - name: Fail if no matching .deb asset exists for this suffix
   fail:

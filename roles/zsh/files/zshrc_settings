@@ -1,6 +1,7 @@
-# ASDF
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+# Check if mise is installed; if so, activate it
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
 
 # Include pkg
 path+=("$HOME/pkg")
@@ -16,8 +17,9 @@ path+=("$HOME/.local/bin")
 export PATH
 
 # Auto-completion
-if kubectl_loc="$(type -p kubectl version)" || [[ -z $kubectl_loc ]]; then
+if command -v kubectl >/dev/null 2>&1; then
   source <(kubectl completion zsh)
+  complete -o default -F __start_kubectl k
   # Kubernetes diff wrapper
   export KUBECTL_EXTERNAL_DIFF=kubectl_diff
 fi

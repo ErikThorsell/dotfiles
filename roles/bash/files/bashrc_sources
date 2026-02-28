@@ -4,7 +4,9 @@ export EDITOR="nvim"
 
 # Extend PATH
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/usr/local/texlive/2025/bin/x86_64-linux:$PATH"
+_texlive_bin=$(ls -d /usr/local/texlive/*/bin/$(uname -m)-linux 2>/dev/null | sort | tail -1)
+[ -n "$_texlive_bin" ] && export PATH="$_texlive_bin:$PATH"
+unset _texlive_bin
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Check if mise is installed; if so, activate it
