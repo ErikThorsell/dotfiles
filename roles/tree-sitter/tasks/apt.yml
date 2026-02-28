@@ -1,0 +1,6 @@
+---
+- name: Install/activate tree-sitter via mise (global)
+  command: "{{ ansible_env.HOME }}/.local/bin/mise use -g tree-sitter"
+  register: mise_rg
+  changed_when: "'installed' in (mise_rg.stdout | lower) or 'installed' in (mise_rg.stderr | lower)"
+

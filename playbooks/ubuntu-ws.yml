@@ -34,6 +34,7 @@
     - opentofu
     - ripgrep
     - talosctl
+    - tree-sitter
     - yq
     # Applications from apt
     - role: apt_pkgs
