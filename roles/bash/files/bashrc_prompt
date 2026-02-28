@@ -1,5 +1,6 @@
-if [ -f $HOME/dotfiles/roles/git/files/git-prompt.sh ]; then
-    . $HOME/dotfiles/roles/git/files/git-prompt.sh
+_git_prompt_sh="$(dirname "${BASH_SOURCE[0]}")/../../git/files/git-prompt.sh"
+if [ -f "$_git_prompt_sh" ]; then
+    . "$_git_prompt_sh"
     GIT_PS1_SHOWDIRTYSTATE="yes"
     GIT_PS1_SHOWUNTRACKEDFILES="yes"
     GIT_PS1_SHOWCONFLICTSTATE="yes"
@@ -7,6 +8,7 @@ if [ -f $HOME/dotfiles/roles/git/files/git-prompt.sh ]; then
     GIT_PS1_DESCRIBE_STYLE="branch"
     GIT_PS1_SHOWUPSTREAM="verbose name git"
 fi
+unset _git_prompt_sh
 
 PS1='\u\[\033[1;35m\]@\[\033[0m\]\[\033[38;5;6m\]\h\[\033[0m\]: \w$(__git_ps1 " [%s]") \[\033[1;35m\]$\[\033[0m\]> '
 
