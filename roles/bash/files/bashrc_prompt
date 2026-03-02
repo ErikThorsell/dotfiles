@@ -10,6 +10,14 @@ if [ -f "$_git_prompt_sh" ]; then
 fi
 unset _git_prompt_sh
 
-PS1='\u\[\033[1;35m\]@\[\033[0m\]\[\033[38;5;6m\]\h\[\033[0m\]: \w$(__git_ps1 " [%s]") \[\033[1;35m\]$\[\033[0m\]> '
+__nix_ps1() {
+  if [ -n "${IN_NIX_SHELL-}" ]; then
+    printf '\033[38;5;3m(nix:%s)\033[0m ' "$IN_NIX_SHELL"
+  fi
+}
+
+
+PS1='$(__nix_ps1)'\
+'${USER}\[\033[1;35m\]@\[\033[0m\]\[\033[38;5;6m\]\h\[\033[0m\]: \w$(type __git_ps1 >/dev/null 2>&1 && __git_ps1 " [%s]") \[\033[1;35m\]$\[\033[0m\]> '
 
 echo " > .bashrc_prompt loaded"
