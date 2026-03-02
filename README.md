@@ -2,8 +2,8 @@
 
 Historically, I have had a dotfiles repository with a shell script which automated part of my setup configuration
 files-process. It grew, and grew, and it became more and more difficult to keep track of everything. Not to mention the
-issues I had maintaining one shell script which accomodated both macOS and Ubuntu systems. Because of this, I decided to
-switch to using Ansible.
+issues I had maintaining one shell script which accommodated both macOS and Ubuntu systems. Because of this, I decided
+to switch to using Ansible.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ You need Ansible.
 
 You can install Ansible according to [their
 instructions](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html), but I want to try my
-very best to keep the default/system installation of Python completely separate from any Python chenanigans I might do
+very best to keep the default/system installation of Python completely separate from any Python shenanigans I might do
 on my computer. [See PEP668](https://peps.python.org/pep-0668/).
 
 Hence, the way I usually go about this is to:
@@ -24,19 +24,21 @@ Hence, the way I usually go about this is to:
 So, something like this:
 
 ```bash
-# Install mise
+# Install mise and reload shell
 curl https://mise.run | sh  # add the following to your .bashrc: eval "$(mise activate bash)"
+exec $SHELL -l
 
 # Install the latest Python interpreter and make it the default for your user
 mise use -g python
 
-# Install pipx
+# Install pipx and reload shell
 python -m pip install --user --upgrade pipx
 python -m pipx ensurepath
 exec $SHELL -l
 
 # Install ansible with lint support
-pipx install --include-deps ansible ansible-lint
+pipx install --include-deps ansible
+pipx inject --include-apps ansible ansible-lint
 ```
 
 Another alternative would be to stop after you have installed `mise` and then treat this repository like any other
@@ -54,4 +56,4 @@ place.
 
 If the file is used *as is*, the file can be symlinked.
 
-Symlinking is prefered, so I only use rendering when necessary.
+Symlinking is preferred, so I only use rendering when necessary.
