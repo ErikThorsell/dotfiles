@@ -6,7 +6,6 @@ alpha-blending = linear-corrected
 macos-titlebar-style = tabs
 macos-option-as-alt = true
 
-background-opacity = 0.96
 background-blur-radius = 40
 
 # ghostty +list-themes
