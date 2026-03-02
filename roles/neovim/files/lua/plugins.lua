@@ -31,6 +31,11 @@ require("lazy").setup({
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
+			current_line_blame = true,
+			current_line_blame_opts = {
+				delay = 500,
+				virt_text_pos = "eol",
+			},
 			signs = {
 				add = { text = "+" },
 				change = { text = "~" },
@@ -218,7 +223,12 @@ require("lazy").setup({
 			-- Diagnostic display settings
 			vim.diagnostic.config({
 				severity_sort = true,
-				float = { border = "rounded", source = "if_many" },
+				float = {
+					border = "rounded",
+					source = "always",
+					max_width = 90,
+					max_height = 20,
+				},
 				underline = { severity = vim.diagnostic.severity.ERROR },
 				-- Nerd Font icons for sign column; falls back to no signs
 				signs = vim.g.have_nerd_font and {
@@ -232,8 +242,23 @@ require("lazy").setup({
 				virtual_text = {
 					source = "if_many",
 					spacing = 2,
+					format = function(diagnostic)
+						local msg = diagnostic.message or ""
+						msg = msg:gsub("%s+", " ") -- collapse whitespace/newlines
+
+						local max_len = 80
+						if #msg > max_len then
+							msg = msg:sub(1, max_len - 1) .. "…"
+						end
+
+						return msg
+					end,
 				},
 			})
+			-- Keymap: show full diagnostic under cursor in a floating window
+			vim.keymap.set("n", "<leader>e", function()
+				vim.diagnostic.open_float(nil, { scope = "cursor", focus = false })
+			end, { desc = "Show diagnostic (float)" })
 
 			-- Merge blink.cmp's extra capabilities (snippets, etc.) into LSP client caps
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -243,11 +268,24 @@ require("lazy").setup({
 			-- Available overrides: cmd, filetypes, capabilities, settings
 			local servers = {
 				pyright = {},
+				ansiblels = {
+					filetypes = { "yaml.ansible", "ansible" },
+				},
 				lua_ls = {
 					settings = {
 						Lua = {
 							completion = {
 								callSnippet = "Replace",
+							},
+						},
+					},
+				},
+				nixfmt = {},
+				nil_ls = {
+					settings = {
+						["nil"] = {
+							formatting = {
+								command = { "nixfmt" },
 							},
 						},
 					},
@@ -389,10 +427,8 @@ require("lazy").setup({
 			end
 		end,
 	},
-
-	-- Treesitter: syntax-aware highlighting, indentation, and code understanding
-	-- Uses the rewritten `main` branch (the old `master` branch is frozen)
-	{
+	{ "pearofducks/ansible-vim" },
+	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
 		branch = "main",

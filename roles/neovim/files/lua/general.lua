@@ -20,9 +20,11 @@ vim.o.textwidth = 120
 vim.o.colorcolumn = "120"
 
 -- Indentation Settings
+vim.o.expandtab = true -- tabs are expanded to spaces
 vim.o.tabstop = 2 -- a real Tab is displayed as 2 spaces
 vim.o.shiftwidth = 2 -- >>, auto-indent, etc. are 2 columns
 vim.o.softtabstop = 2 -- Tab/backspace behave as 2 spaces
+vim.o.smartindent = true -- maybe smarter indent?
 
 -- Save undo history
 vim.o.undofile = true
