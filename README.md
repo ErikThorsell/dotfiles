@@ -35,8 +35,8 @@ python -m pip install --user --upgrade pipx
 python -m pipx ensurepath
 exec $SHELL -l
 
-# Install ansible
-pipx install --include-deps ansible
+# Install ansible with lint support
+pipx install --include-deps ansible ansible-lint
 ```
 
 Another alternative would be to stop after you have installed `mise` and then treat this repository like any other
