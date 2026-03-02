@@ -63,8 +63,6 @@ require("lazy").setup({
 			-- Route vim.ui.select prompts (e.g. code actions) through Telescope
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 			-- File-type icons in picker results (requires a Nerd Font)
-			-- FIX NOTE: nvim-tree below loads this unconditionally, making this guard moot.
-			-- Either make both conditional or remove this guard.
 			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		},
 		config = function()
@@ -280,7 +278,6 @@ require("lazy").setup({
 						},
 					},
 				},
-				nixfmt = {},
 				nil_ls = {
 					settings = {
 						["nil"] = {
@@ -296,6 +293,7 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Lua formatter
+				"nixfmt", -- Nix formatter (used by nil_ls)
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -432,12 +430,11 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
 		branch = "main",
-		build = ":TSUpdate", -- Recompile parsers on plugin update
+		build = ":TSUpdate",
 		config = function()
 			local ts = require("nvim-treesitter")
 			ts.setup()
 
-			-- Parsers to install (replaces the old ensure_installed option)
 			local parsers = {
 				"bash",
 				"c",
@@ -452,26 +449,34 @@ require("lazy").setup({
 				"vimdoc",
 			}
 
-			-- Install parsers asynchronously on startup (no-op if already installed)
+			-- Actual filetypes for the parsers above.
+			-- Injected parsers (luadoc, markdown_inline) don't need entries.
+			local filetypes = {
+				"sh",
+				"c",
+				"diff",
+				"html",
+				"lua",
+				"markdown",
+				"query",
+				"vim",
+				"help",
+			}
+
 			vim.defer_fn(function()
 				ts.install(parsers):wait(300000)
 			end, 0)
 
-			-- Enable treesitter highlighting for all installed parsers.
-			-- The new branch no longer does this automatically; you must call
-			-- vim.treesitter.start() per filetype via Neovim's built-in API.
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = parsers,
+				pattern = filetypes,
 				callback = function()
 					vim.treesitter.start()
 				end,
 			})
 
-			-- Enable treesitter-based indentation (experimental) for most parsers.
-			-- Skipping ruby, markdown, markdown_inline where it's unreliable.
-			local indent_exclude = { ruby = true, markdown = true, markdown_inline = true }
+			local indent_exclude = { ruby = true, markdown = true }
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = parsers,
+				pattern = filetypes,
 				callback = function(event)
 					if not indent_exclude[event.match] then
 						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
