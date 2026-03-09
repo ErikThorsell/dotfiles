@@ -492,7 +492,16 @@ require("lazy").setup({
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
-		opts = {},
+		-- The options below ensures rendering is always on (default is to only render in N)
+		-- but to also always show concealed characters (comments, URLs, etc.).
+		-- This makes the difference between N and I minimal, while still allowing for the renderer
+		-- to do its job.
+		opts = {
+			render_modes = true,
+			win_options = {
+				conceallevel = { default = vim.o.conceallevel, rendered = 0 },
+			},
+		},
 	},
 
 	-- File tree sidebar. Toggle with <leader>ft
