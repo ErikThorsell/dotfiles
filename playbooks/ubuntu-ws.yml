@@ -17,25 +17,25 @@
 
   roles:
     # Basic tools and config
-    - bash
-    - bat
-    - delta
-    - eza
-    - fd
-    - git
+    - role: bash
+    - role: bat
+    - role: delta
+    - role: eza
+    - role: fd
+    - role: git
     - role: ghostty
       tags: [ghostty]
-    - neovim
+    - role: neovim
     # Managed via mise | If you don't have mise, these will fail.
-    - gitui
-    - kubectl
-    - kustomize
-    - nodejs
-    - opentofu
-    - ripgrep
-    - talosctl
-    - tree-sitter
-    - yq
+    - role: gitui
+    - role: kubectl
+    - role: kustomize
+    - role: nodejs
+    - role: opentofu
+    - role: ripgrep
+    - role: talosctl
+    - role: tree-sitter
+    - role: yq
     # Applications from apt
     - role: apt_pkgs
       tags: [apt]
