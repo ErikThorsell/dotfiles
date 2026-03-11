@@ -23,7 +23,8 @@
 
 # Info/Status oriented aliases
   authors = shortlog -s -n
-  blame-plus = "!f() { git ls-tree -r -z --name-only HEAD -- $1 | xargs -0 -n1 git blame --line-porcelain HEAD |grep \"^author \"|sort|uniq -c|sort -nr ; }; f"
+  blame-plus = "!f() { git ls-tree -r -z --name-only HEAD -- ${1:-.} | xargs -0 -n1 git blame --line-porcelain HEAD | grep '^author ' | sort | uniq -c | sort -nr; }; f"
+  lines = "!f() { since=\"\"; [ -n \"$1\" ] && since=\"--since=$1\"; printf \"%8s %8s %8s  %s\\n\" \"Total\" \"Added\" \"Removed\" \"Author\" && git log $since --pretty=format:\"%an\" --numstat | awk -F'\\t' 'NF==1 {author=$0} NF==3 {added[author]+=$1; removed[author]+=$2} END {for (a in added) printf \"%8d %8d %8d  %s\\n\", added[a]+removed[a], added[a], removed[a], a}' | sort -rn; }; f"
   graph = log --graph -25 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
   history = log -10 --format=format:'%Cgreen%h %Creset %s (%cN, %ar)'
   last = log -1 HEAD --format=format:"%Cred%H"
