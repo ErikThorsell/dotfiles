@@ -440,6 +440,7 @@ require("lazy").setup({
 				"c",
 				"diff",
 				"html",
+				"jq",
 				"lua",
 				"luadoc",
 				"markdown",
@@ -455,17 +456,21 @@ require("lazy").setup({
 				"sh",
 				"c",
 				"diff",
+				"help",
 				"html",
+				"jq",
 				"lua",
 				"markdown",
 				"query",
 				"vim",
-				"help",
+				"yq",
 			}
 
 			vim.defer_fn(function()
 				ts.install(parsers):wait(300000)
 			end, 0)
+
+			vim.treesitter.language.register("jq", "yq")
 
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = filetypes,

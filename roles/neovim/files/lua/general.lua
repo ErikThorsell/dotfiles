@@ -81,3 +81,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 })
+
+-- Associated .yq files with yq
+vim.filetype.add({ extension = { yq = "yq" } })
