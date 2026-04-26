@@ -278,7 +278,11 @@ require("lazy").setup({
 						},
 					},
 				},
-				nil_ls = {
+			}
+
+			-- On machines with Nix, also set up the Nix LSP
+			if vim.fn.executable("nix") == 1 then
+				servers["nil_ls"] = {
 					settings = {
 						["nil"] = {
 							formatting = {
@@ -286,14 +290,18 @@ require("lazy").setup({
 							},
 						},
 					},
-				},
-			}
+				}
+			end
 
 			-- Ensure all declared servers + extra tools are installed
-			local ensure_installed = vim.tbl_keys(servers or {})
+			-- Note: lspconfig names don't always match Mason package names (e.g. nil_ls -> nil)
+			local lspconfig_to_mason = { nil_ls = "nil" }
+			local ensure_installed = {}
+			for name, _ in pairs(servers or {}) do
+				table.insert(ensure_installed, lspconfig_to_mason[name] or name)
+			end
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Lua formatter
-				"nixfmt", -- Nix formatter (used by nil_ls)
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
