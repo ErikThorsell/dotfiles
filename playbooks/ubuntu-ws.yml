@@ -5,15 +5,20 @@
     ansible_python_interpreter: /usr/bin/python3
     ansible_become_exe: sudo
   pre_tasks:
-    - name: Detect dzdo and prefer it if sudo not present
+    - name: Detect sudo
       stat:
         path: /usr/bin/sudo
       register: sudo_bin
 
-    - name: If dzdo is present, use it
+    - name: Detect dzdo
+      stat:
+        path: /usr/bin/dzdo
+      register: dzdo_bin
+
+    - name: If dzdo is present and sudo is not, use dzdo
       set_fact:
         ansible_become_exe: dzdo
-      when: not sudo_bin.stat.exists
+      when: not sudo_bin.stat.exists and dzdo_bin.stat.exists
 
   roles:
     # Basic tools and config

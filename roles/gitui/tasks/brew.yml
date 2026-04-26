@@ -1,3 +1,4 @@
+---
 - name: Install/activate gitui via mise (global)
   command: "{{ ansible_facts['env']['HOME'] }}/.local/bin/mise use -g gitui"
   register: mise_gitui

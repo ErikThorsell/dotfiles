@@ -1,7 +1,7 @@
 ---
 git_user_name: "Erik Thorsell"
 git_user_email: "erik@thorsell.io"
-git_home: "{{ ansible_env.HOME }}"
+git_home: "{{ ansible_facts['env']['HOME'] }}"
 work_root: "{{ git_home }}/work"
 common_path: "{{ role_path }}/files/gitconfig_common"
 

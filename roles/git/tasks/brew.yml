@@ -4,17 +4,23 @@
     name: git
     state: latest
 
+- name: Check if work_root exists
+  stat:
+    path: "{{ work_root }}"
+  register: work_root_stat
+
 - name: Discover customer override folders
   find:
     paths: "{{ work_root }}"
     file_type: directory
     depth: 1
   register: cust_dirs
+  when: work_root_stat.stat.exists and work_root_stat.stat.isdir
 
 - name: Build customers list
   set_fact:
     customers: >-
-      {{ cust_dirs.files
+      {{ (cust_dirs.files | default([]))
          | map(attribute='path')
          | map('basename')
          | list

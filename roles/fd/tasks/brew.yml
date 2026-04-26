@@ -1,0 +1,5 @@
+---
+- name: Ensure the latest version of fd is installed
+  homebrew:
+    name: fd
+    state: latest

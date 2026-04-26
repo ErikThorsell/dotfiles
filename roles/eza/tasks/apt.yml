@@ -83,5 +83,4 @@
     state: link
     force: yes
   become: yes
-  when: eza_path.rc == 0
 

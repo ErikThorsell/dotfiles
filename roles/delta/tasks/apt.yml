@@ -22,7 +22,7 @@
 - name: Compute current user HOME
   become: false
   ansible.builtin.set_fact:
-    _home: "{{ ansible_env.HOME
+    _home: "{{ ansible_facts['env']['HOME']
                | default(ansible_user_dir, true)
                | default(lookup('env','HOME'), true) }}"
 

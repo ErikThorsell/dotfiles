@@ -2,6 +2,6 @@
 - name: Render ~/.zshrc from template
   template:
     src:  zshrc.j2
-    dest: "{{ ansible_env.HOME }}/.zshrc"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
     mode: '0644'
 

@@ -1,0 +1,5 @@
+---
+- name: Ensure the latest version of bat is installed
+  homebrew:
+    name: bat
+    state: latest

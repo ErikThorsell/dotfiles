@@ -136,18 +136,16 @@
   set_fact:
     ghostty_deb_url: ""
     ghostty_deb_name: ""
+    ghostty_deb_pattern: ".*{{ ghostty_suffix | regex_escape }}\\.deb$"
 
 - name: Select Ghostty asset
   set_fact:
     ghostty_deb_url: "{{ item.browser_download_url }}"
     ghostty_deb_name: "{{ item.name }}"
   loop: "{{ ghostty_release.json.assets }}"
-  when: item.name is match(".*{{ ghostty_suffix | regex_escape }}\\.deb$")
+  when: item.name is match(ghostty_deb_pattern)
   loop_control:
     label: "{{ item.name }}"
-  vars:
-    # ensure regex_escape is available and string-safe
-    ghostty_suffix: "{{ ghostty_suffix }}"
   # Stop after first match
   until: ghostty_deb_url | length > 0
   retries: 1
@@ -192,13 +190,13 @@
 
 - name: Ensure Ghostty config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/ghostty"
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty"
     state: directory
     mode: "0755"
 
 - name: Symlink Ghostty config from role files
   ansible.builtin.file:
     src: "{{ role_path }}/files/config"
-    dest: "{{ ansible_env.HOME }}/.config/ghostty/config"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty/config"
     state: link
     force: true
