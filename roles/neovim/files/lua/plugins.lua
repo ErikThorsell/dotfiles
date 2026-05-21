@@ -301,6 +301,7 @@ require("lazy").setup({
 				table.insert(ensure_installed, lspconfig_to_mason[name] or name)
 			end
 			vim.list_extend(ensure_installed, {
+				"ruff", -- Python formatter & linter (Black-compatible)
 				"stylua", -- Lua formatter
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
@@ -352,6 +353,7 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				python = { "ruff_format" },
 				terraform = { "tofu_fmt" },
 			},
 		},
