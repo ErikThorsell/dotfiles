@@ -4,7 +4,7 @@ font-size = 11
 alpha-blending = linear-corrected
 
 macos-titlebar-style = tabs
-macos-option-as-alt = true
+macos-option-as-alt = false
 
 background-blur-radius = 40
 
