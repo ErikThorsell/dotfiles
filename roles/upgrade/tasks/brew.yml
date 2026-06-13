@@ -1,6 +1,10 @@
 ---
-- name: Update homebrew and all installed packages
+- name: Update all formulae
   homebrew:
     update_homebrew: true
     upgrade_all: true
 
+- name: Upgrade all casks with greedy option
+  homebrew_cask:
+    upgrade_all: true
+    greedy: true

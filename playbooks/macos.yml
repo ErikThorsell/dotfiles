@@ -5,9 +5,26 @@
     ansible_python_interpreter: /usr/bin/python3
 
   roles:
-    - upgrade
-    - zsh
-    - neovim
-    - git
-    - eza
-    - delta
+    # Basic tools and config
+    - role: bat
+    - role: delta
+    - role: eza
+    - role: fd
+    - role: git
+    - role: ghostty
+      tags: [ghostty]
+    - role: neovim
+    - role: upgrade
+      tags: [brew]
+    - role: zsh
+    # Managed via mise | If you don't have mise, these will fail.
+    - role: gitui
+    - role: kubectl
+    - role: kustomize
+    - role: nodejs
+    - role: opentofu
+    - role: ripgrep
+    - role: rust
+    - role: talosctl
+    - role: tree-sitter
+    - role: yq

@@ -476,9 +476,7 @@ require("lazy").setup({
 				"yq",
 			}
 
-			vim.defer_fn(function()
-				ts.install(parsers):wait(300000)
-			end, 0)
+			ts.install(parsers)
 
 			vim.treesitter.language.register("jq", "yq")
 

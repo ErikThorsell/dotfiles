@@ -1,18 +1,19 @@
 ---
-- name: Ensure Ghostty is installed
+- name: Ensure latest version of Ghostty is installed
   homebrew_cask:
     name: ghostty
     state: latest
 
-- name: Ensure Ghostty config directory exists
+- name: Ensure config directory for ghostty exists
   file:
     path: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty"
     state: directory
-    mode: "0755"
+    mode: '0755'
 
-- name: Symlink Ghostty config from role files
+- name: Symlink Ghostty config file
   file:
     src: "{{ role_path }}/files/config"
     dest: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty/config"
     state: link
-    force: true
+    force: yes
+

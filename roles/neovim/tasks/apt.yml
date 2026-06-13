@@ -1,6 +1,6 @@
 ---
 - name: Install/activate neovim via mise (global)
-  command: "{{ ansible_facts['env']['HOME'] }}/.local/bin/mise use -g neovim"
+  command: "mise use -g neovim"
   register: mise_rg
   changed_when: "'installed' in (mise_rg.stdout | lower) or 'installed' in (mise_rg.stderr | lower)"
 

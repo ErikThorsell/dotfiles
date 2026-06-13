@@ -3,6 +3,14 @@ if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
 
+# Editor
+export GIT_EDITOR="nvim"
+export EDITOR="nvim"
+
+# Extend PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 # Include pkg
 path+=("$HOME/pkg")
 path+=("$HOME/pkg/bin")
@@ -12,16 +20,18 @@ export PATH
 path+=("$HOME/scripts")
 export PATH
 
-# Include locally installed binaries
-path+=("$HOME/.local/bin")
-export PATH
-
-# Auto-completion
-if command -v kubectl >/dev/null 2>&1; then
-  source <(kubectl completion zsh)
-  complete -o default -F __start_kubectl k
-  # Kubernetes diff wrapper
-  export KUBECTL_EXTERNAL_DIFF=kubectl_diff
+# Check if terraform is installed; if so, install autocomplete
+if command -v terraform >/dev/null 2>&1; then
+  complete -C "$(command -v terraform)" terraform
 fi
 
-echo " > .zshrc_settings loaded"
+# Check if kubectl is installed; if so, install autocomplete
+if command -v kubectl >/dev/null 2>&1; then
+  source <(kubectl completion zsh)
+  compdef k=kubectl
+fi
+
+# Source secret environment variables
+if [ -f $HOME/.secretenv ]; then
+  source $HOME/.secretenv
+fi
