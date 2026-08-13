@@ -67,6 +67,52 @@ require("lazy").setup({
 				topdelete = { text = "‾" },
 				changedelete = { text = "~" },
 			},
+			-- Buffer-local git keymaps. Actions live under <leader>g (git); hunk motion
+			-- uses ]h / [h -- bracket-prefixed, so unaffected by the Dvorak h/t/n/s remaps.
+			on_attach = function(bufnr)
+				local gs = require("gitsigns")
+				local function map(mode, l, r, desc)
+					vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+				end
+
+				-- Hunk navigation (falls back to ]c / [c when in Vim's diff mode)
+				map("n", "]h", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "]c", bang = true })
+					else
+						gs.nav_hunk("next")
+					end
+				end, "Next git hunk")
+				map("n", "[h", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "[c", bang = true })
+					else
+						gs.nav_hunk("prev")
+					end
+				end, "Prev git hunk")
+
+				-- Stage / reset (hunk, selection, whole buffer)
+				map("n", "<leader>gs", gs.stage_hunk, "[G]it [S]tage hunk")
+				map("n", "<leader>gr", gs.reset_hunk, "[G]it [R]eset hunk")
+				map("v", "<leader>gs", function()
+					gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, "[G]it [S]tage selection")
+				map("v", "<leader>gr", function()
+					gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, "[G]it [R]eset selection")
+				map("n", "<leader>gS", gs.stage_buffer, "[G]it [S]tage buffer")
+				map("n", "<leader>gR", gs.reset_buffer, "[G]it [R]eset buffer")
+
+				-- Inspect
+				map("n", "<leader>gp", gs.preview_hunk, "[G]it [P]review hunk")
+				map("n", "<leader>gb", function()
+					gs.blame_line({ full = true })
+				end, "[G]it [B]lame line")
+				map("n", "<leader>gd", gs.diffthis, "[G]it [D]iff this (vs index)")
+				map("n", "<leader>gD", function()
+					gs.diffthis("~")
+				end, "[G]it [D]iff this (vs last commit)")
+			end,
 		},
 	},
 
