@@ -27,6 +27,30 @@ require("lazy").setup({
 		end,
 	},
 
+	-- which-key: pops up a menu of available keybindings when you pause mid-sequence.
+	-- Reads the `desc` set on mappings; `spec` below names the <leader> prefixes.
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+			delay = 300,
+			spec = {
+				{ "<leader>g", group = "[G]it" },
+				{ "<leader>s", group = "[S]earch" },
+				{ "<leader>f", group = "[F]ind / [F]ormat" },
+			},
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer local keymaps (which-key)",
+			},
+		},
+	},
+
 	-- Show git diff markers (+, ~, _) in the sign column
 	{
 		"lewis6991/gitsigns.nvim",
