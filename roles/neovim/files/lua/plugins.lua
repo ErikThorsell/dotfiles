@@ -116,6 +116,25 @@ require("lazy").setup({
 		},
 	},
 
+	-- Diffview: tree + side-by-side diff panel for whole change sets and file history.
+	-- <leader>gv working tree, <leader>gh current-file history, <leader>gH repo history.
+	{
+		"sindrets/diffview.nvim",
+		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory", "DiffviewToggleFiles" },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<leader>gv", "<cmd>DiffviewOpen<CR>", desc = "[G]it [V]iew (diff working tree)" },
+			{ "<leader>gh", "<cmd>DiffviewFileHistory %<CR>", desc = "[G]it file [H]istory" },
+			{ "<leader>gH", "<cmd>DiffviewFileHistory<CR>", desc = "[G]it repo [H]istory" },
+			{ "<leader>gx", "<cmd>DiffviewClose<CR>", desc = "[G]it view close" },
+		},
+		-- File icons need nvim-web-devicons (a Nerd Font); gate on have_nerd_font like
+		-- the rest of the config so we don't require devicons when running without one.
+		opts = {
+			use_icons = vim.g.have_nerd_font,
+		},
+	},
+
 	-- Telescope: fuzzy finder for files, grep, LSP symbols, buffers, and more
 	{
 		"nvim-telescope/telescope.nvim",
