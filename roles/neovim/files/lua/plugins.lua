@@ -688,6 +688,12 @@ require("lazy").setup({
 		"SafaeOuajih/gerrit.nvim",
 		commit = "74db040e4e789aba831e23fcb9e69b1f47bfc4e8",
 		cmd = "Gerrit",
+		-- :GerritComments <n> lists every inline comment across all patch sets,
+		-- which gerrit.nvim itself does not (it only shows the current one).
+		-- Defined in `init` so it exists at startup; paired with `git grc`.
+		init = function()
+			require("gerrit_comments").setup()
+		end,
 		opts = {},
 	},
 }, {
