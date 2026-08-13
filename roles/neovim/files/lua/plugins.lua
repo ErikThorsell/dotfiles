@@ -128,10 +128,72 @@ require("lazy").setup({
 			{ "<leader>gH", "<cmd>DiffviewFileHistory<CR>", desc = "[G]it repo [H]istory" },
 			{ "<leader>gx", "<cmd>DiffviewClose<CR>", desc = "[G]it view close" },
 		},
+		-- :GerritReview <n> -- side-by-side review of a Gerrit change's latest
+		-- patch set. Fetches the change ref, then opens it in Diffview. Defined
+		-- in `init` so the command exists at startup (Diffview itself still
+		-- lazy-loads on the DiffviewOpen below). Paired with the `git grd` alias.
+		init = function()
+			vim.api.nvim_create_user_command("GerritReview", function(cmd)
+				local n = vim.trim(cmd.args)
+				if not n:match("^%d+$") then
+					vim.notify("GerritReview: expected a change number, got " .. vim.inspect(cmd.args), vim.log.levels.ERROR)
+					return
+				end
+
+				local refs = vim.fn.systemlist({ "git", "ls-remote", "origin", "refs/changes/*/" .. n .. "/*" })
+				if vim.v.shell_error ~= 0 then
+					vim.notify("GerritReview: git ls-remote failed:\n" .. table.concat(refs, "\n"), vim.log.levels.ERROR)
+					return
+				end
+
+				local best_ps, best_ref = -1, nil
+				for _, line in ipairs(refs) do
+					local ref = line:match("%s(refs/changes/%S+)$")
+					if ref and not ref:match("/meta$") then
+						local ps = tonumber(ref:match("/(%d+)$"))
+						if ps and ps > best_ps then
+							best_ps, best_ref = ps, ref
+						end
+					end
+				end
+				if not best_ref then
+					vim.notify("GerritReview: no patch sets found for change " .. n, vim.log.levels.ERROR)
+					return
+				end
+
+				vim.fn.system({ "git", "fetch", "-q", "origin", best_ref })
+				if vim.v.shell_error ~= 0 then
+					vim.notify("GerritReview: git fetch failed for " .. best_ref, vim.log.levels.ERROR)
+					return
+				end
+
+				local sha = vim.trim(vim.fn.system({ "git", "rev-parse", "FETCH_HEAD" }))
+				vim.cmd("DiffviewOpen " .. sha .. "^!")
+			end, { nargs = 1, desc = "Review a Gerrit change side-by-side (latest patch set)" })
+		end,
 		-- File icons need nvim-web-devicons (a Nerd Font); gate on have_nerd_font like
 		-- the rest of the config so we don't require devicons when running without one.
 		opts = {
 			use_icons = vim.g.have_nerd_font,
+			-- Added/deleted files otherwise show as one solid colour (all green
+			-- or all red), which just makes the content harder to read. Turn diff
+			-- mode off for those windows so the file renders as a normal
+			-- syntax-highlighted buffer; modified files keep their diff highlight.
+			hooks = {
+				diff_buf_win_enter = function(_, winid, _)
+					local ok, lib = pcall(require, "diffview.lib")
+					if not ok then
+						return
+					end
+					local view = lib.get_current_view()
+					local entry = view and view.cur_entry
+					if entry and (entry.status == "A" or entry.status == "D") then
+						vim.api.nvim_win_call(winid, function()
+							vim.cmd("diffoff")
+						end)
+					end
+				end,
+			},
 		},
 	},
 
