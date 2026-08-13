@@ -681,6 +681,15 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>ft", ":NvimTreeToggle<CR>", { silent = true })
 		end,
 	},
+
+	-- gerrit.nvim: review Gerrit changes over ssh (port 29418, your git key).
+	-- Pinned to a reviewed commit; bump deliberately after re-reading changes.
+	{
+		"SafaeOuajih/gerrit.nvim",
+		commit = "74db040e4e789aba831e23fcb9e69b1f47bfc4e8",
+		cmd = "Gerrit",
+		opts = {},
+	},
 }, {
 	ui = {
 		-- Nerd Font icons for Lazy UI, or unicode fallbacks
