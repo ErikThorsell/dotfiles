@@ -41,6 +41,9 @@
 # Side-by-side review of a Gerrit change's latest patch set via Diffview
 # (Neovim :GerritReview). Give it the change number: git grd 663672
   grd = "!f() { nvim -c \"GerritReview $1\"; }; f"
+# Read every inline review comment on a Gerrit change, across all patch sets
+# (Neovim :GerritComments) -- gerrit.nvim only shows the current one. git grc 663672
+  grc = "!f() { nvim -c \"GerritComments $1\"; }; f"
 
 # Alias oriented aliases
   alias = config --get-regexp ^alias\\.
