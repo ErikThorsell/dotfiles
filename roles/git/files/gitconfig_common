@@ -33,6 +33,15 @@
   list = "add --dry-run ."
 
 
+# Review oriented aliases
+# Open the current repo's Gerrit changes in Neovim (gerrit.nvim). With no
+# argument it shows the picker of open changes for this project; with a change
+# number it jumps straight into that change's diff.
+  gr = "!f() { if [ -n \"$1\" ]; then nvim -c \"Gerrit diff $1\"; else nvim -c Gerrit; fi; }; f"
+# Side-by-side review of a Gerrit change's latest patch set via Diffview
+# (Neovim :GerritReview). Give it the change number: git grd 663672
+  grd = "!f() { nvim -c \"GerritReview $1\"; }; f"
+
 # Alias oriented aliases
   alias = config --get-regexp ^alias\\.
 
