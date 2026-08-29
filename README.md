@@ -18,10 +18,36 @@ Hence, the way I usually go about this is to:
 
 1. Install [mise](https://mise.jdx.dev/getting-started.html)
 2. Configure a user-global Python version (distinct from the system Python version)
-3. Install [pipx](https://pipx.pypa.io/stable/installation/)
-4. Install Ansible using pipx
+3. Install a second, *pinned* Python that exists only to back pipx
+4. Install [pipx](https://pipx.pypa.io/stable/installation/) against that pinned Python
+5. Install Ansible using pipx
 
-So, something like this:
+### Why the pinned Python
+
+My user-global Python is `python = "latest"` in `~/.config/mise/config.toml`, which is what I want for day-to-day work.
+But a venv records the *resolved* interpreter path in its `pyvenv.cfg`, not the fuzzy spec:
+
+```
+home = /home/erik/.local/share/mise/installs/python/3.14.3/bin
+```
+
+So when mise upgrades `latest` from 3.14.3 to 3.14.7 it removes the 3.14.3 install directory, and every pipx venv built
+against it is left pointing at an interpreter that no longer exists. The symptom is deeply unhelpful — the shim is still
+on `$PATH`, so you get this rather than a clean "command not found":
+
+```
+$ ansible-playbook --version
+bash: /home/erik/.local/bin/ansible-playbook: cannot execute: required file not found
+```
+
+pipx itself is exposed the same way, since `pip install --user` puts it in a version-specific
+`~/.local/lib/python3.X/site-packages`.
+
+The fix is to give pipx an **exact** version of its own. mise never moves an exact version, only fuzzy specs like
+`latest`, so the install directory stays put no matter how often `latest` churns. I deliberately pick a different *minor*
+release from the one `latest` tracks, so the two can never collide.
+
+### Bootstrap
 
 ```bash
 # Install mise and reload shell
@@ -31,9 +57,24 @@ exec $SHELL -l
 # Install the latest Python interpreter and make it the default for your user
 mise use -g python
 
-# Install pipx and reload shell
-python -m pip install --user --upgrade pipx
-python -m pipx ensurepath
+# Install the pinned Python that backs pipx. Note the exact version, and note
+# that this is `mise install`, not `mise use` -- it must NOT become the global
+# default, it just needs to exist at a stable path.
+mise install python@3.13.15
+
+# Point pipx at it, for this shell and for every future one
+cat > ~/.sources.d/40-pipx.sh <<'EOF'
+_pipx_python="$HOME/.local/share/mise/installs/python/3.13.15/bin/python3"
+if [ -x "$_pipx_python" ]; then
+  export PIPX_DEFAULT_PYTHON="$_pipx_python"
+fi
+unset _pipx_python
+EOF
+source ~/.sources.d/40-pipx.sh
+
+# Install pipx *with the pinned interpreter* and reload shell
+"$PIPX_DEFAULT_PYTHON" -m pip install --user --upgrade pipx
+"$PIPX_DEFAULT_PYTHON" -m pipx ensurepath
 exec $SHELL -l
 
 # Install ansible with lint support
@@ -41,9 +82,51 @@ pipx install --include-deps ansible
 pipx inject --include-apps ansible ansible-lint
 ```
 
+`~/.sources.d` is the per-tool sourcing directory that `bashrc_sources` loops over, so the export survives a rerun of the
+`bash` role. On macOS, `zshrc_settings` does not read `~/.sources.d`, so put the same block straight into your shell
+config there.
+
 Another alternative would be to stop after you have installed `mise` and then treat this repository like any other
 Python project. That is, install `uv`, `poetry`, or just rock a _venv_ using `python -m venv .venv`; and then install
 Ansible in an environment dedicated to this project.
+
+## Keeping Python and pipx up to date
+
+The two Pythons are upgraded on completely different schedules, and that is the point.
+
+**The user-global Python** floats. Upgrade it whenever, it cannot break pipx any more:
+
+```bash
+mise upgrade python
+```
+
+**Ansible and friends** are upgraded through pipx, and stay on the pinned interpreter:
+
+```bash
+pipx upgrade-all
+```
+
+**The pinned Python** is the one piece of manual maintenance. Bump it roughly once a year, or when its release goes
+end-of-life. Install the new version first, rebuild everything onto it, and only then remove the old one:
+
+```bash
+mise install python@3.14.12                                   # 1. new pin, still exact
+$EDITOR ~/.sources.d/40-pipx.sh                               # 2. update the version in the export
+exec $SHELL -l                                                # 3. pick up the new PIPX_DEFAULT_PYTHON
+"$PIPX_DEFAULT_PYTHON" -m pip install --user --upgrade pipx   # 4. move pipx itself
+pipx reinstall-all --python "$PIPX_DEFAULT_PYTHON"            # 5. rebuild every venv
+mise uninstall python@3.13.15                                 # 6. only once the above is verified
+```
+
+Remember to update the version in this README too, so the bootstrap block stays honest.
+
+Two things to watch out for:
+
+- `mise prune` removes installed versions that no config file references. The pinned Python is installed but *not*
+  listed in `~/.config/mise/config.toml`, so prune will happily delete it. If you use prune, add
+  `python = ["latest", "3.13.15"]` to the `[tools]` block to declare it instead.
+- If Ansible ever does go missing with the `cannot execute: required file not found` error above, the recovery is
+  `pipx reinstall-all --python "$PIPX_DEFAULT_PYTHON"`.
 
 ## Usage
 
