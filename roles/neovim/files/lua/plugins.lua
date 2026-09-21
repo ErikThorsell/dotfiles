@@ -668,6 +668,22 @@ require("lazy").setup({
 		},
 	},
 
+	-- Browser-based live markdown preview (opens in Chrome, scroll-synced from Neovim).
+	-- Commands: :MarkdownPreview, :MarkdownPreviewStop, :MarkdownPreviewToggle
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+		init = function()
+			vim.g.mkdp_browser = "google-chrome"
+			vim.g.mkdp_auto_close = 0
+			vim.g.mkdp_theme = "dark"
+		end,
+	},
+
 	-- File tree sidebar. Toggle with <leader>ft
 	{
 		"nvim-tree/nvim-tree.lua",
