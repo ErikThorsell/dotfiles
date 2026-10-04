@@ -8,6 +8,10 @@ _texlive_bin=$(ls -d /usr/local/texlive/*/bin/$(uname -m)-linux 2>/dev/null | so
 [ -n "$_texlive_bin" ] && export PATH="$_texlive_bin:$PATH"
 unset _texlive_bin
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+for _dir in "$HOME/pkg" "$HOME/pkg/bin" "$HOME/scripts"; do
+  [ -d "$_dir" ] && export PATH="$PATH:$_dir"
+done
+unset _dir
 
 # Check if mise is installed; if so, activate it
 if command -v mise >/dev/null 2>&1; then

@@ -1,0 +1,20 @@
+---
+# macOS ships bash 3.2, which lacks e.g. globstar; use Homebrew's bash 5 instead.
+- name: Ensure the latest versions of bash and bash-completion are installed
+  homebrew:
+    name:
+      - bash
+      - bash-completion@2
+    state: latest
+
+- name: Allow Homebrew bash as a login shell
+  become: yes
+  lineinfile:
+    path: /etc/shells
+    line: "{{ bash_homebrew_prefix }}/bin/bash"
+
+- name: Make Homebrew bash the login shell
+  become: yes
+  user:
+    name: "{{ ansible_facts['user_id'] }}"
+    shell: "{{ bash_homebrew_prefix }}/bin/bash"

@@ -83,8 +83,7 @@ pipx inject --include-apps ansible ansible-lint
 ```
 
 `~/.sources.d` is the per-tool sourcing directory that `bashrc_sources` loops over, so the export survives a rerun of the
-`bash` role. On macOS, `zshrc_settings` does not read `~/.sources.d`, so put the same block straight into your shell
-config there.
+`bash` role.
 
 Another alternative would be to stop after you have installed `mise` and then treat this repository like any other
 Python project. That is, install `uv`, `poetry`, or just rock a _venv_ using `python -m venv .venv`; and then install

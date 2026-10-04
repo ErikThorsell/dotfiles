@@ -6,6 +6,7 @@
 
   roles:
     # Basic tools and config
+    - role: bash
     - role: bat
     - role: delta
     - role: eza
@@ -18,7 +19,6 @@
       tags: [pkgs]
     - role: upgrade
       tags: [brew]
-    - role: zsh
     # Managed via mise | If you don't have mise, these will fail.
     - role: gitui
     - role: kubectl

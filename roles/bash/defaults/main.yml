@@ -1,2 +1,4 @@
 ---
 bash_config_dir: "{{ role_path }}/files"
+# Apple Silicon Homebrew prefix; Intel Macs use /usr/local
+bash_homebrew_prefix: /opt/homebrew

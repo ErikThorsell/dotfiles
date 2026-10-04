@@ -1,7 +1,52 @@
 ---
+# Bash reads only the first of ~/.bash_profile, ~/.bash_login and ~/.profile in login shells
+# (every macOS terminal), so either of the first two would bypass this config.
+- name: Check for files that would shadow ~/.profile
+  stat:
+    path: "{{ ansible_facts['env']['HOME'] }}/{{ item }}"
+  loop:
+    - .bash_profile
+    - .bash_login
+  register: bash_shadowing
+
+- name: Refuse to continue while ~/.profile is shadowed
+  fail:
+    msg: >-
+      ~/{{ item.item }} exists, so bash login shells would skip ~/.profile and with it this config.
+      Move anything you need from it into ~/.secretenv or ~/.sources.d/, delete it, and rerun.
+  loop: "{{ bash_shadowing.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: item.stat.exists
+
+# Earlier versions used zsh on macOS. The zsh role rendered a ~/.zshrc that sources files from
+# roles/zsh/, which no longer exists; remove it, but only if it is still the one the role wrote.
+- name: Check whether ~/.zshrc was rendered by the old zsh role
+  command: grep -q zshrc_omz "{{ ansible_facts['env']['HOME'] }}/.zshrc"
+  register: bash_old_zshrc
+  changed_when: false
+  failed_when: false
+  check_mode: false  # read-only; lets --check report the removal accurately
+
+- name: Remove the old zsh role's ~/.zshrc
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
+    state: absent
+  when: bash_old_zshrc.rc | default(1) == 0
+
+- include_tasks: brew.yml
+  when: ansible_facts['os_family'] == "Darwin"
+
 - name: Render ~/.bashrc from template
   template:
     src:  bashrc.j2
     dest: "{{ ansible_facts['env']['HOME'] }}/.bashrc"
     mode: '0644'
 
+# Login shells (every macOS terminal, SSH sessions) read ~/.profile instead of ~/.bashrc
+- name: Symlink ~/.profile
+  file:
+    src:  "{{ bash_config_dir }}/profile"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.profile"
+    state: link
+    force: yes

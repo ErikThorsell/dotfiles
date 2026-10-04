@@ -13,6 +13,15 @@ alias k='kubectl'
 alias jira='jira-cli'
 alias tctl='talosctl'
 
+# Docker
+alias d_kill="docker ps -q | xargs docker kill"
+alias d_rcon_all="docker ps -aq | xargs docker rm"
+alias d_rmi="docker images -aq | xargs docker rmi"
+
+# macOS
+if [ "$(uname -s)" = "Darwin" ]; then
+  alias restart-sound="sudo killall coreaudiod && echo Done"
+fi
 
 # ripgrep “filename search” function
 rgf() {
