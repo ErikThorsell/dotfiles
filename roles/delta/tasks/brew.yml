@@ -1,6 +1,5 @@
 ---
-- name: Ensure latest version of git-delta is installed
+- name: Ensure the latest version of git-delta is installed
   homebrew:
     name: git-delta
     state: latest
-

@@ -5,3 +5,35 @@
 - include_tasks: apt.yml
   when: ansible_facts['os_family'] == "Debian"
 
+- name: Ensure /usr/local/bin exists
+  become: yes
+  file:
+    path: /usr/local/bin
+    state: directory
+    mode: '0755'
+
+- name: Install kubectl delta wrapper (system-wide)
+  become: yes
+  copy:
+    dest: /usr/local/bin/kubectl-delta-diff
+    mode: '0755'
+    content: |
+      #!/usr/bin/env bash
+      set -o pipefail
+      diff -u -N -r "$1" "$2" | delta {{ kubectl_delta_flags | default('') }}
+      exit ${PIPESTATUS[0]}
+
+- name: Ensure ~/.sources.d exists
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.sources.d"
+    state: directory
+    mode: '0755'
+
+- name: Enable kubectl delta for the current user only
+  copy:
+    dest: "{{ ansible_facts['env']['HOME'] }}/.sources.d/50-kubectl-delta.sh"
+    mode: '0644'
+    content: |
+      if command -v delta >/dev/null 2>&1 && [ -x /usr/local/bin/kubectl-delta-diff ]; then
+        export KUBECTL_EXTERNAL_DIFF=/usr/local/bin/kubectl-delta-diff
+      fi
