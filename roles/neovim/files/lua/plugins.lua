@@ -457,18 +457,15 @@ require("lazy").setup({
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			-- mason-lspconfig wires up Mason-installed servers to lspconfig automatically.
-			-- The handler merges per-server overrides from the `servers` table above.
+			-- Merge per-server overrides from the `servers` table above into lspconfig's defaults
+			for server_name, server in pairs(servers) do
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				vim.lsp.config(server_name, server)
+			end
+
+			-- mason-lspconfig (v2) enables Mason-installed servers automatically
 			require("mason-lspconfig").setup({
 				ensure_installed = {},
-				automatic_installation = false,
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
 			})
 		end,
 	},
