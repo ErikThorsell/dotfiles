@@ -3,6 +3,7 @@
 # playbook lists them too).
 dependencies:
   - role: git          # lazy.nvim clones and updates plugins with git
+  - role: nix          # nil (Nix LSP) and nixfmt come from nixpkgs
   - role: nodejs       # Mason installs pyright and ansiblels with npm
   - role: ripgrep      # Telescope: live_grep, and find_files prefers `rg --files`
   - role: tree-sitter  # nvim-treesitter (main branch) builds parsers with the tree-sitter CLI

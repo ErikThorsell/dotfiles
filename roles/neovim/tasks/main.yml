@@ -14,33 +14,32 @@
   register: mise_result
   changed_when: "'installed' in (mise_result.stdout | lower) or 'installed' in (mise_result.stderr | lower)"
 
-# Nix LSP: Neovim enables nil when it is on PATH. Mason can only build nil from source (it needed Rust for that),
-# so on machines with Nix take nil and its formatter, nixfmt, prebuilt from nixpkgs instead.
-- name: Check whether Nix is installed
-  shell: command -v nix
-  register: neovim_nix
-  changed_when: false
-  failed_when: false
-  check_mode: false
+# Nix LSP: Mason can only build nil from source (it needed Rust for that), so take nil and its formatter, nixfmt,
+# prebuilt from nixpkgs. Nix itself comes from the nix role; it is called by full path because a fresh install isn't
+# on Ansible's PATH yet.
+- name: Check that Nix is installed (in --check runs the nix role can't have installed it yet)
+  stat:
+    path: /nix/var/nix/profiles/default/bin/nix
+  register: neovim_nix_bin
 
 - name: List the Nix profile
-  command: nix --extra-experimental-features 'nix-command flakes' profile list --json
+  command: /nix/var/nix/profiles/default/bin/nix profile list --json
   register: neovim_nix_profile
   changed_when: false
   check_mode: false
-  when: neovim_nix.rc == 0
+  when: neovim_nix_bin.stat.exists
 
 - name: Install nil and nixfmt into the Nix profile
   command: >-
-    nix --extra-experimental-features 'nix-command flakes' profile install
+    /nix/var/nix/profiles/default/bin/nix profile install
     {{ neovim_nix_missing | map('regex_replace', '^', 'nixpkgs#') | join(' ') }}
   vars:
     neovim_nix_missing: "{{ ['nil', 'nixfmt'] | difference((neovim_nix_profile.stdout | from_json).elements | default({}) | list) }}"
   when:
-    - neovim_nix.rc == 0
+    - neovim_nix_bin.stat.exists
     - neovim_nix_missing | length > 0
 
-# Earlier versions let Mason install nil and nixfmt, on every machine; they come from Nix now, or not at all.
+# Earlier versions let Mason install nil and nixfmt; they come from Nix now.
 - name: Remove Mason's nil and nixfmt
   file:
     path: "{{ ansible_facts['env']['HOME'] }}/.local/share/nvim/mason/{{ item }}"

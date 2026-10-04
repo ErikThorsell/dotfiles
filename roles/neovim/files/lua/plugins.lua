@@ -450,8 +450,8 @@ require("lazy").setup({
 				ensure_installed = {},
 			})
 
-			-- Nix LSP: on machines with Nix, the neovim role installs nil and nixfmt from nixpkgs (not Mason, which
-			-- would have to compile nil with cargo), so enable it explicitly.
+			-- Nix LSP: the neovim role installs nil and nixfmt from nixpkgs (not Mason, which would have to compile nil
+			-- with cargo), so mason-lspconfig doesn't know about it; enable it explicitly.
 			if vim.fn.executable("nil") == 1 then
 				vim.lsp.config("nil_ls", {
 					capabilities = capabilities,
