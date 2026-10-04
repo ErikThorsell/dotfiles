@@ -5,3 +5,15 @@
 - include_tasks: apt.yml
   when: ansible_facts['os_family'] == "Debian"
 
+- name: Ensure config directory for Ghostty exists
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty"
+    state: directory
+    mode: '0755'
+
+- name: Symlink Ghostty config
+  file:
+    src:  "{{ role_path }}/files/config"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty/config"
+    state: link
+    force: yes
