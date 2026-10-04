@@ -1,8 +1,26 @@
 ---
 # Determinate Nix, the same on macOS and Linux. The installer enables flakes, manages /etc/nix/nix.conf itself (local
 # settings belong in /etc/nix/nix.custom.conf), hooks Nix into the shells' /etc profiles and keeps them working across
-# macOS upgrades. It only runs when Nix isn't installed yet; upgrade with `sudo determinate-nixd upgrade` and remove
-# with `/nix/nix-installer uninstall`.
+# macOS upgrades. It only runs when Nix isn't installed yet; the upgrade role keeps it current, and
+# `/nix/nix-installer uninstall` removes it.
+- name: Check for an existing Nix and Determinate's install receipt
+  stat:
+    path: "{{ item }}"
+  loop:
+    - /nix/var/nix/profiles/default/bin/nix
+    - /nix/receipt.json
+  register: nix_existing
+
+- name: Refuse to continue over a Nix that Determinate didn't install
+  fail:
+    msg: >-
+      Nix is installed, but not by the Determinate installer (no /nix/receipt.json), so this role would leave it as is
+      and the machine would differ from the others. Uninstall it
+      (https://nix.dev/manual/nix/stable/installation/uninstall) and rerun.
+  when:
+    - nix_existing.results[0].stat.exists
+    - not nix_existing.results[1].stat.exists
+
 - name: Install Determinate Nix
   become: yes
   shell: set -o pipefail && curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm
