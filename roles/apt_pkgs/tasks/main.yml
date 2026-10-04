@@ -1,7 +1,0 @@
----
-- name: Ensure latets version of standard packages are up to date
-  become: yes
-  apt:
-    pkg:
-    - tree
-    - wl-clipboard

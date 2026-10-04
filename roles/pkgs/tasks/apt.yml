@@ -1,0 +1,8 @@
+---
+- name: Ensure standard packages are installed
+  become: yes
+  apt:
+    pkg:
+      - tree
+      # Linux-only: Neovim's clipboard=unnamedplus needs it on Wayland (macOS has pbcopy)
+      - wl-clipboard

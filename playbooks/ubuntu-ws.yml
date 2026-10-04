@@ -42,7 +42,7 @@
     - role: tree-sitter
     - role: yq
     # Applications from apt
-    - role: apt_pkgs
-      tags: [apt]
+    - role: pkgs
+      tags: [pkgs]
     - role: upgrade
       tags: [apt]

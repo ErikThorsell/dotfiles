@@ -1,0 +1,6 @@
+---
+- include_tasks: brew.yml
+  when: ansible_facts['os_family'] == "Darwin"
+
+- include_tasks: apt.yml
+  when: ansible_facts['os_family'] == "Debian"
