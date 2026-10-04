@@ -1,7 +1,32 @@
 ---
-- include_tasks: brew.yml
+# Earlier versions installed Neovim from Homebrew on macOS; it would compete with mise's on PATH.
+- name: Remove Homebrew Neovim
+  homebrew:
+    name: neovim
+    state: absent
   when: ansible_facts['os_family'] == "Darwin"
 
-- include_tasks: apt.yml
-  when: ansible_facts['os_family'] == "Debian"
+- name: Install/activate neovim via mise (global)
+  command: "mise use -g neovim"
+  register: mise_result
+  changed_when: "'installed' in (mise_result.stdout | lower) or 'installed' in (mise_result.stderr | lower)"
 
+- name: Ensure config directory for neovim exists
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/nvim"
+    state: directory
+    mode: '0755'
+
+- name: Symlink init.lua
+  file:
+    src:  "{{ role_path }}/files/init.lua"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/init.lua"
+    state: link
+    force: yes
+
+- name: Symlink lua configuration files
+  file:
+    src:  "{{ role_path }}/files/lua"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/lua"
+    state: link
+    force: yes
