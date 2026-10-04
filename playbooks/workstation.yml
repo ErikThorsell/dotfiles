@@ -38,6 +38,7 @@
     - role: delta
     - role: fd
     - role: git
+    - role: nix
     - role: ghostty
       tags: [ghostty]
     # Managed via mise. neovim also pulls in the tools it needs (roles/neovim/meta/main.yml)

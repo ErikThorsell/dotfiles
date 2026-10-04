@@ -1,0 +1,11 @@
+---
+# Determinate Nix, the same on macOS and Linux. The installer enables flakes, manages /etc/nix/nix.conf itself (local
+# settings belong in /etc/nix/nix.custom.conf), hooks Nix into the shells' /etc profiles and keeps them working across
+# macOS upgrades. It only runs when Nix isn't installed yet; upgrade with `sudo determinate-nixd upgrade` and remove
+# with `/nix/nix-installer uninstall`.
+- name: Install Determinate Nix
+  become: yes
+  shell: set -o pipefail && curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm
+  args:
+    executable: /bin/bash
+    creates: /nix/var/nix/profiles/default/bin/nix
