@@ -1,10 +1,19 @@
-- name: Configure Ubuntu workstation
-  hosts: ubuntu
+- name: Configure workstation (macOS or Ubuntu)
+  hosts: workstation
   gather_facts: yes
   vars:
     ansible_python_interpreter: /usr/bin/python3
     ansible_become_exe: sudo
   pre_tasks:
+    - name: Only macOS and Debian-family hosts are supported
+      assert:
+        that: ansible_facts['os_family'] in ['Darwin', 'Debian']
+        fail_msg: "Unsupported OS family: {{ ansible_facts['os_family'] }}"
+
+    - name: Fail early if mise is not on PATH
+      command: mise --version
+      changed_when: false
+
     - name: Detect sudo
       stat:
         path: /usr/bin/sudo
@@ -32,7 +41,7 @@
     - role: git
     - role: ghostty
       tags: [ghostty]
-    # Managed via mise | If you don't have mise, these will fail.
+    # Managed via mise
     - role: gitui
     - role: kubectl
     - role: kustomize

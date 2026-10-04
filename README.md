@@ -129,7 +129,14 @@ Two things to watch out for:
 
 ## Usage
 
-Run your playbook of choice, e.g: `ansible-playbook playbooks/ubuntu-ws.yml`
+The same playbook configures both macOS and Ubuntu; roles pick `brew` or `apt` based on the OS:
+
+```bash
+ansible-playbook -K playbooks/workstation.yml
+```
+
+`-K` asks for the sudo password, which both platforms need. Bash is the shell on both: on macOS the `bash` role installs
+Homebrew's bash 5 (the system one is 3.2) and makes it the login shell.
 
 ## Copy or Symlink
 
