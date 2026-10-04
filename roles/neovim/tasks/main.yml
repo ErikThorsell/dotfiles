@@ -70,3 +70,26 @@
     dest: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/lua"
     state: link
     force: yes
+
+# lazy.nvim rewrites the lockfile in place (following the symlink), so `:Lazy update` shows up as a diff in this repo
+# and every machine runs the same plugin versions (`:Lazy restore` applies it). Replaces each machine's local copy.
+- name: Symlink lazy.nvim's lockfile
+  file:
+    src:  "{{ role_path }}/files/lazy-lock.json"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/lazy-lock.json"
+    state: link
+    force: yes
+
+# Earlier versions symlinked ~/.config/nvim/after to roles/neovim/files/after, which no longer exists.
+- name: Inspect ~/.config/nvim/after
+  stat:
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/after"
+  register: neovim_after
+
+- name: Remove the old ~/.config/nvim/after symlink
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/after"
+    state: absent
+  when:
+    - neovim_after.stat.islnk | default(false)
+    - neovim_after.stat.lnk_target | default('') is search('roles/neovim/files/after$')
