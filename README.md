@@ -136,7 +136,9 @@ ansible-playbook -K playbooks/workstation.yml
 ```
 
 `-K` asks for the sudo password, which both platforms need. Bash is the shell on both: on macOS the `bash` role installs
-Homebrew's bash 5 (the system one is 3.2) and makes it the login shell.
+Homebrew's bash 5 (the system one is 3.2) and makes it the login shell. Log out and back in after the first run: macOS
+sets `SHELL` for GUI apps at login, and Ghostty uses `SHELL` before the account's shell, so new terminals keep opening
+zsh until then.
 
 ## Copy or Symlink
 
