@@ -5,3 +5,39 @@
 - include_tasks: apt.yml
   when: ansible_facts['os_family'] == "Debian"
 
+
+# mise tools. Run from $HOME so only the global config counts, not a project's mise.toml. `mise upgrade` removes the
+# versions it upgrades away from.
+- name: Check for outdated mise tools
+  command: mise upgrade --dry-run-code
+  args:
+    chdir: "{{ ansible_facts['env']['HOME'] }}"
+  register: upgrade_mise_outdated
+  changed_when: false
+  failed_when: upgrade_mise_outdated.rc not in [0, 1]
+  check_mode: false
+
+- name: Upgrade mise tools
+  command: mise upgrade
+  args:
+    chdir: "{{ ansible_facts['env']['HOME'] }}"
+  when: upgrade_mise_outdated.rc == 1
+
+# Nix itself, and the packages in the user's Nix profile (nil and nixfmt, see the neovim role). Neither command says
+# whether it changed anything, so compare before and after.
+- name: Upgrade Determinate Nix
+  become: yes
+  shell: |
+    before=$(/nix/var/nix/profiles/default/bin/nix --version)
+    /usr/local/bin/determinate-nixd upgrade >&2
+    [ "$(/nix/var/nix/profiles/default/bin/nix --version)" = "$before" ] || echo changed
+  register: upgrade_nix
+  changed_when: "'changed' in upgrade_nix.stdout"
+
+- name: Upgrade the packages in the Nix profile
+  shell: |
+    before=$(/nix/var/nix/profiles/default/bin/nix profile list --json)
+    /nix/var/nix/profiles/default/bin/nix profile upgrade --all >&2
+    [ "$(/nix/var/nix/profiles/default/bin/nix profile list --json)" = "$before" ] || echo changed
+  register: upgrade_nix_profile
+  changed_when: "'changed' in upgrade_nix_profile.stdout"

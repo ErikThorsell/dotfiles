@@ -53,6 +53,6 @@
     # Removal roles: they undo what earlier versions installed. Delete each once every workstation has run it.
     - role: eza
     - role: rust
-    # Upgrade everything installed by apt/brew
+    # Upgrade everything: apt/brew packages, mise tools, Nix and the Nix profile
     - role: upgrade
       tags: [upgrade]
