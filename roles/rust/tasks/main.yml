@@ -1,5 +1,59 @@
 ---
-- name: Install/activate rust via mise (global)
-  command: "mise use -g rust"
-  register: mise_result
-  changed_when: "'installed' in (mise_result.stdout | lower) or 'installed' in (mise_result.stderr | lower)"
+# Rust is no longer installed: it existed only so Mason could build the Nix LSP (nil) with cargo, and nil now comes
+# prebuilt from nixpkgs (see the neovim role). This role removes what earlier versions set up; delete it once every
+# workstation has run it.
+
+- name: Check whether rust is in the global mise config
+  command: grep -Eq '^rust *=' "{{ ansible_facts['env']['HOME'] }}/.config/mise/config.toml"
+  register: rust_in_mise
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Remove rust from mise (also uninstalls its toolchain)
+  command: mise unuse -g rust
+  when: rust_in_mise.rc == 0
+
+# mise drives rustup in ~/.rustup and ~/.cargo (Ubuntu also had a hand-installed rustup there). Only remove them when
+# ~/.cargo/bin holds nothing but rustup's own proxies, so tools installed with `cargo install` are never lost.
+- name: List ~/.cargo/bin
+  find:
+    paths: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin"
+    file_type: any
+  register: rust_cargo_bin
+
+- name: Find anything in ~/.cargo/bin that rustup didn't put there
+  set_fact:
+    rust_foreign_bins: "{{ rust_cargo_bin.files | map(attribute='path') | map('basename') | list | difference(rust_rustup_proxies) }}"
+  vars:
+    rust_rustup_proxies:
+      - cargo
+      - cargo-clippy
+      - cargo-fmt
+      - cargo-miri
+      - clippy-driver
+      - rls
+      - rust-analyzer
+      - rust-gdb
+      - rust-gdbgui
+      - rust-lldb
+      - rustc
+      - rustdoc
+      - rustfmt
+      - rustup
+
+- name: Remove rustup (~/.rustup and ~/.cargo)
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/{{ item }}"
+    state: absent
+  loop:
+    - .rustup
+    - .cargo
+  when: rust_foreign_bins | length == 0
+
+- name: Warn that rustup was kept
+  debug:
+    msg: >-
+      Kept ~/.rustup and ~/.cargo because ~/.cargo/bin contains {{ rust_foreign_bins | join(', ') }}, which rustup
+      didn't install. Remove them (or rustup) by hand if they are no longer needed.
+  when: rust_foreign_bins | length > 0

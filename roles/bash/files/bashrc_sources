@@ -42,8 +42,4 @@ if [ -d "$HOME/.sources.d" ]; then
   done
 fi
 
-if [ -f $HOME/.cargo/env ]; then
-  source $HOME/.cargo/env
-fi
-
 echo " > .bashrc_sources sourced"
