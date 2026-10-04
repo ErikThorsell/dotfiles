@@ -1,0 +1,10 @@
+---
+# On macOS these come with the Xcode Command Line Tools, which Homebrew already requires.
+- name: Ensure the build and download tools Neovim's plugins need are installed
+  become: yes
+  apt:
+    pkg:
+      - build-essential  # C compiler and make: tree-sitter parsers, telescope-fzf-native, LuaSnip's jsregexp
+      - curl             # nvim-treesitter and Mason downloads
+      - unzip            # Mason unpacks LSP archives
+      - wl-clipboard     # clipboard=unnamedplus on Wayland (macOS has pbcopy)

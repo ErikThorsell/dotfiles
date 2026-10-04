@@ -6,6 +6,9 @@
     state: absent
   when: ansible_facts['os_family'] == "Darwin"
 
+- include_tasks: apt.yml
+  when: ansible_facts['os_family'] == "Debian"
+
 - name: Install/activate neovim via mise (global)
   command: "mise use -g neovim"
   register: mise_result

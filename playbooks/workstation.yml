@@ -40,16 +40,14 @@
     - role: git
     - role: ghostty
       tags: [ghostty]
-    # Managed via mise
+    # Managed via mise. neovim also pulls in the tools it needs (roles/neovim/meta/main.yml)
     - role: gitui
     - role: kubectl
     - role: kustomize
     - role: neovim
-    - role: nodejs
     - role: opentofu
     - role: ripgrep
     - role: talosctl
-    - role: tree-sitter
     - role: yq
     # Removal roles: they undo what earlier versions installed. Delete each once every workstation has run it.
     - role: eza
