@@ -50,6 +50,7 @@
     - .rustup
     - .cargo
   when: rust_foreign_bins | length == 0
+  diff: false  # --diff would list every file in the toolchains and cargo caches (tens of thousands of lines)
 
 - name: Warn that rustup was kept
   debug:
