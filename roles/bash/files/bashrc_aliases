@@ -1,4 +1,10 @@
 # Shell
+# Colours for ls: GNU ls takes --color, BSD/macOS ls reads CLICOLOR
+if ls --color=auto -d . >/dev/null 2>&1; then
+  alias ls='ls --color=auto'
+else
+  export CLICOLOR=1
+fi
 alias ll='ls -l'
 alias la='ls -la'
 

@@ -1,86 +1,26 @@
 ---
-- name: Remove any old gierens keyring
-  file:
-    path: /etc/apt/keyrings/gierens-archive-keyring.gpg
-    state: absent
+- name: Remove eza
   become: yes
-
-- name: Remove any old gierens source list
-  file:
-    path: /etc/apt/sources.list.d/gierens.list
-    state: absent
-  become: yes
-
-- name: Ensure gpg package is installed
-  apt:
-    name: gpg
-    state: present
-  become: yes
-
-- name: Ensure /etc/apt/keyrings directory exists
-  file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: '0755'
-  become: yes
-
-- name: Add the Gierens GPG key into /etc/apt/keyrings/gierens.gpg
-  apt_key:
-    url: https://raw.githubusercontent.com/gierens/wikijs-rs/main/deb.asc
-    keyring: /etc/apt/keyrings/gierens.gpg
-    state: present
-  become: yes
-
-- name: Ensure the Gierens APT repo is present (with the same keyring)
-  apt_repository:
-    repo: >-
-      deb
-      [arch=amd64
-       signed-by=/etc/apt/keyrings/gierens.gpg]
-      http://deb.gierens.de stable main
-    filename: gierens
-    state: present
-    update_cache: no
-  become: yes
-
-- name: Ensure correct permissions on keyring and list file
-  file:
-    path: "{{ item }}"
-    mode: '0644'
-  loop:
-    - /etc/apt/keyrings/gierens.gpg
-    - /etc/apt/sources.list.d/gierens.list
-  become: yes
-
-- name: Refresh apt cache after adding gierens repo
-  apt:
-    update_cache: yes
-  become: yes
-
-- name: Install eza package
   apt:
     name: eza
-    state: present
+    state: absent
+    purge: yes
+
+# Earlier versions installed eza from the gierens third-party repo.
+- name: Remove the gierens apt repo and its keyrings
   become: yes
-
-- name: Find the path to the eza executable
-  command: which eza
-  register: eza_path
-  changed_when: false
-  failed_when: eza_path.rc != 0
-
-- name: Ensure /usr/local/bin exists
   file:
-    path: /usr/local/bin
-    state: directory
-    mode: '0755'
-  become: yes
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/apt/sources.list.d/gierens.list
+    - /etc/apt/keyrings/gierens.gpg
+    - /etc/apt/keyrings/gierens.gpg~
+    - /etc/apt/keyrings/gierens-archive-keyring.gpg
+  register: eza_gierens_removed
 
-- name: Symlink ls → eza
-  file:
-    src:  "{{ eza_path.stdout }}"
-    dest: /usr/local/bin/ls
-    state: link
-    force: yes
+- name: Refresh apt cache after removing the gierens repo
   become: yes
-
+  apt:
+    update_cache: yes
+  when: eza_gierens_removed is changed

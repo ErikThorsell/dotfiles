@@ -8,7 +8,6 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
   ENABLE_CORRECTION="true"
   HYPHEN_INSENSITIVE="true"
   HIST_STAMPS="yyyy-mm-dd"
-	DISABLE_LS_COLORS="true"  # clashes with eza
 
   source $ZSH/oh-my-zsh.sh
 else

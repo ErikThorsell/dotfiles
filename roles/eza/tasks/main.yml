@@ -1,7 +1,23 @@
 ---
+# eza is no longer used. This role removes everything earlier versions of it set up;
+# delete the role once every workstation has run it.
+
+- name: Inspect /usr/local/bin/ls
+  stat:
+    path: /usr/local/bin/ls
+  register: eza_ls_link
+
+- name: Remove the /usr/local/bin/ls → eza symlink
+  become: yes
+  file:
+    path: /usr/local/bin/ls
+    state: absent
+  when:
+    - eza_ls_link.stat.islnk | default(false)
+    - eza_ls_link.stat.lnk_target | default('') is search('eza')
+
 - include_tasks: brew.yml
   when: ansible_facts['os_family'] == "Darwin"
 
 - include_tasks: apt.yml
   when: ansible_facts['os_family'] == "Debian"
-
