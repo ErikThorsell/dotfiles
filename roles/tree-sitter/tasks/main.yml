@@ -1,7 +1,5 @@
 ---
-- include_tasks: brew.yml
-  when: ansible_facts['os_family'] == "Darwin"
-
-- include_tasks: apt.yml
-  when: ansible_facts['os_family'] == "Debian"
-
+- name: Install/activate tree-sitter via mise (global)
+  command: "mise use -g tree-sitter"
+  register: mise_result
+  changed_when: "'installed' in (mise_result.stdout | lower) or 'installed' in (mise_result.stderr | lower)"

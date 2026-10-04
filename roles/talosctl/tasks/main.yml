@@ -1,5 +1,5 @@
+---
 - name: Install/activate talosctl via mise (global)
   command: "mise use -g talosctl"
-  register: mise_rg
-  changed_when: "'installed' in (mise_rg.stdout | lower) or 'installed' in (mise_rg.stderr | lower)"
-
+  register: mise_result
+  changed_when: "'installed' in (mise_result.stdout | lower) or 'installed' in (mise_result.stderr | lower)"

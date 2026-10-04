@@ -1,5 +1,5 @@
 ---
 - name: Install/activate rust via mise (global)
   command: "mise use -g rust"
-  register: mise_rust
-  changed_when: "'installed' in (mise_rust.stdout | lower) or 'installed' in (mise_rust.stderr | lower)"
+  register: mise_result
+  changed_when: "'installed' in (mise_result.stdout | lower) or 'installed' in (mise_result.stderr | lower)"
