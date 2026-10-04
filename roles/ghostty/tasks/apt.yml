@@ -132,24 +132,12 @@
       Accept: "application/vnd.github+json"
   register: ghostty_release
 
-- name: Find matching Ghostty .deb asset for suffix
+- name: Select the first Ghostty .deb asset matching the suffix
   set_fact:
-    ghostty_deb_url: ""
-    ghostty_deb_name: ""
-    ghostty_deb_pattern: ".*{{ ghostty_suffix | regex_escape }}\\.deb$"
-
-- name: Select Ghostty asset
-  set_fact:
-    ghostty_deb_url: "{{ item.browser_download_url }}"
-    ghostty_deb_name: "{{ item.name }}"
-  loop: "{{ ghostty_release.json.assets }}"
-  when: item.name is match(ghostty_deb_pattern)
-  loop_control:
-    label: "{{ item.name }}"
-  # Stop after first match
-  until: ghostty_deb_url | length > 0
-  retries: 1
-  delay: 0
+    ghostty_deb_url: "{{ (ghostty_release.json.assets
+                          | selectattr('name', 'match', '.*' ~ (ghostty_suffix | regex_escape) ~ '\\.deb$')
+                          | map(attribute='browser_download_url')
+                          | first) | default('') }}"
 
 - name: Fail if no matching .deb asset exists for this suffix
   fail:
@@ -172,21 +160,11 @@
     mode: "0644"
   register: ghostty_download
 
+# The .deb is kept in /tmp (cleared at boot) so reruns don't re-download it; apt skips an already-installed version.
 - name: Install Ghostty .deb (handles deps)
   become: true
   apt:
     deb: "{{ ghostty_download.dest }}"
-
-- name: Remove downloaded .deb
-  file:
-    path: "{{ ghostty_download.dest }}"
-    state: absent
-
-- name: Verify Ghostty is installed (best-effort)
-  command: ghostty --version
-  register: ghostty_version
-  changed_when: false
-  failed_when: false
 
 - name: Ensure Ghostty config directory exists
   ansible.builtin.file:
