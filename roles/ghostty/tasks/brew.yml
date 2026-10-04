@@ -3,3 +3,8 @@
   homebrew_cask:
     name: ghostty
     state: latest
+
+- name: Ensure the Hack font (used by the Ghostty config) is installed
+  homebrew_cask:
+    name: font-hack
+    state: present

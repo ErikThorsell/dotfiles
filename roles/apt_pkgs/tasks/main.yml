@@ -3,6 +3,5 @@
   become: yes
   apt:
     pkg:
-    - fonts-hack-ttf
     - tree
     - wl-clipboard

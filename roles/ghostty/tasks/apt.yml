@@ -165,3 +165,9 @@
   become: true
   apt:
     deb: "{{ ghostty_download.dest }}"
+
+- name: Ensure the Hack font (used by the Ghostty config) is installed
+  become: true
+  apt:
+    name: fonts-hack-ttf
+    state: present
