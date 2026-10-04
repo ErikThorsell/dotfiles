@@ -14,14 +14,13 @@ if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate bash)"
 fi
 
-# Check if terraform is installed; if so, install autocomplete
-if command -v terraform >/dev/null 2>&1; then
-  complete -C "$(command -v terraform)" terraform
+# Check if OpenTofu is installed; if so, install autocomplete
+if command -v tofu >/dev/null 2>&1; then
+  complete -C "$(command -v tofu)" tofu
 fi
 
-# Check if kubernetes is installed; if so, install autocomplete
-if command -v kubectl help &> /dev/null
-then
+# Check if kubectl is installed; if so, install autocomplete
+if command -v kubectl >/dev/null 2>&1; then
   source <(kubectl completion bash)
   complete -o default -F __start_kubectl k
 fi
