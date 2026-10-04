@@ -7,6 +7,8 @@
   roles:
     # Basic tools and config
     - role: bash
+    - role: pkgs
+      tags: [pkgs]
     - role: bat
     - role: delta
     - role: eza
@@ -14,15 +16,11 @@
     - role: git
     - role: ghostty
       tags: [ghostty]
-    - role: neovim
-    - role: pkgs
-      tags: [pkgs]
-    - role: upgrade
-      tags: [brew]
     # Managed via mise | If you don't have mise, these will fail.
     - role: gitui
     - role: kubectl
     - role: kustomize
+    - role: neovim
     - role: nodejs
     - role: opentofu
     - role: ripgrep
@@ -30,3 +28,6 @@
     - role: talosctl
     - role: tree-sitter
     - role: yq
+    # Upgrade everything installed by apt/brew
+    - role: upgrade
+      tags: [upgrade]
