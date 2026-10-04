@@ -13,6 +13,7 @@
     - name: Fail early if mise is not on PATH
       command: mise --version
       changed_when: false
+      check_mode: false
 
     - name: Detect sudo
       stat:

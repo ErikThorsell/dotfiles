@@ -17,3 +17,5 @@ autoload/plug.vim
 # Python
 .venv
 
+# Ansible
+ansible.log

@@ -23,6 +23,7 @@
     executable: /bin/bash
   register: osr
   changed_when: false
+  check_mode: false  # read-only; the facts below need it in --check runs too
 
 - name: Set facts from os-release output
   set_fact:
@@ -37,6 +38,7 @@
   command: dpkg --print-architecture
   register: dpkg_arch
   changed_when: false
+  check_mode: false
 
 - name: Compute Ghostty suffix (ARCH + distro version/codename)
   set_fact:
@@ -131,6 +133,7 @@
     headers:
       Accept: "application/vnd.github+json"
   register: ghostty_release
+  check_mode: false  # read-only GET
 
 - name: Select the first Ghostty .deb asset matching the suffix
   set_fact:
@@ -165,6 +168,8 @@
   become: true
   apt:
     deb: "{{ ghostty_download.dest }}"
+  # In --check runs a new .deb isn't actually downloaded, so there is nothing to check against
+  when: not (ansible_check_mode and ghostty_download is changed)
 
 - name: Ensure the Hack font (used by the Ghostty config) is installed
   become: true
