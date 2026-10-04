@@ -431,26 +431,8 @@ require("lazy").setup({
 				},
 			}
 
-			-- On machines with Nix, also set up the Nix LSP
-			if vim.fn.executable("nix") == 1 then
-				servers["nil_ls"] = {
-					settings = {
-						["nil"] = {
-							formatting = {
-								command = { "nixfmt" },
-							},
-						},
-					},
-				}
-			end
-
 			-- Ensure all declared servers + extra tools are installed
-			-- Note: lspconfig names don't always match Mason package names (e.g. nil_ls -> nil)
-			local lspconfig_to_mason = { nil_ls = "nil" }
-			local ensure_installed = {}
-			for name, _ in pairs(servers or {}) do
-				table.insert(ensure_installed, lspconfig_to_mason[name] or name)
-			end
+			local ensure_installed = vim.tbl_keys(servers)
 			vim.list_extend(ensure_installed, {
 				"ruff", -- Python formatter & linter (Black-compatible)
 				"stylua", -- Lua formatter
@@ -467,6 +449,22 @@ require("lazy").setup({
 			require("mason-lspconfig").setup({
 				ensure_installed = {},
 			})
+
+			-- Nix LSP: on machines with Nix, the neovim role installs nil and nixfmt from nixpkgs (not Mason, which
+			-- would have to compile nil with cargo), so enable it explicitly.
+			if vim.fn.executable("nil") == 1 then
+				vim.lsp.config("nil_ls", {
+					capabilities = capabilities,
+					settings = {
+						["nil"] = {
+							formatting = {
+								command = { "nixfmt" },
+							},
+						},
+					},
+				})
+				vim.lsp.enable("nil_ls")
+			end
 		end,
 	},
 
