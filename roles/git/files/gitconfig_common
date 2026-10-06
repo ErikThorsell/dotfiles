@@ -34,16 +34,35 @@
 
 
 # Review oriented aliases
-# Open the current repo's Gerrit changes in Neovim (gerrit.nvim). With no
-# argument it shows the picker of open changes for this project; with a change
-# number it jumps straight into that change's diff.
+#
+# What each one compares, which is the easy thing to get wrong:
+#   gr, grd  patch set vs its own parent -- "what does this change do?"
+#   grr      patch set vs local HEAD    -- "what has changed since I amended?"
+#   grw      patch set vs worktree     -- "what am I changing while reviewing?"
+#   grc      nothing; it reads comments
+# gr and grd differ only in how they render the same diff, not in what they show.
+#
+# gerrit.nvim: with no argument, a picker of open changes for this project; with
+# a change number, straight into that change's diff, inline review comments and
+# all.
   gr = "!f() { if [ -n \"$1\" ]; then nvim -c \"Gerrit diff $1\"; else nvim -c Gerrit; fi; }; f"
-# Side-by-side review of a Gerrit change's latest patch set via Diffview
-# (Neovim :GerritReview). Give it the change number: git grd 663672
+# The same comparison as gr, rendered through Diffview instead: a file tree on
+# the left, one file at a time side-by-side (Neovim :GerritReview). Latest patch
+# set. Give it the change number: git grd 663672
   grd = "!f() { nvim -c \"GerritReview $1\"; }; f"
 # Read every inline review comment on a Gerrit change, across all patch sets
 # (Neovim :GerritComments) -- gerrit.nvim only shows the current one. git grc 663672
   grc = "!f() { nvim -c \"GerritComments $1\"; }; f"
+# Your local HEAD against the patch set already on Gerrit (Neovim :GerritAmend),
+# i.e. what a reviewer re-reads after you amend. This is the one thing grd cannot
+# show: `^!` always means "against my parent", so grd keeps rendering the pushed
+# patch set even once your worktree has moved past it. Same Diffview tree as grd.
+# Optional second argument pins an older patch set: git grr 663672 2
+  grr = "!f() { nvim -c \"GerritAmend $1 $2\"; }; f"
+# Compare the Gerrit patch set with the current working tree. The working-tree
+# side is editable, so this is useful when making fixes while reviewing.
+# Optional second argument pins an older patch set: git grw 663672 2
+  grw = "!f() { nvim -c \"GerritWorktree $1 $2\"; }; f"
 
 # Alias oriented aliases
   alias = config --get-regexp ^alias\\.

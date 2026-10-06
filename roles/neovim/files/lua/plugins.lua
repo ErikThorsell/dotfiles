@@ -128,22 +128,26 @@ require("lazy").setup({
 			{ "<leader>gH", "<cmd>DiffviewFileHistory<CR>", desc = "[G]it repo [H]istory" },
 			{ "<leader>gx", "<cmd>DiffviewClose<CR>", desc = "[G]it view close" },
 		},
-		-- :GerritReview <n> -- side-by-side review of a Gerrit change's latest
-		-- patch set. Fetches the change ref, then opens it in Diffview. Defined
-		-- in `init` so the command exists at startup (Diffview itself still
-		-- lazy-loads on the DiffviewOpen below). Paired with the `git grd` alias.
+		-- :GerritReview <n>, :GerritAmend <n>, and :GerritWorktree <n> --
+		-- side-by-side review of a
+		-- Gerrit change in Diffview. Defined in `init` so the commands exist at
+		-- startup (Diffview itself still lazy-loads on the DiffviewOpen below).
+		-- Paired with the `git grd`, `git grr`, and `git grw` aliases.
 		init = function()
-			vim.api.nvim_create_user_command("GerritReview", function(cmd)
-				local n = vim.trim(cmd.args)
+			-- Fetch one of a change's patch sets and hand back its sha and number.
+			-- Both commands need the same thing. Gerrit numbers patch sets in the
+			-- ref, so the highest number is the one under review; `want` pins an
+			-- older one. `who` only shapes the error messages.
+			local function fetch_patch_set(who, n, want)
 				if not n:match("^%d+$") then
-					vim.notify("GerritReview: expected a change number, got " .. vim.inspect(cmd.args), vim.log.levels.ERROR)
-					return
+					vim.notify(who .. ": expected a change number, got " .. vim.inspect(n), vim.log.levels.ERROR)
+					return nil
 				end
 
 				local refs = vim.fn.systemlist({ "git", "ls-remote", "origin", "refs/changes/*/" .. n .. "/*" })
 				if vim.v.shell_error ~= 0 then
-					vim.notify("GerritReview: git ls-remote failed:\n" .. table.concat(refs, "\n"), vim.log.levels.ERROR)
-					return
+					vim.notify(who .. ": git ls-remote failed:\n" .. table.concat(refs, "\n"), vim.log.levels.ERROR)
+					return nil
 				end
 
 				local best_ps, best_ref = -1, nil
@@ -151,25 +155,92 @@ require("lazy").setup({
 					local ref = line:match("%s(refs/changes/%S+)$")
 					if ref and not ref:match("/meta$") then
 						local ps = tonumber(ref:match("/(%d+)$"))
-						if ps and ps > best_ps then
+						if ps and (want and ps == want or not want and ps > best_ps) then
 							best_ps, best_ref = ps, ref
 						end
 					end
 				end
 				if not best_ref then
-					vim.notify("GerritReview: no patch sets found for change " .. n, vim.log.levels.ERROR)
-					return
+					local what = want and ("patch set " .. want) or "patch sets"
+					vim.notify(who .. ": no " .. what .. " found for change " .. n, vim.log.levels.ERROR)
+					return nil
 				end
 
 				vim.fn.system({ "git", "fetch", "-q", "origin", best_ref })
 				if vim.v.shell_error ~= 0 then
-					vim.notify("GerritReview: git fetch failed for " .. best_ref, vim.log.levels.ERROR)
+					vim.notify(who .. ": git fetch failed for " .. best_ref, vim.log.levels.ERROR)
+					return nil
+				end
+
+				return vim.trim(vim.fn.system({ "git", "rev-parse", "FETCH_HEAD" })), best_ps
+			end
+
+			-- "What does this change do?" -- the patch set against its own parent.
+			vim.api.nvim_create_user_command("GerritReview", function(cmd)
+				local sha = fetch_patch_set("GerritReview", vim.trim(cmd.args))
+				if sha then
+					vim.cmd("DiffviewOpen " .. sha .. "^!")
+				end
+			end, { nargs = 1, desc = "Review a Gerrit change side-by-side (latest patch set)" })
+
+			-- "What have I changed since I last pushed?" -- local HEAD against the
+			-- patch set already on Gerrit. That is the diff a reviewer re-reads
+			-- after an amend, and the one GerritReview cannot show: `^!` always
+			-- means "against my parent", so it still renders the pushed patch set
+			-- even when the worktree has moved on. Takes an optional patch set to
+			-- compare against an older one: `:GerritAmend 663672 2`.
+			vim.api.nvim_create_user_command("GerritAmend", function(cmd)
+				local n, want = cmd.fargs[1], tonumber(cmd.fargs[2])
+				if cmd.fargs[2] and not want then
+					vim.notify("GerritAmend: patch set must be a number, got " .. cmd.fargs[2], vim.log.levels.ERROR)
 					return
 				end
 
-				local sha = vim.trim(vim.fn.system({ "git", "rev-parse", "FETCH_HEAD" }))
-				vim.cmd("DiffviewOpen " .. sha .. "^!")
-			end, { nargs = 1, desc = "Review a Gerrit change side-by-side (latest patch set)" })
+				local sha, ps = fetch_patch_set("GerritAmend", n, want)
+				if not sha then
+					return
+				end
+				if sha == vim.trim(vim.fn.system({ "git", "rev-parse", "HEAD" })) then
+					vim.notify("GerritAmend: HEAD is already patch set " .. ps .. ", nothing to compare", vim.log.levels.WARN)
+					return
+				end
+
+				-- Two dots diffs the trees, so anything the base picked up since
+				-- the patch set shows up alongside your own edits. Only
+				-- `git range-diff` can separate the two, and nothing renders that
+				-- side-by-side, so say so rather than quietly showing more.
+				local base = vim.trim(vim.fn.system({ "git", "rev-parse", sha .. "^" }))
+				if base ~= vim.trim(vim.fn.system({ "git", "rev-parse", "HEAD^" })) then
+					vim.notify(
+						("GerritAmend: base moved since patch set %s, so upstream changes show too.\nFor just your edits: git range-diff %s~1..%s HEAD~1..HEAD"):format(
+							ps,
+							sha:sub(1, 7),
+							sha:sub(1, 7)
+						),
+						vim.log.levels.WARN
+					)
+				end
+
+				vim.cmd("DiffviewOpen " .. sha .. "..HEAD")
+			end, { nargs = "+", desc = "Diff local HEAD against a patch set on Gerrit" })
+
+			-- "What does the patch set look like against my working tree?" --
+			-- unlike GerritAmend, the working-tree side remains editable.
+			vim.api.nvim_create_user_command("GerritWorktree", function(cmd)
+				local n, want = cmd.fargs[1], tonumber(cmd.fargs[2])
+				if cmd.fargs[2] and not want then
+					vim.notify("GerritWorktree: patch set must be a number, got " .. cmd.fargs[2], vim.log.levels.ERROR)
+					return
+				end
+
+				local sha, ps = fetch_patch_set("GerritWorktree", n, want)
+				if not sha then
+					return
+				end
+
+				vim.cmd("DiffviewOpen " .. sha)
+				vim.notify("GerritWorktree: comparing patch set " .. ps .. " with the working tree", vim.log.levels.INFO)
+			end, { nargs = "+", desc = "Compare a Gerrit patch set with the working tree" })
 		end,
 		-- File icons need nvim-web-devicons (a Nerd Font); gate on have_nerd_font like
 		-- the rest of the config so we don't require devicons when running without one.
